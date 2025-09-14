@@ -10,8 +10,8 @@ in
 
 		home.file = {
 			".config/test/".source = ./config/test;
-			".config/waybar".source = ./config/waybar;
-			".hypr".source = ./config/hypr;
+			".config/waybar/".source = ./config/waybar;
+			".config/hypr/".source = ./config/hypr;
 		};
 		gtk = {
 			enable = true;
