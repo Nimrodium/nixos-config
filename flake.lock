@@ -37,10 +37,45 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1738142207,
+        "narHash": "sha256-NGqpVVxNAHwIicXpgaVqJEJWeyqzoQJ9oc8lnK9+WC4=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "9d3ae807ebd2981d593cddd0080856873139aa40",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "zen-browser": "zen-browser"
+      }
+    },
+    "zen-browser": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1756679357,
+        "narHash": "sha256-lW+0rL7VqT02/oqjDElqKoCjFYDrqyvkjVFSNcsgn6U=",
+        "owner": "conneroisu",
+        "repo": "zen-browser-flake",
+        "rev": "614f829004d0a7036ea58e5fb5ad99a05ed81e30",
+        "type": "github"
+      },
+      "original": {
+        "owner": "conneroisu",
+        "repo": "zen-browser-flake",
+        "type": "github"
       }
     }
   },

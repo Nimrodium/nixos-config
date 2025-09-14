@@ -54,7 +54,7 @@
   			settings = {
   				main = {
   					capslock = "backspace";
-  					rightshift = "return";
+  					rightshift = "enter";
   				};
   			};
   		};
@@ -107,14 +107,23 @@
     shell = pkgs.fish;
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-	zed
+	# zeditor
     ];
   };
 
   # Install firefox.
   # programs.firefox.enable = true;
   programs = {
-	firefox.enable = true;	
+    hyprland = {
+      enable = true;
+      xwayland.enable = true;
+    };
+  java = {
+    enable = true;
+    binfmt = true;
+  };
+  adb.enable = true;
+	firefox.enable = false;	
 	fish.enable = true;
 };
   # Allow unfree packages
@@ -125,14 +134,26 @@
 
   environment = {
 	systemPackages = with pkgs; [
-	fish
-	git
-	wget
-	micro
-       ];
+    fish
+    git
+    wget
+    micro
+    nixfmt-rfc-style
+    nil
+    ripgrep
+    cargo # rust
+    openjdk17-bootstrap # java
+    python314 # python
+    
+    #hyprland
+    hyprpaper
+    wofi
+    waybar
+    eww
+  ];
 	variables = {
 		EDITOR = "micro";
-	};
+	  };
   };
 #  environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
@@ -166,5 +187,4 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   system.stateVersion = "25.05"; # Did you read the comment?
-
 }
