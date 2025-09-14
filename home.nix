@@ -8,6 +8,12 @@ in
 	home-manager.users.kyle = {
 		home.stateVersion = "25.05";
 
+		xdg.configFile = {
+			"fastfetch/config.jsonc".source = builtins.toPath ./config/fastfetch/config.jsonc;
+			"waybar/".source = builtins.toPath ./config/waybar;
+			"hypr/".source = builtins.toPath ./config/hypr;
+		};
+
 		dconf = {
 			enable = true;
 			settings."org/gnome/shell" = {
