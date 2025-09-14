@@ -8,11 +8,25 @@ in
 	home-manager.users.kyle = {
 		home.stateVersion = "25.05";
 
-		xdg.configFile = {
-			"fastfetch/config.jsonc".source = builtins.toPath ./config/fastfetch/config.jsonc;
-			"waybar/".source = builtins.toPath ./config/waybar;
-			"hypr/".source = builtins.toPath ./config/hypr;
+		home.file = {
+			".config/test/".source = ./config/test;
+			".config/waybar".source = ./config/waybar;
+			".hypr".source = ./config/hypr;
 		};
+		gtk = {
+			enable = true;
+			theme.name = "adw-gtk3";
+			cursorTheme.name = "Bibata-Modern-Ice";
+			iconTheme.name = "GruvboxPlus";
+		};
+		# xdg.configFile = {
+		# 	"fastfetch/config.jsonc".source = builtins.toPath ./config/fastfetch/config.jsonc;
+		# 	"waybar".source = builtins.toPath ./config/waybar;
+		# 	"waybar".recursive = true;
+		# 	"hypr".source = builtins.toPath ./config/hypr;
+		# 	"hypr".recursive = true;
+			
+		# };
 
 		dconf = {
 			enable = true;
