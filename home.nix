@@ -4,212 +4,264 @@ let
 	zen-browser = inputs.zen-browser.packages.${pkgs.system}.default;
 in
 {
-	home-manager.backupFileExtension = "hmbak";
-	home-manager.users.kyle = {
-		home.stateVersion = "25.05";
+	home-manager = {
+		backupFileExtension = "hmbak";
+		
+		users.kyle = {
+			gtk = {
+				enable = true;
+				theme.name = "adw-gtk3-dark";
+				cursorTheme.name = "Bibata-Modern-Ice";
+				iconTheme.name = "GruvboxPlus";
 
-		home.file = {
-			".config/test/".source = ./config/test;
-			".config/waybar/".source = ./config/waybar;
-			".config/hypr/".source = ./config/hypr;
-		};
-		gtk = {
-			enable = true;
-			theme.name = "adw-gtk3";
-			cursorTheme.name = "Bibata-Modern-Ice";
-			iconTheme.name = "GruvboxPlus";
-		};
-		# xdg.configFile = {
-		# 	"fastfetch/config.jsonc".source = builtins.toPath ./config/fastfetch/config.jsonc;
-		# 	"waybar".source = builtins.toPath ./config/waybar;
-		# 	"waybar".recursive = true;
-		# 	"hypr".source = builtins.toPath ./config/hypr;
-		# 	"hypr".recursive = true;
-			
-		# };
-
-		dconf = {
-			enable = true;
-			settings."org/gnome/shell" = {
-				disable-user-extensions = false;
-				enabled-extensions = with pkgs.gnomeExtensions; [
-					blur-my-shell.extensionUuid
-					gsconnect.extensionUuid
-					dash-to-dock.extensionUuid
-				];
 			};
-		};
 
-		xdg.mimeApps = {
-			enable = true;
-			defaultApplications = {
-				"x-scheme-handler/http" = "zen-browser.dekstop";
-				"x-scheme-handler/https" = "zen-browser.dekstop";
-				"text/html" = "zen-browser.desktop";
+			dconf = {
+				enable = true;
+				settings = {
+				"org/gnome/desktop/interface" = {
+						color-scheme = "prefer-dark";
+					};
+				"org/gnome/shell" = {
+						disable-user-extensions = false;
+						enabled-extensions = with pkgs.gnomeExtensions; [
+							blur-my-shell.extensionUuid
+							gsconnect.extensionUuid
+							dash-to-dock.extensionUuid
+						];
+					};
+				};
 			};
-		};
 
-		services = {
-		hyprpaper.enable = true;
-		};
-
-		home.packages = lib.mkMerge [
-			(
-				with pkgs; [
-					ytmdesktop
-					inconsolata
-					source-code-pro
-					krita
-					zen-browser
-					vscode
-					gdu
-					scrcpy
-		  ]
-			)
-			(
-				with pkgs.gnomeExtensions; [
-					blur-my-shell
-					gsconnect
-					dash-to-dock
-			]
-			)
-		];		
-		  programs = {
-		    home-manager.enable = true;
-
-				hyprlock.enable = true;
-
-		    micro.enable = true;
-		    helix = {
-		      enable = true;
-		      languages = {
-		        language = [{
-		          name = "rust";
-		        }];
-		      };
-		      settings = {
-		        theme = "autumn-night";
-		      };
-		    };
-		    command-not-found.enable = false;
-		    eza.enable = true;
-		    btop.enable = true;
-		    bat.enable = true;
-		    kitty = {
-		      enable = true;
-		      themeFile = "Tomorrow_Night_Bright";
-		      font = {
-		        # name = "inconsolata";
-		        name = "source code pro";
-		        size = 11.0;
-		      };
-		      settings = {
-		        shell = "${pkgs.fish}/bin/fish";
-		        cursor_shape = "block";
-		        open_url_with = "zen-browser"; # browser
-		        detect_urls = "yes";
-		        underline_hyperlinks = "never";
-		        sync_to_monitor = "never";
-		        window_padding_width = 5;
-		        single_window_padding_width = -1;
-		        tab_bar_edge = "bottom";
-		        tab_bar_margin_width = 5.0;
-		        tab_bar_margin_height = 2.0 ;
-		        tab_bar_style = "powerline";
-		        tab_bar_align = "left";
-		        tab_bar_min_tabs = 2;
-		        tab_switch_strategy  = "previous";
-		        tab_powerline_style = "slanted";
-		
-		        active_tab_foreground  = "#000";
-		        active_tab_background  = "#eee";
-		        active_tab_font_style  = "bold-italic";
-		        inactive_tab_foreground= "#444";
-		        inactive_tab_background= "#999";
-		        inactive_tab_font_style= "normal";
-		
-		        background_opacity = 0.3;
-		        background_blur = 1;
-		        # font_size =11.0;
-		      };
-		    };
-		    # hyprls.enable = true;
-		    # open-webui.enable = true;
-		    zoxide = {
-		      enable = true;
-		      enableFishIntegration = true;
-		    };
-		    fastfetch.enable = true;
-		    # _2048-in-terminal.enable = true;
-		    vesktop.enable = true;
-		    zed-editor = {
-		      enable = true;
-		      extensions = [
-		        "nix"
-		        "assembly syntax"
-		        "github dark default"
-		        "git firefly"
-		        "toml"
-		        "html"
-		        "xml"
-		        "activitywatch"
-		      ];
-		      userSettings = {
-		        theme = "Github Dark Default";
-		        show_edit_predictions = false;
-		        agent = {
-		          default_profile = "minimal";
-		          default_model = {
-		            provider = "zed.dev";
-		            model = "claude-sonnet-4";
-		          };
-		          version = "2";
-		        };
-		        features = {
-		          edit_prediction_provider = "supermaven";
-		        };
-		        ui_font_size = 16;
-		        buffer_font_size = 12.0;
-		      };
-		    };
-		    git = {
-		      enable = true;
-		      userName = "nimrodium";
-		      userEmail = "nimrodium@protonmail.com";
-		    };
-		    fish = {
-		      enable = true;
-		      plugins = [];
-		      interactiveShellInit = ''
-		        zoxide init --cmd cd fish | source
-		        set -g fish_greeting ""
-		        fastfetch
-		      '';
-		      shellAliases = {
-		
-		        raspi = "ssh -Y kyle@raspi";
-		        ls = "eza";
-		        zed = "zeditor";
-		        hx = "helix";
-		        edit = "ms-edit";
-		        # showgpu = "lspci -nnk | rg 28:00 -A 5";
-		        # windows = "virsh start win11-gpu-no-spice";
-		        # stopwindows = "virsh shutdown win11-gpu-no-spice";
-		        soft-reboot = "sudo systemctl soft-reboot";
-		      };
-		    };
-				nh = {
+			xdg = {
+					mimeApps = {
 					enable = true;
-					# clean.enable = true;
-					# clean.extraArgs = "--keep-since 4d --keep 3";
+					defaultApplications = {
+						"x-scheme-handler/http" = "zen-browser.desktop";
+						"x-scheme-handler/https" = "zen-browser.desktop";
+						"x-terminal-emulator" = "kitty.desktop";
+						"text/html" = "zen-browser.desktop";
+					};
 				};
-				# distrobox = {
-				# 	enable = true;
-				# 	containers = {
-				# 		debian = {
+			};
+			services = {
+				hyprpaper.enable = true;
+				podman = {
+					enable = true;
+					# settings = {
+					# };
+				};
+			};
+			# home.pointerCursor.hyprcursor = {
+			# 	enable = true;
+			# };
+			home = {
+				stateVersion = "25.05";
 
-				# 		};
-				# 	};
-				};
+				file = {
+				".config/waybar/".source = ./config/waybar;
+				".config/hypr/".source = ./config/hypr;
+				".config/fastfetch".source = ./config/fastfetch;
+				".config/wofi".source = ./config/wofi;
+				".config/waybar".source = ./config/waybar;
+			};
+				packages = lib.mkMerge [
+				(
+					with pkgs; [
+						ytmdesktop
+						inconsolata
+						source-code-pro
+						krita
+						zen-browser
+						vscode
+						gdu
+						scrcpy
+
+					]
+				)
+				(
+					with pkgs.gnomeExtensions; [
+						blur-my-shell
+						gsconnect
+						dash-to-dock
+					]
+				)
+			];
 		};
-}
+
+				# gtk3 = {
+				# 	extraConfig = {
+				# 		gtk-theme-name = "Adwaita-dark";
+      	# 		gtk-icon-theme-name = "Papirus";
+				# 	};
+				# };
+				# gtk4 = {
+				# 	extraConfig = {
+				# 		gtk-theme-name = "Adwaita-dark";
+      	# 		gtk-icon-theme-name = "Papirus";
+				# 	};
+				# };
+				programs = {
+					# gtk.enable = true;
+					home-manager.enable = true;
+					wlogout = {
+						enable = true;
+						layout = [
+							{
+								label = "shutdown";
+								action = "systemctl poweroff";
+								text = "Shutdown";
+								keybind = "s";
+							}
+						];
+					};
+					
+					hyprlock.enable = true;
+
+					micro.enable = true;
+					helix = {
+						enable = true;
+						languages = {
+							language = [{
+								name = "rust";
+							}];
+						};
+						settings = {
+							theme = "autumn-night";
+						};
+					};
+					eza.enable = true;
+					btop.enable = true;
+					bat.enable = true;
+					kitty = {
+						enable = true;
+						themeFile = "Tomorrow_Night_Bright";
+						font = {
+							# name = "inconsolata";
+							name = "source code pro";
+							size = 11.0;
+						};
+						settings = {
+							shell = "${pkgs.fish}/bin/fish";
+							cursor_shape = "block";
+							open_url_with = "zen-browser"; # browser
+							detect_urls = "yes";
+							underline_hyperlinks = "never";
+							sync_to_monitor = "never";
+							window_padding_width = 5;
+							single_window_padding_width = -1;
+							tab_bar_edge = "bottom";
+							tab_bar_margin_width = 5.0;
+							tab_bar_margin_height = 2.0 ;
+							tab_bar_style = "powerline";
+							tab_bar_align = "left";
+							tab_bar_min_tabs = 2;
+							tab_switch_strategy  = "previous";
+							tab_powerline_style = "slanted";
+			
+							active_tab_foreground  = "#000";
+							active_tab_background  = "#eee";
+							active_tab_font_style  = "bold-italic";
+							inactive_tab_foreground= "#444";
+							inactive_tab_background= "#999";
+							inactive_tab_font_style= "normal";
+			
+							background_opacity = 0.3;
+							background_blur = 1;
+							# font_size =11.0;
+						};
+					};
+					# open-webui.enable = true;
+					zoxide = {
+						enable = true;
+						enableFishIntegration = true;
+					};
+					fastfetch.enable = true;
+					vesktop.enable = true;
+					zed-editor = {
+						enable = true;
+						extensions = [
+							"nix"
+							"assembly syntax"
+							"github dark default"
+							"git firefly"
+							"toml"
+							"html"
+							"xml"
+							"activitywatch"
+						];
+						userSettings = {
+							theme = "Github Dark Default";
+							show_edit_predictions = false;
+							agent = {
+								default_profile = "minimal";
+								default_model = {
+									provider = "zed.dev";
+									model = "claude-sonnet-4";
+								};
+								version = "2";
+							};
+							features = {
+								edit_prediction_provider = "supermaven";
+							};
+							ui_font_size = 16;
+							buffer_font_size = 12.0;
+						};
+					};
+					git = {
+						enable = true;
+						userName = "nimrodium";
+						userEmail = "nimrodium@protonmail.com";
+					};
+					fish = {
+						enable = true;
+						plugins = [];
+						interactiveShellInit = ''
+							zoxide init --cmd cd fish | source
+							set -g fish_greeting ""
+							fastfetch
+						'';
+						shellAliases = {
+			
+							raspi = "ssh -Y kyle@raspi";
+							ls = "eza";
+							zed = "zeditor";
+							hx = "helix";
+							edit = "ms-edit";
+							# showgpu = "lspci -nnk | rg 28:00 -A 5";
+							# windows = "virsh start win11-gpu-no-spice";
+							# stopwindows = "virsh shutdown win11-gpu-no-spice";
+							soft-reboot = "sudo systemctl soft-reboot";
+						};
+					};
+					nh = {
+						enable = true;
+						# clean.enable = true;
+						# clean.extraArgs = "--keep-since 4d --keep 3";
+					};
+					
+					distrobox = {
+						enable = true;
+						containers = {
+							ubuntu = {
+								entry = true;
+								image = "ubuntu:latest";
+								# start_now=true;
+								# init=true;
+								# replace=false;
+								# volume="~/.";
+								additional_packages = [
+									"hello"
+									"git"
+									"micro"
+									"build-essential"
+									"bat"
+									"ripgrep"
+								];
+							};
+						};
+					};
+				};
+			};
+		};
+	}

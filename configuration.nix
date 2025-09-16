@@ -64,10 +64,10 @@
   # Enable the X11 windowing system.
   	  enable = true;
   	
-  	  # Enable the GNOME Desktop Environment.
-  	  displayManager.gdm.enable = true;
-  	  desktopManager.gnome.enable = true;
-  	 
+  	  # # Enable the GNOME Desktop Environment.
+  	  # displayManager.gdm.enable = true;
+  	  # desktopManager.gnome.enable = true;
+  	  # displayManager.sddm.enable = true;
   	  # Configure keymap in X11
   	  xkb = {
   	    layout = "us";
@@ -78,10 +78,17 @@
   
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.displayManager.sddm.enable = false;
 
+  # services.swaync = {
+  #   enable = true;
+  # };
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
+  # services.hypridle = {
+  #   enable = true;
+  # };
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -105,7 +112,7 @@
     isNormalUser = true;
     description = "kyle";
     shell = pkgs.fish;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "input" ];
     packages = with pkgs; [
 	# zeditor
     ];
@@ -118,20 +125,26 @@
       enable = true;
       xwayland.enable = true;
     };
-  java = {
-    enable = true;
-    binfmt = true;
+    java = {
+      enable = true;
+      binfmt = true;
+    };
+    adb.enable = true;
+    firefox.enable = false;	
+    fish.enable = true;
+    iio-hyprland.enable = true;
   };
-  adb.enable = true;
-	firefox.enable = false;	
-	fish.enable = true;
-};
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
 
+  fonts.packages = with pkgs; [
+    nerd-fonts.symbols-only
+    noto-fonts-cjk-sans
+    font-awesome
+  ];
   environment = {
 	systemPackages = with pkgs; [
     fish
@@ -140,6 +153,7 @@
     micro
     nixfmt-rfc-style
     nil
+    hyprls
     ripgrep
     cargo # rust
     openjdk17-bootstrap # java
@@ -150,9 +164,19 @@
     wofi
     waybar
     eww
+    podman
+    pavucontrol
+    xdg-desktop-portal-wlr
+    adwaita-icon-theme
+    gnome-themes-extra
+    brightnessctl
+    hypridle
   ];
+  
 	variables = {
 		EDITOR = "micro";
+    TERMINAL = "kitty";
+    BROWSER = "zen-browser";
 	  };
   };
 #  environment.systemPackages = with pkgs; [
