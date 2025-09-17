@@ -22,6 +22,8 @@
         "disk",
         "tray",
         "pulseaudio",
+
+        "backlight",
         "network",
         "battery",
         // "hyprland/language",
@@ -47,7 +49,7 @@
     },
     "custom/os_button": {
         "format": "",
-        "on-click": "wofi -n --show drun",
+        "on-click": "wofi --show drun",
         "tooltip": false
     },
     "cpu": {
@@ -166,6 +168,15 @@
                 " "
             ]
         },
-        "on-click": "pwvucontrol"
+        "on-click": "pavucontrol"
+    },
+    "backlight": {
+        "min-brightness":10.0,
+        "device": "intel_backlight",
+        "format": "{icon}",
+        // "format-icons": ["", "`","",""],
+        "format-icons": ["", "","",""],
+        "scroll-step":10,
+
     }
 }

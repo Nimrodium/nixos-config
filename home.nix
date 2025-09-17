@@ -12,8 +12,17 @@ in
 				enable = true;
 				theme.name = "adw-gtk3-dark";
 				cursorTheme.name = "Bibata-Modern-Ice";
-				iconTheme.name = "GruvboxPlus";
-
+				iconTheme.name = "Adwaita";
+				gtk3.extraConfig = {
+					Settings = ''
+						gtk-application-prefer-dark-theme=1
+					'';
+				};
+				gtk4.extraConfig = {
+					Settings = ''
+						gtk-application-prefer-dark-theme=1
+					'';
+				};
 			};
 
 			dconf = {
@@ -228,6 +237,7 @@ in
 							zed = "zeditor";
 							hx = "helix";
 							edit = "ms-edit";
+							ubuntu = "distrobox enter ubuntu-latest";
 							# showgpu = "lspci -nnk | rg 28:00 -A 5";
 							# windows = "virsh start win11-gpu-no-spice";
 							# stopwindows = "virsh shutdown win11-gpu-no-spice";
@@ -245,7 +255,7 @@ in
 						containers = {
 							ubuntu = {
 								entry = true;
-								image = "ubuntu:latest";
+								image = "ubuntu:lts";
 								# start_now=true;
 								# init=true;
 								# replace=false;

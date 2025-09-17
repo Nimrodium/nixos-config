@@ -166,17 +166,24 @@
     eww
     podman
     pavucontrol
+    blueman
     xdg-desktop-portal-wlr
     adwaita-icon-theme
     gnome-themes-extra
     brightnessctl
     hypridle
+
+    iio-hyprland
+    # jq,iio-sensor-proxy required for iio-hyprland
+    iio-sensor-proxy
+	  jq 
+	# --
+	  xfce.thunar
+    hyprshot
   ];
   
 	variables = {
 		EDITOR = "micro";
-    TERMINAL = "kitty";
-    BROWSER = "zen-browser";
 	  };
   };
 #  environment.systemPackages = with pkgs; [
