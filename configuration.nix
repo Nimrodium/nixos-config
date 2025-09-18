@@ -175,6 +175,8 @@
     hypridle
     pamixer
 
+    hyprlandPlugins.hyprpaper
+    hyprlandPlugins.hyprspace
     iio-hyprland
     # jq,iio-sensor-proxy required for iio-hyprland
     iio-sensor-proxy
