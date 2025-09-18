@@ -10,7 +10,7 @@ in
 		users.kyle = {
 			gtk = {
 				enable = true;
-				theme.name = "adw-gtk3-dark";
+				theme.name = "Adwaita-dark";
 				cursorTheme.name = "Bibata-Modern-Ice";
 				iconTheme.name = "Adwaita";
 				gtk3.extraConfig = {
@@ -113,6 +113,7 @@ in
 				programs = {
 					# gtk.enable = true;
 					home-manager.enable = true;
+					chromium.enable = true;
 					wlogout = {
 						enable = true;
 						layout = [

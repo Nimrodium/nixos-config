@@ -172,6 +172,7 @@
     gnome-themes-extra
     brightnessctl
     hypridle
+    pamixer
 
     iio-hyprland
     # jq,iio-sensor-proxy required for iio-hyprland
@@ -180,10 +181,12 @@
 	# --
 	  xfce.thunar
     hyprshot
+	file
   ];
   
 	variables = {
 		EDITOR = "micro";
+    GTK_THEME = "Adwaita-dark";
 	  };
   };
 #  environment.systemPackages = with pkgs; [
