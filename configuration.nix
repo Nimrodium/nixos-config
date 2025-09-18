@@ -86,6 +86,7 @@
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
+  security.polkit.enable = true;
   # services.hypridle = {
   #   enable = true;
   # };
