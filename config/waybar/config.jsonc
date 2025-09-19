@@ -6,7 +6,7 @@
     "gtk-layer-shell": true,
     "margin-bottom": -1,
     "passthrough": false,
-    "height": 50,
+    "height": 60,
     "reload_style_on_change":true,
     "modules-left": [
         "custom/os_button",
