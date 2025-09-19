@@ -24,7 +24,9 @@
 window {
     all:unset;
     padding: 20px;
-    border-radius: 0px;
+    padding-bottom: 500px;
+    margin: 20px;
+    border-radius: 20px;
     background-color: alpha(@background,.5);
 }
 #inner-box {

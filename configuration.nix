@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs,inputs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
@@ -26,11 +26,13 @@
     enable = true;
     theme = "mac-style";
     themePackages = [ pkgs.mac-style-plymouth ];
+    # themePackages = [pkgs.callPackage /home/kyle//nixos-plymouth-theme/src/mac-style];
   };
 
     # Enable "Silent boot"
     consoleLogLevel = 3;
     initrd.verbose = false;
+    initrd.systemd.enable = true;
     kernelParams = [
       "quiet"
       "splash"
@@ -103,8 +105,24 @@
   
   # Enable CUPS to print documents.
   services.printing.enable = true;
-  services.displayManager.sddm.enable = false;
-
+  # services.displayManager.autologin = {
+  	# enable = true;
+  	
+  # };
+  services.greetd =
+  let 
+	hyprland = "${pkgs.hyprland}/bin/hyprland";
+	
+  in {
+  	enable = true;
+  	settings = rec {
+  		initial_session = {
+  			command = "${hyprland}";
+  			user = "kyle";
+  		};
+  		default_session = initial_session;
+  	};
+  };
   # services.swaync = {
   #   enable = true;
   # };
@@ -161,7 +179,7 @@
     iio-hyprland.enable = true;
   };
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  # nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -209,8 +227,10 @@
 	# --
 	  xfce.thunar
     hyprshot
+    eog
 	file
 	plasma5Packages.kdeconnect-kde
+	swaynotificationcenter
   ];
   
 	variables = {

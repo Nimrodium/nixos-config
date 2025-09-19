@@ -176,7 +176,7 @@ in
 							inactive_tab_background= "#999";
 							inactive_tab_font_style= "normal";
 			
-							background_opacity = 0.3;
+							background_opacity = 0.5;
 							background_blur = 1;
 							# font_size =11.0;
 						};
@@ -232,7 +232,7 @@ in
 							fastfetch
 						'';
 						shellAliases = {
-			
+							cf = "clear && fastfetch";
 							raspi = "ssh -Y kyle@raspi";
 							ls = "eza";
 							zed = "zeditor";

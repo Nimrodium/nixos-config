@@ -11,7 +11,7 @@
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 		mac-style-plymouth = {
-  	url = "github:SergioRibera/s4rchiso-plymouth-theme";
+  	url = "github:Nimrodium/nixos-plymouth-theme";
   	inputs.nixpkgs.follows = "nixpkgs";
 };
 	};
@@ -20,6 +20,8 @@
 		system = "x86_64-linux";
 		# in example
 		pkgs = import nixpkgs {
+			inherit system;
+			config.allowUnfree = true;
 			overlays = [ inputs.mac-style-plymouth.overlays.default ];
 		};
 		# in example
@@ -30,6 +32,7 @@
 	{
 				nixosConfigurations = {
 		linuxbook = nixpkgs.lib.nixosSystem {
+			inherit system pkgs;
 			specialArgs = {inherit inputs; };
 			modules = [
 				./configuration.nix
