@@ -10,22 +10,22 @@
       ./hardware-configuration.nix
       ./home.nix
     ];
-	
+
   # Bootloader.
-  
+
 
   # Use latest kernel.
 
-  boot = { 
+  boot = {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     kernelPackages = pkgs.linuxPackages_latest;
     initrd.luks.devices."luks-fa47f6fa-0c53-46a2-8f7b-e74327ebdc03".device = "/dev/disk/by-uuid/fa47f6fa-0c53-46a2-8f7b-e74327ebdc03";
-  
+
   plymouth = {
     enable = true;
-    theme = "mac-style";
-    themePackages = [ pkgs.mac-style-plymouth ];
+    theme = "nixos-theme";
+    themePackages = [ pkgs.nixos-plymouth-theme ];
     # themePackages = [pkgs.callPackage /home/kyle//nixos-plymouth-theme/src/mac-style];
   };
 
@@ -55,7 +55,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  
+
   # Set your time zone.
   time.timeZone = "America/Chicago";
 
@@ -90,7 +90,7 @@
   services.xserver = {
   # Enable the X11 windowing system.
   	  enable = true;
-  	
+
   	  # # Enable the GNOME Desktop Environment.
   	  # displayManager.gdm.enable = true;
   	  # desktopManager.gnome.enable = true;
@@ -100,19 +100,19 @@
   	    layout = "us";
   		options = "grp:alt_shift_toggle";
   	    variant = "dvorak";
-  	  };	
+  	  };
   };
-  
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
   # services.displayManager.autologin = {
   	# enable = true;
-  	
+
   # };
   services.greetd =
-  let 
+  let
 	hyprland = "${pkgs.hyprland}/bin/hyprland";
-	
+
   in {
   	enable = true;
   	settings = rec {
@@ -174,7 +174,7 @@
       binfmt = true;
     };
     adb.enable = true;
-    firefox.enable = false;	
+    firefox.enable = false;
     fish.enable = true;
     iio-hyprland.enable = true;
   };
@@ -202,7 +202,7 @@
     cargo # rust
     openjdk17-bootstrap # java
     python314 # python
-    
+
     #hyprland
     hyprpaper
     wofi
@@ -223,7 +223,7 @@
     iio-hyprland
     # jq,iio-sensor-proxy required for iio-hyprland
     iio-sensor-proxy
-	  jq 
+	  jq
 	# --
 	  xfce.thunar
     hyprshot
@@ -232,7 +232,7 @@
 	plasma5Packages.kdeconnect-kde
 	swaynotificationcenter
   ];
-  
+
 	variables = {
 		EDITOR = "micro";
     GTK_THEME = "Adwaita-dark";
