@@ -25,11 +25,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1756679287,
-        "narHash": "sha256-Xd1vOeY9ccDf5VtVK12yM0FS6qqvfUop8UQlxEB+gTQ=",
+        "lastModified": 1758313341,
+        "narHash": "sha256-SsI6INUzWwPcRKRaxvi50RttnD9rcC4EjV+67TOEfrQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "07fc025fe10487dd80f2ec694f1cd790e752d0e8",
+        "rev": "6f656618ebc71ca82d93d306a8aecb2c5f6f2ab2",
         "type": "github"
       },
       "original": {
@@ -47,26 +47,26 @@
         ]
       },
       "locked": {
-        "lastModified": 1756677116,
-        "narHash": "sha256-bjtQvzupAFX5AYAIyBXSFgWhaG4nP4TvgKDoKyUhZ4U=",
-        "owner": "SergioRibera",
-        "repo": "s4rchiso-plymouth-theme",
-        "rev": "2f782f4b68ce1c00cef3fde6970d7b4241bb97d4",
+        "lastModified": 1758325465,
+        "narHash": "sha256-NBpviA6s5pE1Vgh+BdKgdPV1w+iMErj845neL3c88Ws=",
+        "owner": "Nimrodium",
+        "repo": "nixos-plymouth-theme",
+        "rev": "ed586f8acdf4f1decf3efe702d8f02d4cabb00bd",
         "type": "github"
       },
       "original": {
-        "owner": "SergioRibera",
-        "repo": "s4rchiso-plymouth-theme",
+        "owner": "Nimrodium",
+        "repo": "nixos-plymouth-theme",
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1757545623,
-        "narHash": "sha256-mCxPABZ6jRjUQx3bPP4vjA68ETbPLNz9V2pk9tO7pRQ=",
+        "lastModified": 1758216857,
+        "narHash": "sha256-h1BW2y7CY4LI9w61R02wPaOYfmYo82FyRqHIwukQ6SY=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "8cd5ce828d5d1d16feff37340171a98fc3bf6526",
+        "rev": "d2ed99647a4b195f0bcc440f76edfa10aeb3b743",
         "type": "github"
       },
       "original": {
@@ -106,11 +106,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1756679357,
-        "narHash": "sha256-lW+0rL7VqT02/oqjDElqKoCjFYDrqyvkjVFSNcsgn6U=",
+        "lastModified": 1758108149,
+        "narHash": "sha256-VGeYcdGJq9JiQzLI+ZaDGPFcPZbL4fcYRGpeS36JzMQ=",
         "owner": "conneroisu",
         "repo": "zen-browser-flake",
-        "rev": "614f829004d0a7036ea58e5fb5ad99a05ed81e30",
+        "rev": "69b4cab1d1b208e73a8f29ad709283f84f30506c",
         "type": "github"
       },
       "original": {
