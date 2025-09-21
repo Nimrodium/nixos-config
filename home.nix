@@ -53,6 +53,23 @@ in
 					};
 				};
 			};
+
+			wayland.windowManager.hyprland = {
+				enable = true;
+				plugins = [
+					# inputs.Hyprspace.packages.${pkgs.system}.Hyprspace
+					# inputs.hyprgrass.packages.${pkgs.system}.default
+					pkgs.hyprlandPlugins.hyprspace
+					pkgs.hyprlandPlugins.hyprgrass
+				];
+				# plugins = with pkgs.hyprlandPlugins; [
+				# 	hyprgrass
+				# 	hyprspace
+					
+				# ];
+				
+			};
+
 			services = {
 				hyprpaper.enable = true;
 				podman = {
@@ -73,6 +90,18 @@ in
 				".config/fastfetch".source = ./config/fastfetch;
 				".config/wofi".source = ./config/wofi;
 				".config/waybar".source = ./config/waybar;
+
+
+
+				".config/scripts/hyprland_load_plugins.sh" ={text = ''
+#!/usr/bin/env bash
+function errnot { hyprctl notify 3 200 0 "failed to load $1"; exit 1; }
+hyprctl plugins load ${pkgs.hyprlandPlugins.hyprspace}/lib/libhyprspace.so || errnot "hyprspace"
+hyprctl plugins load ${pkgs.hyprlandPlugins.hyprgrass}/lib/libhyprgrass.so || errnot "hyprgrass"
+hyprctl notify 1 200 0 "plugins loaded"
+				'';
+				executable = true;
+				};
 			};
 				packages = lib.mkMerge [
 				(
@@ -247,8 +276,9 @@ in
 					};
 					nh = {
 						enable = true;
-						# clean.enable = true;
-						# clean.extraArgs = "--keep-since 4d --keep 3";
+						clean.enable = true;
+						clean.extraArgs = "--keep-since 4d --keep 3";
+						flake = "/etc/nixos/";
 					};
 					
 					distrobox = {

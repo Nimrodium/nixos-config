@@ -24,6 +24,7 @@
   
   plymouth = {
     enable = true;
+    # retainSplash = true;
     theme = "mac-style";
     themePackages = [ pkgs.mac-style-plymouth ];
     # themePackages = [pkgs.callPackage /home/kyle//nixos-plymouth-theme/src/mac-style];
@@ -123,51 +124,36 @@
   		default_session = initial_session;
   	};
   };
-  # services.swaync = {
-  #   enable = true;
-  # };
-  # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   security.polkit.enable = true;
-  # services.hypridle = {
-  #   enable = true;
-  # };
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # define system
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # to speed up rebuild
+  documentation.man.generateCaches = false;
   users.users.kyle = {
     isNormalUser = true;
     description = "kyle";
     shell = pkgs.fish;
     extraGroups = [ "networkmanager" "wheel" "input" ];
     packages = with pkgs; [
-	# zeditor
     ];
   };
-
-  # Install firefox.
-  # programs.firefox.enable = true;
   programs = {
     hyprland = {
+      withUWSM=true;
       enable = true;
       xwayland.enable = true;
+      # set the flake package
+      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      # make sure to also set the portal package, so that they are in sync
+      portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+  
     };
     java = {
       enable = true;
@@ -178,11 +164,6 @@
     fish.enable = true;
     iio-hyprland.enable = true;
   };
-  # Allow unfree packages
-  # nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
 
   fonts.packages = with pkgs; [
     nerd-fonts.symbols-only
@@ -192,13 +173,14 @@
   environment = {
 	systemPackages = with pkgs; [
     fish
-    git
+    git 
     wget
     micro
     nixfmt-rfc-style
     nil
     hyprls
     ripgrep
+    fd
     cargo # rust
     openjdk17-bootstrap # java
     python314 # python
@@ -218,9 +200,8 @@
     hypridle
     pamixer
 
-    hyprlandPlugins.hyprgrass
-    hyprlandPlugins.hyprspace
     iio-hyprland
+    wvkbd
     # jq,iio-sensor-proxy required for iio-hyprland
     iio-sensor-proxy
 	  jq 
@@ -228,9 +209,10 @@
 	  xfce.thunar
     hyprshot
     eog
-	file
-	plasma5Packages.kdeconnect-kde
-	swaynotificationcenter
+	  file
+	  plasma5Packages.kdeconnect-kde
+	  swaynotificationcenter
+    playerctl
   ];
   
 	variables = {
@@ -238,10 +220,14 @@
     GTK_THEME = "Adwaita-dark";
 	  };
   };
-#  environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-  #];
+  # for kde-connect
+  networking.firewall.allowedTCPPortRanges = [
+    { from = 1714; to = 1764; }
+  ];
+
+  networking.firewall.allowedUDPPortRanges = [
+    { from = 1714; to = 1764; }
+  ];
 
   # List services that you want to enable:
 
@@ -254,6 +240,11 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    substituters = ["https://hyprland.cachix.org"];
+    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+  };
   system.stateVersion = "25.05"; # Did you read the comment?
 }

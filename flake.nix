@@ -13,7 +13,23 @@
 		mac-style-plymouth = {
   	url = "github:Nimrodium/nixos-plymouth-theme";
   	inputs.nixpkgs.follows = "nixpkgs";
-};
+		};
+		hyprland.url = "github:hyprwm/Hyprland";
+		# hyprland-plugins = {
+		# 	url = "github:hyprwm/hyprland-plugins";
+		# 	inputs.hyprland.follows = "hyprland";
+		# };
+	  hyprgrass = {
+       url = "github:horriblename/hyprgrass";
+       inputs.hyprland.follows = "hyprland"; # IMPORTANT
+    };
+	  Hyprspace = {
+      url = "github:KZDKM/Hyprspace";
+
+      # Hyprspace uses latest Hyprland. We declare this to keep them in sync.
+      inputs.hyprland.follows = "hyprland";
+    };
+
 	};
 	outputs = {self, nixpkgs,zen-browser,mac-style-plymouth, ... }@inputs:
 	let 
