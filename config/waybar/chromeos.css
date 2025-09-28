@@ -3,7 +3,7 @@
 @define-color bg_main rgba(25, 25, 25, 0.65);
 @define-color bg_main_tooltip rgba(0, 0, 0, 0.7);
 
-
+@define-color midground rgba(255,255,255,1);
 /*base background color of selections */
 @define-color bg_hover rgba(200, 200, 200, 0.3);
 /*base background color of active elements */
@@ -49,7 +49,7 @@ tooltip label{
 #custom-os_button {
 	font-family: "JetBrainsMono Nerd Font";
 	/* font-family: "monospace"; */
-	background-color: darkslategrey;
+	background-color: @midground;
 	border-radius: 100px;
 	margin: 10px;
 	color: white;
@@ -184,7 +184,7 @@ tooltip label{
 }
 
 #clock {
-	background-color: dimgray;
+	background-color: @midground;
 	margin: 10px;
 	border-radius: 0 50px 50px 0;
 

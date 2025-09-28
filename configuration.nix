@@ -47,6 +47,13 @@
     # loader.timeout = 0;
 
   };
+
+  hardware.bluetooth = {
+    enable=true;
+    powerOnBoot=true;
+  };
+  services.blueman.enable=true;
+
   networking.hostName = "linuxbook"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -171,48 +178,63 @@
     font-awesome
   ];
   environment = {
+  # todo: seperate gui and cli apps and seperate hardware specific packages, learn how to do conditional eval in nix for different hardware.
 	systemPackages = with pkgs; [
-    fish
+    
     git 
     wget
+    
+    # cli tools
+    yazi
+    gh
+    ripgrep
+    fd
+    fish
     micro
+    file
+    
+    #dev
     nixfmt-rfc-style
     nil
     hyprls
-    ripgrep
-    fd
     cargo # rust
     openjdk17-bootstrap # java
     python314 # python
-    
+	clang
+    #Desktop Environment
+    # - core - #
     #hyprland
     hyprpaper
     wofi
     waybar
-    eww
-    podman
-    pavucontrol
-    blueman
     xdg-desktop-portal-wlr
     adwaita-icon-theme
     gnome-themes-extra
-    brightnessctl
     hypridle
-    pamixer
-
+    hyprshot
     iio-hyprland
     wvkbd
+    swaynotificationcenter
     # jq,iio-sensor-proxy required for iio-hyprland
     iio-sensor-proxy
-	  jq 
-	# --
-	  xfce.thunar
-    hyprshot
-    eog
-	  file
-	  plasma5Packages.kdeconnect-kde
-	  swaynotificationcenter
+	  jq
+    # - utilities - #
+    podman
+    pavucontrol
+    blueman
+    brightnessctl
+    pamixer
+    wl-clipboard
+    bluetui
     playerctl
+    vlc
+    
+
+	# - apps - #
+	  xfce.thunar
+    eog
+	  plasma5Packages.kdeconnect-kde
+	  
   ];
   
 	variables = {

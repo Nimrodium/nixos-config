@@ -24,7 +24,6 @@
 window {
     all:unset;
     padding: 20px;
-    padding-bottom: 500px;
     margin: 20px;
     border-radius: 20px;
     background-color: alpha(@background,.5);

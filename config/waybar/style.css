@@ -16,6 +16,7 @@
 @define-color content_main white;
 /*text color for entries that are unselected */
 @define-color content_inactive rgba(255, 255, 255, 0.25);
+@define-color midground rgba(255,255,255,1);
 
 * {
   text-shadow: none;

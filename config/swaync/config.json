@@ -58,7 +58,8 @@
     "mpris",
     "buttons-grid",
     "volume",
-    "backlight"
+    "backlight",
+    "menubar"
     
   ],
   "widget-config": {
@@ -91,6 +92,44 @@
     "backlight": {
       "label": "󰃟"
     },
+    "menubar": {
+			"menu#power": {
+				"label": "Power",
+				"position": "right",
+				"actions": [
+					{
+						"label": "Shut down",
+						"command": "systemctl poweroff"
+					},
+					{
+            "label": "Suspend",
+            "command": "systemctl suspend"
+          },
+          {
+            "label": "Reboot",
+            "command": "systemctl reboot"
+          },
+          {
+            "label": "Lock",
+            "command": "hyprlock"
+          },
+          {
+            "label": "Exit",
+            "command": "hyprctl dispatch exit"
+          }
+				]
+			},
+			"buttons#screenshot": {
+				"position": "left",
+				"actions": [
+					// {
+					// 	"label": "Screenshot",
+					// 	"command": "grim"
+					// }
+					
+				]
+			}
+		},
     "buttons-grid": {
       "actions": [
         {
