@@ -1,128 +1,137 @@
-//   _____ _____ _____ _____ _____ _____ _____ _____ _____
-//  |   __|  _  |   __|_   _|   __|   __|_   _|     |  |  |
-//  |   __|     |__   | | | |   __|   __| | | |   --|     |
-//  |__|  |__|__|_____| |_| |__|  |_____| |_| |_____|__|__|  NYARCH
-//
-//  by Bina
-
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
-    // "source": "~/.config/fastfetch/images/nyarch.png",
-    // "type": "kitty",
-    "height": 14,
+    // change per deploy or just comment out
+    "source": "nixos",
     "padding": {
-      "top": 1,
+      "top": 2,
+      "left": 1,
+      "right": 2,
     },
   },
   "display": {
     "separator": " ",
-    "percent":{
-      "type":3,
+    "percent": {
+      "type": 3,
     },
+    "constants": ["──", "│"],
   },
   "modules": [
-    "break",
-    // "break",
-    // "break",
     {
       "type": "title",
-      "keyWidth": 10,
+      "format": "{#1}╭{$1} {#} {user-name-colored}",
     },
     {
       "type": "custom",
-      "format": "~~~~~~~~~~~~~~~~~~~~~~~~~~",
+      "format": "{#1}│ System ",
     },
     {
       "type": "os",
-      "key": "~ ",
-      "keyColor": "34", // = color4
+      "key": "{#separator}{$2}  {#keys}󰍹 OS",
     },
     {
       "type": "kernel",
-      "key": "~ ",
-      "keyColor": "34",
+      "key": "{#separator}{$2}  {#keys}󰒋 Kernel",
     },
     {
-      "type": "packages",
-      "format": "{} (pacman)",
-      "key": "~ ",
-      "keyColor": "34",
-    },
-    {
-      "type": "shell",
-      "key": "~ ",
-      "keyColor": "34",
-    },
-    {
-      "type": "terminal",
-      "key": "~ ",
-      "keyColor": "34",
-    },
-    {
-      "type": "wm",
-      "key": "~ ",
-      "keyColor": "34",
+      "type": "initsystem",
+      "key": "{#separator}{$2}  {#keys} Init",
     },
     {
       "type": "uptime",
-      "key": "~ ",
-      "keyColor": "34",
+      "key": "{#separator}{$2}  {#keys}󰅐 Uptime",
     },
-    "break",
     {
-      "type": "host",
-      "key": "~",
+      "type": "custom",
+      "format": "{#1}│",
+    },
+    {
+      "type": "custom",
+      "format": "{#1}│ Software ",
+    },
+    {
+      "type": "packages",
+      "key": "{#separator}{$2}  {#keys}󰏖 Packages",
+      "format": "{all}",
+    },
+    {
+      "type": "shell",
+      "key": "{#separator}{$2} {#keys} 󰞷 Shell",
       "keyColor": "34",
     },
+    {
+      "type": "de",
+      "key": "{#separator}{$2}  {#keys}󰧨 DE",
+    },
+    {
+      "type": "wm",
+      "key": "{#separator}{$2}  {#keys}󱂬 WM",
+    },
+    {
+      "type": "custom",
+      "format": "{#1}│",
+    },
+    {
+      "type": "custom",
+      "format": "{#1}│ Hardware 󱤓",
+    },
+    // {
+    //   "type": "host",
+    //   "key": "{#separator}{$2} {#keys} ",
+    //   "keyColor": "34",
+    // },
     {
       "type": "cpu",
-      "key": "~",
-      "keyColor": "34",
+      "key": "{#separator}{$2} {#keys}  CPU",
+      // "keyColor": "34",
     },
+    // {
+    //   "type": "cpuusage",
+    //   "key": "{#separator}{$2} CPU Usage ",
+    //   "keyColor": "34",
+    //   // "format":
+    // },
     {
       "type": "gpu",
-      "key": "~",
-      "keyColor": "34",
-    },
-    "break",
-    {
-      "type": "cpuusage",
-      "key": "~ \udb83\udee0",
-      "keyColor": "34",
+      "key": "{#separator}{$2} {#keys} 󱄄 GPU",
+      // "keyColor": "34",
     },
     {
       "type": "memory",
-      "key": "~ \udb80\udf5b",
-      "keyColor": "34",
+      "key": "{#separator}{$2} {#keys}  RAM ",
+      // "keyColor": "34",
     },
     {
       "type": "swap",
-      "key": "~ \udb82\udfcd",
-      "keyColor": "34",
+      "key": "{#separator}{$2} {#keys} 󰯍 Swap",
+      // "keyColor": "34",
     },
     {
       "type": "disk",
-      "key": "~ \udb80\udeca",
+      "key": "{#separator}{$2} {#keys} 󰋊",
       "keyColor": "34",
+      "format": "{name} {#2}{mount-from}{#} -> {#1}{mountpoint}{#} {size-percentage-bar} {size-percentage} {filesystem}",
     },
     {
       "type": "battery",
-      "key": "~ \udb80\udc79",
-      "keyColor": "34",
-    },
-    "break",
-    {
-      "type": "media",
-      "key": "~ ",
+      "key": "{#separator}{$2} {#keys} 󰁹",
       "keyColor": "34",
     },
     {
       "type": "localip",
-      "key": "~",
-      "keyColor": "34",
+      "key": "{#separator}│  {#keys}󰛵 IP",
+      // "keyColor": "34",
     },
-    "break",
-    "colors",
+    {
+      "type": "colors",
+      "key": "{#separator}│",
+      "symbol": "circle",
+    },
+    // Footer
+    {
+      "type": "title",
+      "key": "{#}╰{$1}",
+      "format": "{host-name-colored}",
+    },
   ],
 }

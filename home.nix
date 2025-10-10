@@ -265,7 +265,7 @@ hyprctl notify 1 200 0 "plugins loaded"
 							raspi = "ssh -Y kyle@raspi";
 							ls = "eza";
 							zed = "zeditor";
-							hx = "helix";
+							# hx = "helix";
 							edit = "ms-edit";
 							ubuntu = "distrobox enter ubuntu-latest";
 							# showgpu = "lspci -nnk | rg 28:00 -A 5";

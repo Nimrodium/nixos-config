@@ -9,10 +9,14 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./home.nix
+      ./modules/fuck.nix
+      ./modules/graphical.nix
     ];
 	
   # Bootloader.
   
+  graphical.enable = true;
+  graphical.enableTouchscreen = true;
 
   # Use latest kernel.
 
@@ -20,6 +24,7 @@
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     kernelPackages = pkgs.linuxPackages_latest;
+    # shouldnt this be in hardware-configuration.nix ?
     initrd.luks.devices."luks-fa47f6fa-0c53-46a2-8f7b-e74327ebdc03".device = "/dev/disk/by-uuid/fa47f6fa-0c53-46a2-8f7b-e74327ebdc03";
   
   plymouth = {
@@ -52,7 +57,42 @@
     enable=true;
     powerOnBoot=true;
   };
+  
+environment.etc."rclone-mnt.conf".text = ''
+[raspi]
+type = webdav
+url = http://99.107.90.205:1212
+vendor = rclone
+user = kyle
+pass = GmTnIATiofgd5DpY5iLUE3uDX4M
+'';
+
+fileSystems."/mnt/rpi" = {
+  device = "raspi:/";
+  fsType = "rclone";
+  options = [
+    "nodev"
+    "nofail"
+    "allow_other"
+    "uid=1000"
+    "gid=1000"
+    "args2env"
+    "config=/etc/rclone-mnt.conf"
+  ];
+};
+
+# why tf is /tmp not already tmpfs ??
+fileSystems."/tmp" = {
+	device = "tmpfs";
+	fsType = "tmpfs";
+	options = [
+		"rw"
+		"relatime"
+		];
+	};
   services.blueman.enable=true;
+
+
 
   networking.hostName = "linuxbook"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -95,6 +135,7 @@
   		};
   	};
   };
+  # need to figure out how to configure xkb option for ig Xwayland ? i dont want an Xorg install.
   services.xserver = {
   # Enable the X11 windowing system.
   	  enable = true;
@@ -117,20 +158,27 @@
   	# enable = true;
   	
   # };
-  services.greetd =
-  let 
-	hyprland = "${pkgs.hyprland}/bin/hyprland";
+
+  # nimmy desktop environment
+
+  # etc."loginrc.sh".text = ''
+  #   #!/usr/bin/env bash
+  #   ${lib.esc}
+  # ''
+  # services.greetd =
+  # let 
+	# hyprland = "${pkgs.hyprland}/bin/hyprland";
 	
-  in {
-  	enable = true;
-  	settings = rec {
-  		initial_session = {
-  			command = "${hyprland}";
-  			user = "kyle";
-  		};
-  		default_session = initial_session;
-  	};
-  };
+  # in {
+  # 	enable = true;
+  # 	settings = rec {
+  # 		initial_session = {
+  # 			command = "${hyprland}";
+  # 			user = "kyle";
+  # 		};
+  # 		default_session = initial_session;
+  # 	};
+  # };
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   security.polkit.enable = true;
@@ -151,17 +199,14 @@
     packages = with pkgs; [
     ];
   };
+
+
+  fonts.packages = with pkgs; [
+    nerd-fonts.symbols-only
+    noto-fonts-cjk-sans
+    font-awesome
+  ];
   programs = {
-    hyprland = {
-      withUWSM=true;
-      enable = true;
-      xwayland.enable = true;
-      # set the flake package
-      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-      # make sure to also set the portal package, so that they are in sync
-      portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-  
-    };
     java = {
       enable = true;
       binfmt = true;
@@ -169,14 +214,7 @@
     adb.enable = true;
     firefox.enable = false;	
     fish.enable = true;
-    iio-hyprland.enable = true;
   };
-
-  fonts.packages = with pkgs; [
-    nerd-fonts.symbols-only
-    noto-fonts-cjk-sans
-    font-awesome
-  ];
   environment = {
   # todo: seperate gui and cli apps and seperate hardware specific packages, learn how to do conditional eval in nix for different hardware.
 	systemPackages = with pkgs; [
@@ -192,7 +230,8 @@
     fish
     micro
     file
-    
+	  sshfs
+    rclone    
     #dev
     nixfmt-rfc-style
     nil
@@ -200,24 +239,9 @@
     cargo # rust
     openjdk17-bootstrap # java
     python314 # python
-	clang
-    #Desktop Environment
-    # - core - #
-    #hyprland
-    hyprpaper
-    wofi
-    waybar
-    xdg-desktop-portal-wlr
-    adwaita-icon-theme
-    gnome-themes-extra
-    hypridle
-    hyprshot
-    iio-hyprland
-    wvkbd
-    swaynotificationcenter
-    # jq,iio-sensor-proxy required for iio-hyprland
-    iio-sensor-proxy
-	  jq
+	  clang
+	  haskell-language-server
+	  ghc
     # - utilities - #
     podman
     pavucontrol
@@ -228,12 +252,6 @@
     bluetui
     playerctl
     vlc
-    
-
-	# - apps - #
-	  xfce.thunar
-    eog
-	  plasma5Packages.kdeconnect-kde
 	  
   ];
   
