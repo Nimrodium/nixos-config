@@ -3,30 +3,33 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, inputs, ... }:
-
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./home.nix
-      ./modules/fuck.nix
       ./modules/graphical.nix
+      # ./modules/apps.nix
     ];
-	
-  # Bootloader.
-  
+  # spare my poor emmc device maybe
+  services.journald.extraConfig = "Storage=volatile";
+  nix.gc.automatic = false;
+  nix.optimise.automatic = false;
+
   graphical.enable = true;
   graphical.enableTouchscreen = true;
 
   # Use latest kernel.
 
-  boot = { 
+  # Bootloader.
+  boot = {
+    # extraModulePackages = [ config.boot.kernelPackages.wireguard ];
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     kernelPackages = pkgs.linuxPackages_latest;
     # shouldnt this be in hardware-configuration.nix ?
     initrd.luks.devices."luks-fa47f6fa-0c53-46a2-8f7b-e74327ebdc03".device = "/dev/disk/by-uuid/fa47f6fa-0c53-46a2-8f7b-e74327ebdc03";
-  
+
   plymouth = {
     enable = true;
     # retainSplash = true;
@@ -57,15 +60,8 @@
     enable=true;
     powerOnBoot=true;
   };
-  
-environment.etc."rclone-mnt.conf".text = ''
-[raspi]
-type = webdav
-url = http://99.107.90.205:1212
-vendor = rclone
-user = kyle
-pass = GmTnIATiofgd5DpY5iLUE3uDX4M
-'';
+
+environment.etc."rclone-mnt.conf".source = /private/rclone/rclone-mnt.conf;
 
 fileSystems."/mnt/rpi" = {
   device = "raspi:/";
@@ -74,6 +70,7 @@ fileSystems."/mnt/rpi" = {
     "nodev"
     "nofail"
     "allow_other"
+    "allow_non_empty"
     "uid=1000"
     "gid=1000"
     "args2env"
@@ -103,7 +100,7 @@ fileSystems."/tmp" = {
 
   # Enable networking
   networking.networkmanager.enable = true;
-  
+
   # Set your time zone.
   time.timeZone = "America/Chicago";
 
@@ -136,27 +133,27 @@ fileSystems."/tmp" = {
   	};
   };
   # need to figure out how to configure xkb option for ig Xwayland ? i dont want an Xorg install.
-  services.xserver = {
-  # Enable the X11 windowing system.
-  	  enable = true;
-  	
-  	  # # Enable the GNOME Desktop Environment.
-  	  # displayManager.gdm.enable = true;
-  	  # desktopManager.gnome.enable = true;
-  	  # displayManager.sddm.enable = true;
-  	  # Configure keymap in X11
-  	  xkb = {
-  	    layout = "us";
-  		options = "grp:alt_shift_toggle";
-  	    variant = "dvorak";
-  	  };	
-  };
-  
+  # services.xserver = {
+  # # Enable the X11 windowing system.
+  # 	  enable = true;
+
+  # 	  # # Enable the GNOME Desktop Environment.
+  # 	  # displayManager.gdm.enable = true;
+  # 	  # desktopManager.gnome.enable = true;
+  # 	  # displayManager.sddm.enable = true;
+  # 	  # Configure keymap in X11
+  # 	 #  xkb = {
+  # 	 #    layout = "us";
+  # 		# options = "grp:alt_shift_toggle";
+  # 	 #    variant = "dvorak";
+  # 	 #  };
+  # };
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
   # services.displayManager.autologin = {
   	# enable = true;
-  	
+
   # };
 
   # nimmy desktop environment
@@ -166,9 +163,9 @@ fileSystems."/tmp" = {
   #   ${lib.esc}
   # ''
   # services.greetd =
-  # let 
+  # let
 	# hyprland = "${pkgs.hyprland}/bin/hyprland";
-	
+
   # in {
   # 	enable = true;
   # 	settings = rec {
@@ -179,6 +176,12 @@ fileSystems."/tmp" = {
   # 		default_session = initial_session;
   # 	};
   # };
+  services.openvpn.servers = {
+    # raspiVPN = {
+    #   config = '' config /private/openvpn/linuxbook.ovpn '';
+    # };
+  };
+
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   security.polkit.enable = true;
@@ -212,16 +215,19 @@ fileSystems."/tmp" = {
       binfmt = true;
     };
     adb.enable = true;
-    firefox.enable = false;	
+    firefox.enable = false;
     fish.enable = true;
   };
   environment = {
   # todo: seperate gui and cli apps and seperate hardware specific packages, learn how to do conditional eval in nix for different hardware.
 	systemPackages = with pkgs; [
-    
-    git 
+	  # does not exist ???
+		# wireguard
+		# wireguard-tools
+		openvpn
+		git
     wget
-    
+
     # cli tools
     yazi
     gh
@@ -231,7 +237,7 @@ fileSystems."/tmp" = {
     micro
     file
 	  sshfs
-    rclone    
+    rclone
     #dev
     nixfmt-rfc-style
     nil
@@ -252,9 +258,13 @@ fileSystems."/tmp" = {
     bluetui
     playerctl
     vlc
-	  
+
+    tor
+    torctl
+    tor-browser
+    torsocks
   ];
-  
+
 	variables = {
 		EDITOR = "micro";
     GTK_THEME = "Adwaita-dark";
@@ -268,7 +278,6 @@ fileSystems."/tmp" = {
   networking.firewall.allowedUDPPortRanges = [
     { from = 1714; to = 1764; }
   ];
-
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.

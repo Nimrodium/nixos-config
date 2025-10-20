@@ -2,6 +2,7 @@
 	description = "NixOS flake";
 	inputs = {
 		nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+		nixpkgs-unstable.url = "github:/NixOS/nixpkgs/nixpkgs-unstable";
 		zen-browser = {
 			url = "github:conneroisu/zen-browser-flake";
 			inputs.nixpkgs.follows = "nixpkgs";
@@ -32,7 +33,7 @@
 
 	};
 	outputs = {self, nixpkgs,zen-browser,mac-style-plymouth, ... }@inputs:
-	let 
+	let
 		system = "x86_64-linux";
 		# in example
 		pkgs = import nixpkgs {

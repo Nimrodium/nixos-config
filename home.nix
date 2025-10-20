@@ -1,12 +1,12 @@
 { config, pkgs,lib, inputs, ... }:
-let 
+let
 	home-manager = inputs.home-manager;
 	zen-browser = inputs.zen-browser.packages.${pkgs.system}.default;
 in
 {
 	home-manager = {
 		backupFileExtension = "hmbak";
-		
+
 		users.kyle = {
 			gtk = {
 				enable = true;
@@ -65,9 +65,9 @@ in
 				# plugins = with pkgs.hyprlandPlugins; [
 				# 	hyprgrass
 				# 	hyprspace
-					
+
 				# ];
-				
+
 			};
 
 			services = {
@@ -154,7 +154,7 @@ hyprctl notify 1 200 0 "plugins loaded"
 							}
 						];
 					};
-					
+
 					hyprlock.enable = true;
 
 					micro.enable = true;
@@ -197,14 +197,14 @@ hyprctl notify 1 200 0 "plugins loaded"
 							tab_bar_min_tabs = 2;
 							tab_switch_strategy  = "previous";
 							tab_powerline_style = "slanted";
-			
+
 							active_tab_foreground  = "#000";
 							active_tab_background  = "#eee";
 							active_tab_font_style  = "bold-italic";
 							inactive_tab_foreground= "#444";
 							inactive_tab_background= "#999";
 							inactive_tab_font_style= "normal";
-			
+
 							background_opacity = 0.5;
 							background_blur = 1;
 							# font_size =11.0;
@@ -262,7 +262,7 @@ hyprctl notify 1 200 0 "plugins loaded"
 						'';
 						shellAliases = {
 							cf = "clear && fastfetch";
-							raspi = "ssh -Y kyle@raspi";
+							raspi = "ssh -Y kyle@99.107.90.205 -p 9025";
 							ls = "eza";
 							zed = "zeditor";
 							# hx = "helix";
@@ -278,9 +278,9 @@ hyprctl notify 1 200 0 "plugins loaded"
 						enable = true;
 						clean.enable = true;
 						clean.extraArgs = "--keep-since 4d --keep 3";
-						flake = "/etc/nixos/";
+						flake = "/nix/os/";
 					};
-					
+
 					distrobox = {
 						enable = true;
 						containers = {
