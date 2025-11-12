@@ -1,188 +1,78 @@
-
-/*base background color*/
-@define-color bg_main rgba(25, 25, 25, 0.65);
-@define-color bg_main_tooltip rgba(0, 0, 0, 0.7);
-
-
-/*base background color of selections */
-@define-color bg_hover rgba(200, 200, 200, 0.3);
-/*base background color of active elements */
-@define-color bg_active rgba(100, 100, 100, 0.5);
-
-/*base border color*/
-@define-color border_main rgba(255, 255, 255, 0.2);
-
-/*text color for entries, views and content in general */
-@define-color content_main white;
-/*text color for entries that are unselected */
-@define-color content_inactive rgba(255, 255, 255, 0.25);
-@define-color midground rgba(255,255,255,1);
-
+@import '/home/kyle/.cache/wal/colors-waybar.css';
 * {
-  text-shadow: none;
-  box-shadow: none;
-  border: none;
-  border-radius: 0;
-  font-family: "Segoe UI", "Ubuntu", "Symbols Nerd Font";
-  font-weight: 600;
-  font-size: 12.7px;
-}
 
-window#waybar {
-  background:  @bg_main;
-  border-top: 1px solid @border_main;
-  color: @content_main;
+    color: @foreground;
+    text-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+    font-family: "Segoe UI", "Ubuntu", "Symbols Nerd Font";
+    font-weight: 900;
+    font-size: 15.7px;
+    /* padding: 10px; */
 }
 
 tooltip {
-  background: @bg_main_tooltip;
-  border-radius: 5px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: @border_main;
+    /* margin-top: 5px; */
+    margin-bottom: 15px;
+    border-radius: 60px;
+    background: alpha(@color0,0.6);
 }
-tooltip label{
-  color: @content_main;
+window#waybar {
+    background: alpha(@background,0.1);
 }
-
-#custom-os_button {
-	font-family: "JetBrainsMono Nerd Font";
-	/* font-family: "monospace"; */
-	font-size: 24px;
-	padding-left: 20px;
-	padding-right: 20px;
-	transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-#custom-os_button:hover {
-  background:  @bg_hover;
-	color: @content_main;
+#clock {
+    padding: 10px;
 }
 
 #workspaces {
-  color: transparent;
-  	font-family:"monospace";
-	margin-right: 2.5px;
-	margin-left: 2.5px;
+    padding-left: 10px;
+    color: transparent;
+    font-family: "monospace";
+    margin-right: 2.5px;
+    margin-left: 2.5px;
+    /* margin-top: 5px;
+    margin-bottom: 10px; */
 }
+
 #workspaces button {
-  padding: 5px;
-  color: @content_inactive;
-  transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+    padding: 5px;
+    /* color: #ffffff; */
 }
 #workspaces button.active {
-	color: @content_main;
-	border-bottom: 3px solid white;
+    /* background-color: #0000ff; */
+    color: #ff0000;
 }
 #workspaces button.focused {
-  color: @bg_active;
-}
-#workspaces button.urgent {
-	background:  rgba(255, 200, 0, 0.35);
-	border-bottom: 3px dashed @warning_color;
-	color: @warning_color;
+    background-color: #ff0000;
+    color: #0000ff;
 }
 #workspaces button:hover {
-  background: @bg_hover;
-	color: @content_main;
+    background: transparent;
+    border-color: transparent;
+}
+
+#network,
+#pulseaudio,
+#bluetooth {
+    padding: 5px;
 }
 
 #taskbar {
-	/* color: #ffffff; */
-	/* margin-right:50px; */
+    margin-bottom: 5px;
+    border-radius: 60px;
+    padding: 2px;
+    background: alpha(@color1,0.1);
 }
-
 #taskbar button {
-	min-width: 30px;
-	border-bottom: 3px solid rgba(255, 255, 255, 0.3);
-	margin-left: 2px;
-	margin-right: 2px;
-  padding-left: 8px;
-  padding-right: 8px;
-  color: white;
-	transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+    margin: 0 1px;
+    border-radius: 30px;
 }
-
-#taskbar button.active {
-	border-bottom: 3px solid white;
-  background: @bg_active;
-}
-
 #taskbar button:hover {
-	border-bottom: 3px solid white;
-  background: @bg_hover;
-	color: @content_main;
+    border-color: transparent;
+    background: alpha(@cursor,0.2);
+}
+#taskbar button.active {
+    border-color: transparent;
+    background: alpha(@cursor,0.4);
 }
 
-#cpu, #disk, #memory {
-	padding:3px;
-}
-
-#temperature {
-	color: transparent;
-	font-size: 0px;
-	transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-#temperature.critical {
-	padding-right: 3px;
-	color: @warning_color;
-	font-size: initial;
-	border-bottom: 3px dashed @warning_color;
-	transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-#window {
-  border-radius: 10px;
-  margin-left: 20px;
-  margin-right: 20px;
-}
-
-#tray{
-  margin-left: 5px;
-  margin-right: 5px;
-}
-#tray > .passive {
-	border-bottom: none;
-}
-#tray > .active {
-	border-bottom: 3px solid white;
-}
-#tray > .needs-attention {
-	border-bottom: 3px solid @warning_color;
-}
-#tray > widget {
-	transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-#tray > widget:hover {
-	background: @bg_hover;
-}
-
-#pulseaudio,
-#backlight {
-	font-family: "JetBrainsMono Nerd Font";
-	padding-left: 5px;
-  padding-right: 5px;
-	transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-#pulseaudio:hover, 
-#backlight:hover {
- 	background: @bg_hover;
-}
-
-#network {
-	padding-left: 3px;
-  padding-right: 3px;
-}
-
-#language {
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#clock {
-  padding-right: 5px;
-  padding-left: 5px;
-	transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-#clock:hover {
-	background: @bg_hover;
-}

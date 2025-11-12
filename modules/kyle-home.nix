@@ -85,11 +85,13 @@ in
 				stateVersion = "25.05";
 
 				file = {
-				".config/waybar/".source = ./config/waybar;
-				".config/hypr/".source = ./config/hypr;
-				".config/fastfetch".source = ./config/fastfetch;
-				".config/wofi".source = ./config/wofi;
-				".config/waybar".source = ./config/waybar;
+				".config/waybar/".source = ../config/waybar;
+				".config/hypr/".source = ../config/hypr;
+				".config/fastfetch".source = ../config/fastfetch;
+				".config/wofi".source = ../config/wofi;
+				".config/waybar".source = ../config/waybar;
+				".config/rofi".source = ../config/rofi;
+				".config/wlogout".source = ../config/wlogout;
 
 
 

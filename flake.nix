@@ -30,9 +30,9 @@
       # Hyprspace uses latest Hyprland. We declare this to keep them in sync.
       inputs.hyprland.follows = "hyprland";
     };
-
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 	};
-	outputs = {self, nixpkgs,zen-browser,mac-style-plymouth, ... }@inputs:
+	outputs = {self, nixpkgs,zen-browser,mac-style-plymouth, nixos-hardware,... }@inputs:
 	let
 		system = "x86_64-linux";
 		# in example
@@ -47,15 +47,31 @@
 		# };
 	in
 	{
-				nixosConfigurations = {
-		linuxbook = nixpkgs.lib.nixosSystem {
-			inherit system pkgs;
-			specialArgs = {inherit inputs; };
-			modules = [
-				./configuration.nix
-				inputs.home-manager.nixosModules.home-manager
-			];
-		};
-   	};
+		nixosConfigurations = {
+		    iso = nixpkgs.lib.nixosSystem {
+						modules = [
+  		        "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
+  						"${nixpkgs}/modules/installer/cd-dvd/channel.nix"
+ 						 ./machines/iso/iso.nix
+		        ];
+				};
+		    surface = nixpkgs.lib.nixosSystem {
+			    inherit system pkgs;
+					specialArgs = { inherit inputs; };
+					modules = [
+					    ./machines/surface/surface.nix
+					    inputs.home-manager.nixosModules.home-manager
+							nixos-hardware.nixosModules.microsoft-surface-common
+					];
+				};
+    		linuxbook = nixpkgs.lib.nixosSystem {
+    			inherit system pkgs;
+    			specialArgs = {inherit inputs; };
+    			modules = [
+    				./machines/linuxbook/linuxbook.nix
+    				inputs.home-manager.nixosModules.home-manager
+    			];
+        };
+   	  };
   };
 }

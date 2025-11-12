@@ -1,45 +1,36 @@
 {
-  "$schema": "./configSchema.json",
+  "$schema": "/etc/xdg/swaync/configSchema.json",
   "positionX": "right",
-  "positionY": "bottom",
-  "layer": "overlay",
-  "control-center-layer": "top",
-  "layer-shell": true,
-  "layer-shell-cover-screen": false,
-  "cssPriority": "application",
-  "control-center-margin-top": 10,
-  "control-center-margin-bottom": 20,
-  "control-center-margin-right": 10,
-  "control-center-margin-left": 10,
-  "notification-2fa-action": true,
-  "notification-inline-replies": false,
-  "notification-icon-size": 64,
-  "notification-body-image-height": 100,
+  "positionY": "top",
+	"cssPriority": "user",
+
+  "control-center-width": 380,
+  "control-center-height": 860, 
+  "control-center-margin-top": 2,
+  "control-center-margin-bottom": 2,
+  "control-center-margin-right": 1,
+  "control-center-margin-left": 0,
+
+  "notification-window-width": 400,
+  "notification-icon-size": 48,
+  "notification-body-image-height": 160,
   "notification-body-image-width": 200,
-  "timeout": 10,
-  "timeout-low": 5,
-  "timeout-critical": 0,
+
+  "timeout": 4,
+  "timeout-low": 2,
+  "timeout-critical": 6,
+  
   "fit-to-screen": false,
-  "relative-timestamps": true,
-  "control-center-width": 500,
-  "control-center-height": 500,
-  "notification-window-width": 500,
   "keyboard-shortcuts": true,
   "image-visibility": "when-available",
   "transition-time": 200,
   "hide-on-clear": false,
-  "hide-on-action": true,
-  "text-empty": "No Notifications",
+  "hide-on-action": false,
   "script-fail-notify": true,
   "scripts": {
     "example-script": {
       "exec": "echo 'Do something...'",
       "urgency": "Normal"
-    },
-    "example-action-script": {
-      "exec": "echo 'Do something actionable!'",
-      "urgency": "Normal",
-      "run-on": "action"
     }
   },
   "notification-visibility": {
@@ -50,92 +41,57 @@
     }
   },
   "widgets": [
-    
-    "inhibitors",
+    "label",
+    "buttons-grid",
+    "mpris",
     "title",
     "dnd",
-    "notifications",
-    "mpris",
-    "buttons-grid",
-    "volume",
-    "backlight",
-    "menubar"
-    
+    "notifications"
   ],
   "widget-config": {
-    "inhibitors": {
-      "text": "Inhibitors",
-      "button-text": "Clear All",
-      "clear-all-button": true
-    },
     "title": {
       "text": "Notifications",
       "clear-all-button": true,
-      "button-text": "Clear All"
+      "button-text": " 󰎟 "
     },
     "dnd": {
-      "text": "Do Not Disturb"
+      "text": "Do not disturb"
     },
     "label": {
-      "max-lines": 5,
-      "text": "Label Text"
+      "max-lines": 1,
+      "text": " "
     },
     "mpris": {
       "image-size": 96,
-      "image-radius": 12,
-      "blur":true,
-      "blacklist": []
+      "image-radius": 12
     },
     "volume": {
-      "label": "󰕾"
+      "label": "󰕾",
+        "show-per-app": true
     },
-    "backlight": {
-      "label": "󰃟"
-    },
-    "menubar": {
-			"menu#power": {
-				"label": "Power",
-				"position": "right",
-				"actions": [
-					{
-						"label": "Shut down",
-						"command": "systemctl poweroff"
-					},
-					{
-            "label": "Suspend",
-            "command": "systemctl suspend"
-          },
-          {
-            "label": "Reboot",
-            "command": "systemctl reboot"
-          },
-          {
-            "label": "Lock",
-            "command": "hyprlock"
-          },
-          {
-            "label": "Exit",
-            "command": "hyprctl dispatch exit"
-          }
-				]
-			},
-			"buttons#screenshot": {
-				"position": "left",
-				"actions": [
-					// {
-					// 	"label": "Screenshot",
-					// 	"command": "grim"
-					// }
-					
-				]
-			}
-		},
     "buttons-grid": {
       "actions": [
         {
-            "label":"wofi",
-            "command": "wofi"
+          "label": " ",
+          "command": "amixer set Master toggle"
+        },
+        {
+          "label": "",
+          "command": "amixer set Capture toggle"
+        },
+        {
+          "label": " ",
+          "command": "nm-connection-editor"
+        },
+        {
+          "label": "󰂯",
+          "command": "blueman-manager"
+        },
+        {
+          "label": "󰏘",
+          "command": "nwg-look"
         }
+        
       ]
     }
   }

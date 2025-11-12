@@ -7,7 +7,11 @@ let cfg = config.graphical; in {
   };
 
   config = lib.mkIf cfg.enable {
-
+    fonts.packages = with pkgs; [
+      nerd-fonts.symbols-only
+      noto-fonts-cjk-sans
+      font-awesome
+    ];
     environment.systemPackages = with pkgs; [
       xfce.thunar
       kitty

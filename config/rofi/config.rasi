@@ -1,0 +1,14 @@
+configuration {
+    window {
+        location: center;
+        anchor: southwest;
+    }
+    // background: transparent;
+
+    // window {
+    //     background: red;
+    // }
+}
+// @theme "/home/kyle/.cache/wal/colors-rofi-dark.rasi"
+
+
