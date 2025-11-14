@@ -85,6 +85,7 @@ in
 				stateVersion = "25.05";
 
 				file = {
+				".wallpapers/".source = ../wallpapers;
 				".config/waybar/".source = ../config/waybar;
 				".config/hypr/".source = ../config/hypr;
 				".config/fastfetch".source = ../config/fastfetch;
@@ -92,7 +93,7 @@ in
 				".config/waybar".source = ../config/waybar;
 				".config/rofi".source = ../config/rofi;
 				".config/wlogout".source = ../config/wlogout;
-
+				
 
 
 				".config/scripts/hyprland_load_plugins.sh" ={text = ''
