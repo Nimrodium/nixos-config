@@ -13,14 +13,15 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/c24da52b-0b7a-4cfd-a062-1d598ee40560";
+  fileSystems."/" = {
+	  device = "/dev/disk/by-uuid/c24da52b-0b7a-4cfd-a062-1d598ee40560";
       fsType = "btrfs";
     };
   
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/D0B2-FD47";
-      fsType = "fat32";
+  fileSystems."/boot" = { 
+  		device = "/dev/disk/by-uuid/D0B2-FD47";
+      	fsType = "vfat";
+      	options = [ "fmask=0077" "dmask=0077" ];
     };
 
   boot.initrd.luks.devices."nvme0n1p3_crypt".device = "/dev/disk/by-uuid/d567b83c-0ddc-4f4d-bef5-11dc65c77881";

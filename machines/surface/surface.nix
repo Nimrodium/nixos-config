@@ -16,7 +16,7 @@
     loader.systemd-boot.enable =true;
     loader.efi.canTouchEfiVariables = true;
     plymouth = {
-      enable = true;
+      enable = false;
       theme = "mac-style";
       themePackages = [ pkgs.mac-style-plymouth ];
     };
@@ -30,6 +30,9 @@
       };
   };
   networking.hostName = "surface";
+  networking.networkmanager.enable = true;
+  networking.wireless.iwd.enable = true;
+  networking.networkmanager.wifi.backend = "iwd";
   time.timeZone = "America/Pacific";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {

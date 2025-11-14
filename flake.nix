@@ -61,7 +61,7 @@
 					modules = [
 					    ./machines/surface/surface.nix
 					    inputs.home-manager.nixosModules.home-manager
-							nixos-hardware.nixosModules.microsoft-surface-common
+#							nixos-hardware.nixosModules.microsoft-surface-common
 					];
 				};
     		linuxbook = nixpkgs.lib.nixosSystem {
