@@ -150,6 +150,8 @@ hyprctl notify 1 200 0 "plugins loaded"
 					# gtk.enable = true;
 					home-manager.enable = true;
 					chromium.enable = true;
+					# for zed's generic linux lsp binaries to work
+					# nix-ld.enable = true;
 					wlogout = {
 						enable = true;
 						layout = [
@@ -234,7 +236,7 @@ hyprctl notify 1 200 0 "plugins loaded"
 							"toml"
 							"html"
 							"xml"
-							"activitywatch"
+					#		"activitywatch"
 						];
 						userSettings = {
 							theme = "Github Dark Default";

@@ -38,6 +38,9 @@
     powerKey = "suspend";
     powerKeyLongPress = "poweroff";
   };
+  services.avahi = {
+  	enable = true;
+  };
   networking.hostName = "surface";
   networking.networkmanager.enable = true;
   networking.wireless.iwd.enable = true;
