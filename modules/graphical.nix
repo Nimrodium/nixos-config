@@ -40,7 +40,6 @@ let cfg = config.graphical; in {
  	  services.greetd =
     let
     hyprland = "${pkgs.hyprland}/bin/hyprland";
-
     in {
     	enable = true;
     	settings = rec {
@@ -59,5 +58,20 @@ let cfg = config.graphical; in {
       package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
       portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     };
+    # wayland.windowManager.hyprland = {
+    #   settings = {
+    #     "$mod" = "SUPER";
+    #     bind = [
+    #       "$mod, T, exec, kitty"
+    #     ]
+    #     ++ (builtins.concatLists (
+    #       builtins.genList(i: let ws = 1+ 1; in [
+    #         "$mod, code:1${toString i}, workspace, ${toString ws}"
+    #         "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"]
+    #             )
+    #           9)
+    #     );
+    #   };
+    # };
   };
 }

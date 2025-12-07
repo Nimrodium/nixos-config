@@ -9,6 +9,7 @@ let cfg = config.packages; in {
         wget
 
         # cli tools
+		acpi
         yazi
         gh
         ripgrep
@@ -16,7 +17,7 @@ let cfg = config.packages; in {
         fish
         micro
         file
-    	  sshfs
+        sshfs
         rclone
         #dev
         nixfmt-rfc-style
@@ -43,6 +44,7 @@ let cfg = config.packages; in {
         torctl
         tor-browser
         torsocks
+        darktable
     ];
     # for kde-connect
     networking.firewall.allowedTCPPortRanges = [

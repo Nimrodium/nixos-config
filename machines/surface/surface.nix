@@ -1,4 +1,4 @@
-{config, inputs, pkgs, ...}:
+{options,config, inputs, pkgs,lib, ...}:
 {
   # surface specific configuration
   imports = [
@@ -13,15 +13,15 @@
   packages.enable = true;
   rpishare.enable = true;
   boot = {
-    loader.systemd-boot.enable =true;
+    loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     plymouth = {
       enable = false;
       theme = "mac-style";
       themePackages = [ pkgs.mac-style-plymouth ];
     };
-    initrd.systemd.enable=true;
-    kernelParams = ["quiet" "splash" "boot.shell_on_fail" "udev.log_priorit"];
+    initrd.systemd.enable = true;
+    kernelParams = ["quiet" "splash" "boot.shell_on_fail" "udev.log_priorit" "i915.enable_psr=0"];
     };
     hardware = {
       bluetooth = {
@@ -29,11 +29,22 @@
         powerOnBoot=true;
       };
   };
+  # i have no idea how to import it
+  # microsoft-surface.surface-control.enable = true;
+  # microsoft-surface.kernelVersion = "surface-devel";
+
+  services.logind = {
+    lidSwitch = "suspend";
+    powerKey = "suspend";
+    powerKeyLongPress = "poweroff";
+  };
   networking.hostName = "surface";
   networking.networkmanager.enable = true;
   networking.wireless.iwd.enable = true;
   networking.networkmanager.wifi.backend = "iwd";
-  time.timeZone = "America/Pacific";
+  # networking.timeServers = options.networking.timeServers.default;
+  services.ntp.enable=true;
+  time.timeZone = "America/Chicago";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_US.UTF-8";
@@ -60,6 +71,7 @@
   	};
   };
   services = {
+	flatpak.enable = true;
     pipewire = {
       enable = true;
       alsa.enable = true;
@@ -73,10 +85,16 @@
     isNormalUser = true;
     description = "kyle";
     shell = pkgs.fish;
-    extraGroups = ["wheel" "input"];
+    extraGroups = ["wheel" "input" "networkmanager"];
   };
   networking.wireless.iwd.settings = {
     IPv6 = {Enabled = true;};
     Settings = {AutoConnet = true;};
+  };
+  hardware.xone.enable=true;
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
   };
 }

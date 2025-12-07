@@ -5,7 +5,7 @@ let
 in
 {
 	home-manager = {
-		backupFileExtension = "hmbak";
+		backupFileExtension = "hmbak2";
 
 		users.kyle = {
 			gtk = {
@@ -93,7 +93,7 @@ in
 				".config/waybar".source = ../config/waybar;
 				".config/rofi".source = ../config/rofi;
 				".config/wlogout".source = ../config/wlogout;
-				
+
 
 
 				".config/scripts/hyprland_load_plugins.sh" ={text = ''
@@ -143,6 +143,10 @@ hyprctl notify 1 200 0 "plugins loaded"
 				# 	};
 				# };
 				programs = {
+				    nix-index ={
+				        enable = true;
+								enableFishIntegration = true;
+				  };
 					# gtk.enable = true;
 					home-manager.enable = true;
 					chromium.enable = true;

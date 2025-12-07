@@ -39,6 +39,7 @@
 		pkgs = import nixpkgs {
 			inherit system;
 			config.allowUnfree = true;
+			config.allowUnfreePackages = true;
 			overlays = [ inputs.mac-style-plymouth.overlays.default ];
 		};
 		# in example
@@ -61,7 +62,7 @@
 					modules = [
 					    ./machines/surface/surface.nix
 					    inputs.home-manager.nixosModules.home-manager
-#							nixos-hardware.nixosModules.microsoft-surface-common
+							nixos-hardware.nixosModules.microsoft-surface-common
 					];
 				};
     		linuxbook = nixpkgs.lib.nixosSystem {
