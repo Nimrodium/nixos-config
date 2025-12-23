@@ -10,6 +10,7 @@
     ../../modules/packages.nix
   ];
   graphical.enable = true;
+  graphical.enableGreetd = false;
   packages.enable = true;
   rpishare.enable = true;
   boot = {
@@ -21,14 +22,36 @@
       themePackages = [ pkgs.mac-style-plymouth ];
     };
     initrd.systemd.enable = true;
-    kernelParams = ["quiet" "splash" "boot.shell_on_fail" "udev.log_priorit" "i915.enable_psr=0"];
+    kernelParams = [
+            # "quiet"
+            # "splash"
+            "boot.shell_on_fail"
+            "udev.log_priorit"
+            "i915.enable_psr=0"
+        ];
     };
     hardware = {
+      microsoft-surface = {
+        kernelVersion = "longterm";
+        # ipts.enable = true;
+        # surface-control.enable = true;
+      };
       bluetooth = {
         enable=true;
         powerOnBoot=true;
       };
   };
+
+  # microsoft-surface = {
+  #   surface-control.enable = true;
+  #   ipts.enable = true;
+  # };
+  services.iptsd.enable = true;
+  environment.systemPackages = [ pkgs.surface-control ];
+  services.desktopManager.cosmic.enable = true;
+  services.displayManager.cosmic-greeter.enable = false;
+  # services.udev.extraRules = ''SUBSYSTEM=="net", KERNEL=="wlp1s0", RUN+="/usr/sbin/iw dev $name set power_save off"'';
+  # hardware.microsoft-surface.ipts.enable = true;
   # i have no idea how to import it
   # microsoft-surface.surface-control.enable = true;
   # microsoft-surface.kernelVersion = "surface-devel";
@@ -45,6 +68,7 @@
   networking.networkmanager.enable = true;
   networking.wireless.iwd.enable = true;
   networking.networkmanager.wifi.backend = "iwd";
+  networking.networkmanager.wifi.powersave = false;
   # networking.timeServers = options.networking.timeServers.default;
   services.ntp.enable=true;
   time.timeZone = "America/Chicago";

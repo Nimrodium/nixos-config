@@ -33,7 +33,7 @@
     initrd.verbose = false;
     initrd.systemd.enable = true;
     kernelParams = [
-      "quiet"
+      # "quiet"
       "splash"
       "boot.shell_on_fail"
       "udev.log_priority=3"

@@ -4,6 +4,7 @@ let cfg = config.graphical; in {
   options.graphical = {
     enable = lib.mkEnableOption "Enable Nimmy Desktop Environment module";
     enableTouchscreen = lib.mkEnableOption "Enable touchscreen support";
+    enableGreetd = lib.mkEnableOption "enable greetd";
   };
 
   config = lib.mkIf cfg.enable {
@@ -30,26 +31,26 @@ let cfg = config.graphical; in {
       eog
       plasma5Packages.kdeconnect-kde
       networkmanagerapplet
+      jq
     ] ++ (lib.optionals cfg.enableTouchscreen [
       iio-hyprland
       iio-sensor-proxy
       wvkbd
-      jq
     ]);
 
- 	  services.greetd =
-    let
-    hyprland = "${pkgs.hyprland}/bin/hyprland";
-    in {
-    	enable = true;
-    	settings = rec {
-    		initial_session = {
-    			command = "${hyprland}";
-    			user = "kyle";
-    		};
-    		default_session = initial_session;
-    	};
-    };
+ 	  # services.greetd =
+    # let
+    # hyprland = "${pkgs.hyprland}/bin/hyprland";
+    # in {
+    # 	enable = cfg.enableGreetd;
+    # 	settings = {
+    # 		initial_session = {
+    # 			command = "${hyprland}";
+    # 			user = "kyle";
+    # 		};
+    # 		default_session = pkgs.fish;
+    # 	};
+    # };
 
     programs.hyprland = {
       withUWSM = true;

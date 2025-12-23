@@ -4,6 +4,7 @@ let cfg = config.packages; in {
     enable = lib.mkEnableOption "enable shared packages";
   };
   config = lib.mkIf cfg.enable {
+    services.sshd.enable = true;
     environment.systemPackages = with pkgs; [
     		git
         wget
@@ -29,6 +30,8 @@ let cfg = config.packages; in {
     	  clang
     	  haskell-language-server
     	  ghc
+        nixd
+        package-version-server
         # - utilities - #
         podman
         pavucontrol
@@ -62,6 +65,7 @@ let cfg = config.packages; in {
       adb.enable = true;
       firefox.enable = true;
       fish.enable = true;
+      nix-ld.enable = true;
     };
   };
 }

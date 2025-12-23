@@ -24,7 +24,6 @@ in
 					'';
 				};
 			};
-
 			dconf = {
 				enable = true;
 				settings = {
@@ -41,7 +40,6 @@ in
 					};
 				};
 			};
-
 			xdg = {
 					mimeApps = {
 					enable = true;
@@ -65,19 +63,14 @@ in
 				# plugins = with pkgs.hyprlandPlugins; [
 				# 	hyprgrass
 				# 	hyprspace
-
 				# ];
-
 			};
-
 			services = {
-				hyprpaper.enable = true;
-				podman = {
-					enable = true;
-					# settings = {
-					# };
+        hyprpaper.enable = true;
+        podman = {
+          enable = true;
+          };
 				};
-			};
 			# home.pointerCursor.hyprcursor = {
 			# 	enable = true;
 			# };

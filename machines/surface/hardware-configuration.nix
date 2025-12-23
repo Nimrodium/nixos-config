@@ -12,13 +12,13 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
-
+  # boot.kernelPackages = pkgs.linuxPackages.microsoft-surface;
   fileSystems."/" = {
 	  device = "/dev/disk/by-uuid/c24da52b-0b7a-4cfd-a062-1d598ee40560";
       fsType = "btrfs";
     };
-  
-  fileSystems."/boot" = { 
+
+  fileSystems."/boot" = {
   		device = "/dev/disk/by-uuid/D0B2-FD47";
       	fsType = "vfat";
       	options = [ "fmask=0077" "dmask=0077" ];

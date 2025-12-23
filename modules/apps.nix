@@ -7,7 +7,8 @@ let cfg = config.apps; in {
   };
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-    protonvpn-gui
+      protonvpn-gui
+
     ];
   };
 }

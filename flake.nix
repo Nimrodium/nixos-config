@@ -11,6 +11,7 @@
 			url = "github:nix-community/home-manager/release-25.05";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
 		mac-style-plymouth = {
   	url = "github:Nimrodium/nixos-plymouth-theme";
   	inputs.nixpkgs.follows = "nixpkgs";
@@ -49,9 +50,16 @@
 	in
 	{
 		nixosConfigurations = {
+		    desktop = nixpkgs.lib.nixosSystem {
+						inherit system pkgs;
+						specialArgs = { inherit inputs; };
+						    modules = [
+
+										];
+						};
 		    iso = nixpkgs.lib.nixosSystem {
 						modules = [
-  		        "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
+  		       "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
   						"${nixpkgs}/modules/installer/cd-dvd/channel.nix"
  						 ./machines/iso/iso.nix
 		        ];
@@ -63,6 +71,10 @@
 					    ./machines/surface/surface.nix
 					    inputs.home-manager.nixosModules.home-manager
 							nixos-hardware.nixosModules.microsoft-surface-common
+                {
+                nix.settings = {
+                  };
+                }
 					];
 				};
     		linuxbook = nixpkgs.lib.nixosSystem {
