@@ -1,7 +1,12 @@
 {
+  nixConfig = {
+    allowUnfree = true;
+    allowUnfreePackages = true;
+  };
   description = "NixOS flake";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     # nixpkgs-unstable.url = "github:/NixOS/nixpkgs/nixpkgs-unstable";
     zen-browser = {
       url = "github:conneroisu/zen-browser-flake";
@@ -31,7 +36,7 @@
       # Hyprspace uses latest Hyprland. We declare this to keep them in sync.
       inputs.hyprland.follows = "hyprland";
     };
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
     nixos-splash-plasma6 = {
       url = "github:nimrodium/nixos-splash-plasma6";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -47,13 +52,27 @@
       ...
     }@inputs:
     let
+      # forEachSystem =
+      #   fn:
+      #   nixpkgs.lib.genAttrs nixpkgs.lib.platforms.linux (
+      #     system: fn nixpkgs.legacyPackages.${nixpkgs.hostPlatform.system}
+      #   );
+      x86_64_linux = "x86_64-linux";
+      aarch64_linux = "aarch64-linux";
       # system = ;
-      system = "x86_64-linux";
+      # system = "x86_64-linux";
       # in example
       pkgs = import nixpkgs {
-        inherit system;
+        # inherit syste;
+        # stdenv.hostPlatform.system = x86_64-linux;
+        hostPlatform = pkgs.stdenv.hostPlatform;
+        system = x86_64_linux;
+        # hostPlatform = pkgs.hostPlatform;
         config.allowUnfree = true;
         config.allowUnfreePackages = true;
+        # config.packageOverrides = pkgs: {
+        #   rustc = pkgs.rust-bin.stable.latest.default;
+        # };
         overlays = [ inputs.mac-style-plymouth.overlays.default ];
       };
       # in example
@@ -64,7 +83,10 @@
     {
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
-          inherit system pkgs;
+          # nixpkgs.hostPlatform.system = x86_64-linux;
+          inherit pkgs;
+          system = x86_64_linux;
+
           specialArgs = { inherit inputs; };
           modules = [
             ./machines/desktop/desktop.nix
@@ -79,7 +101,10 @@
           ];
         };
         surface = nixpkgs.lib.nixosSystem {
-          inherit system pkgs;
+          # inherit system pkgs;
+          inherit pkgs;
+          system = x86_64_linux;
+          # system = pkgs.stdenv.hostPlatform.system;
           specialArgs = { inherit inputs; };
           modules = [
             ./machines/surface/surface.nix
@@ -92,7 +117,9 @@
           ];
         };
         linuxbook = nixpkgs.lib.nixosSystem {
-          inherit system pkgs;
+          # inherit system pkgs;
+          inherit pkgs;
+          system = x86_64_linux;
           specialArgs = { inherit inputs; };
           modules = [
             ./machines/linuxbook/linuxbook.nix

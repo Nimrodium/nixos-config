@@ -1,4 +1,11 @@
-{options,config, inputs, pkgs,lib, ...}:
+{
+  options,
+  config,
+  inputs,
+  pkgs,
+  lib,
+  ...
+}:
 {
   # surface specific configuration
   imports = [
@@ -13,6 +20,7 @@
   graphical.enableGreetd = false;
   packages.enable = true;
   rpishare.enable = true;
+
   boot = {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
@@ -23,22 +31,30 @@
     };
     initrd.systemd.enable = true;
     kernelParams = [
-            # "quiet"
-            # "splash"
-            "boot.shell_on_fail"
-            "udev.log_priorit"
-            "i915.enable_psr=0"
-        ];
-    };
+      # "quiet"
+      # "splash"
+      "boot.shell_on_fail"
+      "udev.log_priorit"
+      "i915.enable_psr=0"
+    ];
+    kernelPatches = [
+      {
+        name = "rust-1.91-fix";
+        patch = ./rust-fix.patch;
+      }
+    ];
+  };
   hardware = {
-    microsoft-surface = {
-      kernelVersion = "longterm";
-      # ipts.enable = true;
-      # surface-control.enable = true;
-    };
+    microsoft-surface.kernelVersion = "stable";
+    # microsoft-surface = {
+    #   kernelVersion = "stable";
+
+    #   # ipts.enable = true;
+    #   # surface-control.enable = true;
+    # };
     bluetooth = {
-      enable=true;
-      powerOnBoot=true;
+      enable = true;
+      powerOnBoot = true;
     };
   };
 
@@ -62,7 +78,7 @@
     powerKeyLongPress = "poweroff";
   };
   services.avahi = {
-  	enable = true;
+    enable = true;
   };
   # networking.hostName = "surface";
   # networking.networkmanager.enable = true;
@@ -89,7 +105,7 @@
     };
   };
   # networking.timeServers = options.networking.timeServers.default;
-  services.ntp.enable=true;
+  services.ntp.enable = true;
   time.timeZone = "America/Chicago";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
@@ -104,20 +120,20 @@
     LC_TIME = "en_US.UTF-8";
   };
   services.keyd = {
-  	enable = true;
-  	keyboards = {
-  		default = {
-  			ids = [ "*" ];
-  			settings = {
-  				main = {
-  					capslock = "backspace";
-  				};
-  			};
-  		};
-  	};
+    enable = true;
+    keyboards = {
+      default = {
+        ids = [ "*" ];
+        settings = {
+          main = {
+            capslock = "backspace";
+          };
+        };
+      };
+    };
   };
   services = {
-	flatpak.enable = true;
+    flatpak.enable = true;
     pipewire = {
       enable = true;
       alsa.enable = true;
@@ -131,10 +147,14 @@
     isNormalUser = true;
     description = "kyle";
     shell = pkgs.fish;
-    extraGroups = ["wheel" "input" "networkmanager"];
+    extraGroups = [
+      "wheel"
+      "input"
+      "networkmanager"
+    ];
   };
 
-  hardware.xone.enable=true;
+  hardware.xone.enable = true;
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
