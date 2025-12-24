@@ -1,90 +1,104 @@
 {
-	description = "NixOS flake";
-	inputs = {
-		nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-		nixpkgs-unstable.url = "github:/NixOS/nixpkgs/nixpkgs-unstable";
-		zen-browser = {
-			url = "github:conneroisu/zen-browser-flake";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
-		home-manager = {
-			url = "github:nix-community/home-manager/release-25.05";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
-		nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
-		mac-style-plymouth = {
-  	url = "github:Nimrodium/nixos-plymouth-theme";
-  	inputs.nixpkgs.follows = "nixpkgs";
-		};
-		hyprland.url = "github:hyprwm/Hyprland";
-		# hyprland-plugins = {
-		# 	url = "github:hyprwm/hyprland-plugins";
-		# 	inputs.hyprland.follows = "hyprland";
-		# };
-	  hyprgrass = {
-       url = "github:horriblename/hyprgrass";
-       inputs.hyprland.follows = "hyprland"; # IMPORTANT
+  description = "NixOS flake";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    # nixpkgs-unstable.url = "github:/NixOS/nixpkgs/nixpkgs-unstable";
+    zen-browser = {
+      url = "github:conneroisu/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-	  Hyprspace = {
+    home-manager = {
+      url = "github:nix-community/home-manager/";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
+    mac-style-plymouth = {
+      url = "github:Nimrodium/nixos-plymouth-theme";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprland.url = "github:hyprwm/Hyprland";
+    # hyprland-plugins = {
+    # 	url = "github:hyprwm/hyprland-plugins";
+    # 	inputs.hyprland.follows = "hyprland";
+    # };
+    hyprgrass = {
+      url = "github:horriblename/hyprgrass";
+      inputs.hyprland.follows = "hyprland"; # IMPORTANT
+    };
+    Hyprspace = {
       url = "github:KZDKM/Hyprspace";
 
       # Hyprspace uses latest Hyprland. We declare this to keep them in sync.
       inputs.hyprland.follows = "hyprland";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-	};
-	outputs = {self, nixpkgs,zen-browser,mac-style-plymouth, nixos-hardware,... }@inputs:
-	let
-		system = "x86_64-linux";
-		# in example
-		pkgs = import nixpkgs {
-			inherit system;
-			config.allowUnfree = true;
-			config.allowUnfreePackages = true;
-			overlays = [ inputs.mac-style-plymouth.overlays.default ];
-		};
-		# in example
-		# pkgs = import nixpkgs {
-		# 	overlays = [ inputs.mac-style-plymouth.overlays.default ];
-		# };
-	in
-	{
-		nixosConfigurations = {
-		    desktop = nixpkgs.lib.nixosSystem {
-						inherit system pkgs;
-						specialArgs = { inherit inputs; };
-						    modules = [
-
-										];
-						};
-		    iso = nixpkgs.lib.nixosSystem {
-						modules = [
-  		       "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
-  						"${nixpkgs}/modules/installer/cd-dvd/channel.nix"
- 						 ./machines/iso/iso.nix
-		        ];
-				};
-		    surface = nixpkgs.lib.nixosSystem {
-			    inherit system pkgs;
-					specialArgs = { inherit inputs; };
-					modules = [
-					    ./machines/surface/surface.nix
-					    inputs.home-manager.nixosModules.home-manager
-							nixos-hardware.nixosModules.microsoft-surface-common
-                {
-                nix.settings = {
-                  };
-                }
-					];
-				};
-    		linuxbook = nixpkgs.lib.nixosSystem {
-    			inherit system pkgs;
-    			specialArgs = {inherit inputs; };
-    			modules = [
-    				./machines/linuxbook/linuxbook.nix
-    				inputs.home-manager.nixosModules.home-manager
-    			];
-        };
-   	  };
+    nixos-splash-plasma6 = {
+      url = "github:nimrodium/nixos-splash-plasma6";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
+  outputs =
+    {
+      self,
+      nixpkgs,
+      zen-browser,
+      mac-style-plymouth,
+      nixos-hardware,
+      ...
+    }@inputs:
+    let
+      # system = ;
+      system = "x86_64-linux";
+      # in example
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        config.allowUnfreePackages = true;
+        overlays = [ inputs.mac-style-plymouth.overlays.default ];
+      };
+      # in example
+      # pkgs = import nixpkgs {
+      # 	overlays = [ inputs.mac-style-plymouth.overlays.default ];
+      # };
+    in
+    {
+      nixosConfigurations = {
+        desktop = nixpkgs.lib.nixosSystem {
+          inherit system pkgs;
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./machines/desktop/desktop.nix
+            inputs.home-manager.nixosModules.home-manager
+          ];
+        };
+        iso = nixpkgs.lib.nixosSystem {
+          modules = [
+            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
+            "${nixpkgs}/modules/installer/cd-dvd/channel.nix"
+            ./machines/iso/iso.nix
+          ];
+        };
+        surface = nixpkgs.lib.nixosSystem {
+          inherit system pkgs;
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./machines/surface/surface.nix
+            inputs.home-manager.nixosModules.home-manager
+            nixos-hardware.nixosModules.microsoft-surface-common
+            {
+              nix.settings = {
+              };
+            }
+          ];
+        };
+        linuxbook = nixpkgs.lib.nixosSystem {
+          inherit system pkgs;
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./machines/linuxbook/linuxbook.nix
+            inputs.home-manager.nixosModules.home-manager
+          ];
+        };
+      };
+    };
 }

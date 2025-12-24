@@ -29,7 +29,7 @@ let cfg = config.graphical; in {
       swaynotificationcenter
       xfce.thunar
       eog
-      plasma5Packages.kdeconnect-kde
+      # plasma5Packages.kdeconnect-kde
       networkmanagerapplet
       jq
     ] ++ (lib.optionals cfg.enableTouchscreen [

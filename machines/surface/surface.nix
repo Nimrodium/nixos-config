@@ -30,16 +30,16 @@
             "i915.enable_psr=0"
         ];
     };
-    hardware = {
-      microsoft-surface = {
-        kernelVersion = "longterm";
-        # ipts.enable = true;
-        # surface-control.enable = true;
-      };
-      bluetooth = {
-        enable=true;
-        powerOnBoot=true;
-      };
+  hardware = {
+    microsoft-surface = {
+      kernelVersion = "longterm";
+      # ipts.enable = true;
+      # surface-control.enable = true;
+    };
+    bluetooth = {
+      enable=true;
+      powerOnBoot=true;
+    };
   };
 
   # microsoft-surface = {
@@ -64,11 +64,30 @@
   services.avahi = {
   	enable = true;
   };
-  networking.hostName = "surface";
-  networking.networkmanager.enable = true;
-  networking.wireless.iwd.enable = true;
-  networking.networkmanager.wifi.backend = "iwd";
-  networking.networkmanager.wifi.powersave = false;
+  # networking.hostName = "surface";
+  # networking.networkmanager.enable = true;
+  # networking.wireless.iwd.enable = true;
+  # networking.networkmanager.wifi.backend = "iwd";
+  # networking.networkmanager.wifi.powersave = false;
+  # networking.wireless.iwd.settings = {
+  #   IPv6 = {Enabled = true;};
+  #   Settings = {AutoConnet = true;};
+  # };
+  networking = {
+    hostName = "surface";
+    networkmanager = {
+      enable = true;
+      wifi.backend = "iwd";
+      wifi.powersave = false;
+    };
+    wireless = {
+      iwd.enable = true;
+      iwd.settings = {
+        IPv6.Enabled = true;
+        Settings.AutoConnet = true;
+      };
+    };
+  };
   # networking.timeServers = options.networking.timeServers.default;
   services.ntp.enable=true;
   time.timeZone = "America/Chicago";
@@ -114,10 +133,7 @@
     shell = pkgs.fish;
     extraGroups = ["wheel" "input" "networkmanager"];
   };
-  networking.wireless.iwd.settings = {
-    IPv6 = {Enabled = true;};
-    Settings = {AutoConnet = true;};
-  };
+
   hardware.xone.enable=true;
   programs.steam = {
     enable = true;

@@ -49,6 +49,7 @@ let cfg = config.packages; in {
         torsocks
         darktable
     ];
+
     # for kde-connect
     networking.firewall.allowedTCPPortRanges = [
       { from = 1714; to = 1764; }
@@ -58,6 +59,7 @@ let cfg = config.packages; in {
       { from = 1714; to = 1764; }
     ];
     programs = {
+      kdeconnect.enable = true;
       java = {
         enable = true;
         binfmt = true;
