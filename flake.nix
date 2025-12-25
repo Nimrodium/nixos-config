@@ -5,15 +5,15 @@
   };
   description = "NixOS flake";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    # nixpkgs-unstable.url = "github:/NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs-unstable.url = "github:/NixOS/nixpkgs/nixpkgs-unstable";
     zen-browser = {
       url = "github:conneroisu/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
@@ -74,7 +74,12 @@
         # config.packageOverrides = pkgs: {
         #   rustc = pkgs.rust-bin.stable.latest.default;
         # };
-        overlays = [ inputs.mac-style-plymouth.overlays.default ];
+        overlays = [
+          inputs.mac-style-plymouth.overlays.default
+          # (final: prev: {
+          #   ytmdesktop = prev.ytmdesktop;
+          # })
+        ];
       };
       # in example
       # pkgs = import nixpkgs {

@@ -11,7 +11,7 @@ in
 {
   options.packages = {
     enable = lib.mkEnableOption "enable shared packages";
-    enableAdditional = lib.mkDefault false;
+    enableAdditional = lib.mkEnableOption "enable additional packages";
   };
   config = lib.mkIf cfg.enable {
     services.sshd.enable = true;
@@ -60,7 +60,7 @@ in
         tor-browser
         torsocks
       ]
-      ++ (lib.optional cfg.enableAddtional [
+      ++ (lib.optional cfg.enableAdditional [
         darktable
       ]);
 
