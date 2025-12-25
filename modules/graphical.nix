@@ -18,11 +18,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    hardware.graphics = {
-      package = pkgs-unstable.mesa;
-      enable32Bit = true;
-      package32 = pkgs-unstable.pkgsi686Linux.mesa;
-    };
+    # hardware.graphics = {
+    #   package = pkgs-unstable.mesa;
+    #   enable32Bit = true;
+    #   package32 = pkgs-unstable.pkgsi686Linux.mesa;
+    # };
     fonts.packages = with pkgs; [
       nerd-fonts.symbols-only
       noto-fonts-cjk-sans
