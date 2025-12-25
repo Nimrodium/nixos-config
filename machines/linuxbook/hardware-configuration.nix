@@ -25,12 +25,26 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
-
+  	# old? mmcblk0p2 e46361e0-b507-412c-a93f-5994dbb7a91c
+  	# old? mmcblk0p3 
+	# mmcblk0p2 740e97de-230d-458a-b052-159e5fcfdb75
+	# mmcblk0p3 fa47f6fa-0c53-46a2-8f7b-e74327ebdc03
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/e46361e0-b507-412c-a93f-5994dbb7a91c";
-    fsType = "ext4";
+    device = "/dev/disk/by-uuid/740e97de-230d-458a-b052-159e5fcfdb75";
+    fsType = "btrfs";
+    options = ["subvol=@nixos"];
   };
-
+  fileSystems."/mnt/.btrfs_root_volume" = {
+  	    device = "/dev/disk/by-uuid/740e97de-230d-458a-b052-159e5fcfdb75";
+		fsType = "btrfs";
+		
+  };
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/740e97de-230d-458a-b052-159e5fcfdb75";
+    fsType = "btrfs";
+    options = ["subvol=@home"];
+  };
+  
   boot.initrd.luks.devices."luks-4b5f5e00-2fe9-4859-aaa5-f36b40e31e7c".device =
     "/dev/disk/by-uuid/4b5f5e00-2fe9-4859-aaa5-f36b40e31e7c";
 

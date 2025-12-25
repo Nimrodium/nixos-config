@@ -8,7 +8,7 @@
     ../../modules/rpishare.nix
     ../../modules/packages.nix
   ];
-  graphical.enable = true;
+  graphical.enable = false;
   graphical.enableTouchscreen = true;
   packages.enable = true;
   rpishare.enable = true;
@@ -86,8 +86,22 @@
       pulse.enable = true;
     };
   };
+  services.btrfs.autoScrub = {
+  	enable = true;
+  	fileSystems = [ "/mnt/.btrfs_root_volume" ];
+  };
+  services.beesd.filesystems = {
+  	root = {
+  		spec = "/mnt/.btrfs_root_volume";
+  		hashTableSizeMB = 2048;
+  		verbosity = "crit";
+  		extraOptions = [ "--loadavg-target" "5.0" ];
+  	};
+  };
   # to speed up build timetime
   documentation.man.generateCaches = false;
+  # environment.systemPackages = with pkgs; [ fish ];
+	programs.fish.enable = true;
   users.users.kyle = {
     isNormalUser = true;
     description = "kyle";
