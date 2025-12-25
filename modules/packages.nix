@@ -11,53 +11,58 @@ in
 {
   options.packages = {
     enable = lib.mkEnableOption "enable shared packages";
+    enableAdditional = lib.mkDefault false;
   };
   config = lib.mkIf cfg.enable {
     services.sshd.enable = true;
-    environment.systemPackages = with pkgs; [
-      git
-      wget
+    environment.systemPackages =
+      with pkgs;
+      [
+        git
+        wget
 
-      # cli tools
-      acpi
-      yazi
-      gh
-      ripgrep
-      fd
-      fish
-      micro
-      file
-      sshfs
-      rclone
-      #dev
-      nixfmt-rfc-style
-      nil
-      hyprls
-      cargo # rust
-      openjdk17-bootstrap # java
-      python314 # python
-      clang
-      haskell-language-server
-      ghc
-      nixd
-      package-version-server
-      # - utilities - #
-      podman
-      pavucontrol
-      blueman
-      brightnessctl
-      pamixer
-      wl-clipboard
-      bluetui
-      playerctl
-      vlc
+        # cli tools
+        acpi
+        yazi
+        gh
+        ripgrep
+        fd
+        fish
+        micro
+        file
+        sshfs
+        rclone
+        #dev
+        nixfmt-rfc-style
+        nil
+        hyprls
+        cargo # rust
+        openjdk17-bootstrap # java
+        python314 # python
+        clang
+        haskell-language-server
+        ghc
+        nixd
+        package-version-server
+        # - utilities - #
+        podman
+        pavucontrol
+        blueman
+        brightnessctl
+        pamixer
+        wl-clipboard
+        bluetui
+        playerctl
+        vlc
 
-      tor
-      torctl
-      tor-browser
-      torsocks
-      darktable
-    ];
+        tor
+        torctl
+        tor-browser
+        torsocks
+      ]
+      ++ (lib.optional cfg.enableAddtional [
+        darktable
+      ]);
 
     # for kde-connect
     networking.firewall.allowedTCPPortRanges = [
@@ -78,6 +83,9 @@ in
       nssmdns4 = true;
       nssmdns6 = true;
     };
+    # programs = lib.mkIf cfg.enableAdditional {
+    #   steam = {};
+    # };
     programs = {
       kdeconnect.enable = true;
       java = {
