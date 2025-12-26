@@ -38,13 +38,13 @@ in
     darkly-qt5
     nixos-splash-plasma6
     libsForQt5.qtstyleplugin-kvantum
+    inputs.kwin-effects-better-blur-dx.packages.${pkgs.system}.default # Wayland
   ];
   qt.platformTheme = "kde";
   services.desktopManager.plasma6.enable = true;
   services.desktopManager.cosmic.enable = true;
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
-  services.avahi.enable = true;
   networking = {
     hostName = "desktop";
     networkmanager.enable = true;

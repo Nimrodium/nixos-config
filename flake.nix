@@ -42,6 +42,11 @@
       url = "github:nimrodium/nixos-splash-plasma6";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    kwin-effects-better-blur-dx = {
+      url = "github:xarblu/kwin-effects-better-blur-dx";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     {
@@ -76,9 +81,7 @@
         # };
         overlays = [
           inputs.mac-style-plymouth.overlays.default
-          # (final: prev: {
-          #   ytmdesktop = prev.ytmdesktop;
-          # })
+
         ];
       };
       # in example
