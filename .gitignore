@@ -1,3 +1,4 @@
 # hardware-configuration.nix
 result
 update.sh
+*.qcow2

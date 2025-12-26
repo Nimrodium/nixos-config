@@ -1,15 +1,16 @@
-{ pkgs, lib, ... }:
+{ ... }:
 {
   imports = [
     # ./apps.nix
     # ./distributedbuilds.nix
     # ./hyprland
-    ./packages.nix
+    ./shared.nix
     ./rpishare.nix
     # ./consoleUser.nix
     ./graphical.nix
     ./kyle-home.nix
     ./nix.nix
+    ./users.nix
     # ./remotebuilders.nix
     # ./shared.nix
   ];

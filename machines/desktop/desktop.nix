@@ -13,10 +13,13 @@ in
     ../../modules/modules.nix
     ./hardware-configuration.nix
   ];
-  graphical.enable = true;
-  packages.enable = true;
+  graphical.enable = false;
+  shared.enable = true;
+  shared.enableGaming = true;
+  shared.enableKeyd = true;
   rpishare.enable = true;
   kyle-home.enable = true;
+  definedUsers.kyle = true;
   boot = {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
@@ -64,19 +67,19 @@ in
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
-  services.keyd = {
-    enable = true;
-    keyboards = {
-      default = {
-        ids = [ "*" ];
-        settings = {
-          main = {
-            capslock = "backspace";
-          };
-        };
-      };
-    };
-  };
+  # services.keyd = {
+  #   enable = true;
+  #   keyboards = {
+  #     default = {
+  #       ids = [ "*" ];
+  #       settings = {
+  #         main = {
+  #           capslock = "backspace";
+  #         };
+  #       };
+  #     };
+  #   };
+  # };
   services = {
     pipewire = {
       enable = true;
@@ -86,20 +89,21 @@ in
     };
   };
   # users.groups.keyd = {};
-  users.users.kyle = {
-    isNormalUser = true;
-    description = "kyle";
-    shell = pkgs.fish;
-    extraGroups = [
-      "wheel"
-      "input"
-      "networkmanager"
-    ];
-  };
-  hardware.xone.enable = true;
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    localNetworkGameTransfers.openFirewall = true;
-  };
+  # users.users.kyle = {
+  #   isNormalUser = true;
+  #   description = "kyle";
+  #   shell = pkgs.fish;
+  #   extraGroups = [
+  #     "wheel"
+  #     "input"
+  #     "networkmanager"
+  #   ];
+  # };
+  # hardware.xone.enable = true;
+  # programs.steam = {
+  #   enable = true;
+  #   remotePlay.openFirewall = true;
+  #   localNetworkGameTransfers.openFirewall = true;
+  # };
+  system.stateVersion = "25.05";
 }

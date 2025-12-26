@@ -33,7 +33,6 @@ in
       [
         xfce.thunar
         kitty
-        chromium
         hyprpaper
         wofi
         waybar

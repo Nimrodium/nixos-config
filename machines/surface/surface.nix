@@ -14,9 +14,11 @@
   ];
   graphical.enable = true;
   graphical.enableGreetd = false;
-  packages.enable = true;
+  shared.enable = true;
+  shared.enableGaming = true;
+  shared.enableKeyd = true;
   rpishare.enable = true;
-
+  kyle-home.enable = true;
   boot = {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
@@ -145,10 +147,11 @@
     ];
   };
 
-  hardware.xone.enable = true;
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    localNetworkGameTransfers.openFirewall = true;
-  };
+  # hardware.xone.enable = true;
+  # programs.steam = {
+  #   enable = true;
+  #   remotePlay.openFirewall = true;
+  #   localNetworkGameTransfers.openFirewall = true;
+  # };
+  system.stateVersion = "25.05";
 }
