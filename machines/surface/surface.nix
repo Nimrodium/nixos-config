@@ -46,49 +46,44 @@
   };
   hardware = {
     microsoft-surface.kernelVersion = "stable";
-    # microsoft-surface = {
-    #   kernelVersion = "stable";
-
-    #   # ipts.enable = true;
-    #   # surface-control.enable = true;
-    # };
     bluetooth = {
       enable = true;
       powerOnBoot = true;
     };
   };
 
-  # microsoft-surface = {
-  #   surface-control.enable = true;
-  #   ipts.enable = true;
-  # };
   services.iptsd.enable = true;
   environment.systemPackages = [ pkgs.surface-control ];
   services.desktopManager.cosmic.enable = true;
   services.displayManager.cosmic-greeter.enable = false;
-  # services.udev.extraRules = ''SUBSYSTEM=="net", KERNEL=="wlp1s0", RUN+="/usr/sbin/iw dev $name set power_save off"'';
-  # hardware.microsoft-surface.ipts.enable = true;
-  # i have no idea how to import it
-  # microsoft-surface.surface-control.enable = true;
-  # microsoft-surface.kernelVersion = "surface-devel";
-
-  services.logind = {
-    lidSwitch = "suspend";
-    powerKey = "suspend";
-    powerKeyLongPress = "poweroff";
+  services = {
+    logind = {
+      lidSwitch = "suspend";
+      powerKey = "suspend";
+      powerKeyLongPress = "poweroff";
+    };
+    ntp.enable = true;
+    keyd = {
+      enable = true;
+      keyboards = {
+        default = {
+          ids = [ "*" ];
+          settings = {
+            main = {
+              capslock = "backspace";
+            };
+          };
+        };
+      };
+      flatpak.enable = true;
+      pipewire = {
+        enable = true;
+        alsa.enable = true;
+        alsa.support32Bit = true;
+        pulse.enable = true;
+      };
   };
-  # services.avahi = {
-  #   enable = true;
-  # };
-  # networking.hostName = "surface";
-  # networking.networkmanager.enable = true;
-  # networking.wireless.iwd.enable = true;
-  # networking.networkmanager.wifi.backend = "iwd";
-  # networking.networkmanager.wifi.powersave = false;
-  # networking.wireless.iwd.settings = {
-  #   IPv6 = {Enabled = true;};
-  #   Settings = {AutoConnet = true;};
-  # };
+
   networking = {
     hostName = "surface";
     networkmanager = {
@@ -104,8 +99,7 @@
       };
     };
   };
-  # networking.timeServers = options.networking.timeServers.default;
-  services.ntp.enable = true;
+  # services.ntp.enable = true;
   time.timeZone = "America/Chicago";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
@@ -119,28 +113,28 @@
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
-  services.keyd = {
-    enable = true;
-    keyboards = {
-      default = {
-        ids = [ "*" ];
-        settings = {
-          main = {
-            capslock = "backspace";
-          };
-        };
-      };
-    };
-  };
-  services = {
-    flatpak.enable = true;
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-    };
-  };
+  # services.keyd = {
+  #   enable = true;
+  #   keyboards = {
+  #     default = {
+  #       ids = [ "*" ];
+  #       settings = {
+  #         main = {
+  #           capslock = "backspace";
+  #         };
+  #       };
+  #     };
+  #   };
+  # };
+  # services = {
+  #   flatpak.enable = true;
+  #   pipewire = {
+  #     enable = true;
+  #     alsa.enable = true;
+  #     alsa.support32Bit = true;
+  #     pulse.enable = true;
+  #   };
+  # };
   # to speed up build timetime
   documentation.man.generateCaches = false;
   users.users.kyle = {
