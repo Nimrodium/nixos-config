@@ -1,14 +1,10 @@
 {config,inputs,pkgs,...}:
 {
   imports = [
-    ../../modules/nix.nix
+    ../../modules/modules.nix
     ./hardware-configuration.nix
-    ../../modules/graphical.nix
-    ../../modules/kyle-home.nix
-    ../../modules/rpishare.nix
-    ../../modules/packages.nix
   ];
-  graphical.enable = false;
+  graphical.enable = true;
   graphical.enableTouchscreen = true;
   packages.enable = true;
   rpishare.enable = true;
@@ -21,7 +17,7 @@
     initrd.luks.devices."luks-fa47f6fa-0c53-46a2-8f7b-e74327ebdc03".device = "/dev/disk/by-uuid/fa47f6fa-0c53-46a2-8f7b-e74327ebdc03";
 
   plymouth = {
-    enable = true;
+    enable = false;
     # retainSplash = true;
     theme = "mac-style";
     themePackages = [ pkgs.mac-style-plymouth ];
@@ -34,7 +30,7 @@
     initrd.systemd.enable = true;
     kernelParams = [
       # "quiet"
-      "splash"
+      # "splash"
       "boot.shell_on_fail"
       "udev.log_priority=3"
       "rd.systemd.show_status=auto"

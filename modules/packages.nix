@@ -22,6 +22,7 @@ in
         wget
 
         # cli tools
+		zoxide
         acpi
         yazi
         gh
@@ -62,6 +63,8 @@ in
 
         zed-editor
         fastfetch
+        eza
+        nh
       ]
       ++ (lib.optional cfg.enableAdditional [
         darktable
