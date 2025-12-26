@@ -9,12 +9,8 @@
 {
   # surface specific configuration
   imports = [
-    ../../modules/nix.nix
+    ../../modules/modules.nix
     ./hardware-configuration.nix
-    ../../modules/graphical.nix
-    ../../modules/kyle-home.nix
-    ../../modules/rpishare.nix
-    ../../modules/packages.nix
   ];
   graphical.enable = true;
   graphical.enableGreetd = false;
@@ -75,13 +71,14 @@
           };
         };
       };
-      flatpak.enable = true;
-      pipewire = {
-        enable = true;
-        alsa.enable = true;
-        alsa.support32Bit = true;
-        pulse.enable = true;
-      };
+    };
+    flatpak.enable = true;
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
   };
 
   networking = {

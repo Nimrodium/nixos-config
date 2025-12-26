@@ -13,6 +13,7 @@ in
     ../../modules/modules.nix
     ./hardware-configuration.nix
   ];
+  graphical.enable = true;
   packages.enable = true;
   rpishare.enable = true;
   kyle-home.enable = true;
