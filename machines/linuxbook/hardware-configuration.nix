@@ -32,7 +32,7 @@
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/740e97de-230d-458a-b052-159e5fcfdb75";
     fsType = "btrfs";
-    options = ["subvol=@nixos"];
+    options = ["subvol=@nixos" "compress=zstd"];
   };
   fileSystems."/mnt/.btrfs_root_volume" = {
   	    device = "/dev/disk/by-uuid/740e97de-230d-458a-b052-159e5fcfdb75";
@@ -42,7 +42,7 @@
   fileSystems."/home" = {
     device = "/dev/disk/by-uuid/740e97de-230d-458a-b052-159e5fcfdb75";
     fsType = "btrfs";
-    options = ["subvol=@home"];
+    options = ["subvol=@home" "compress=zstd"];
   };
   
   boot.initrd.luks.devices."luks-4b5f5e00-2fe9-4859-aaa5-f36b40e31e7c".device =
@@ -58,7 +58,7 @@
   };
 
   swapDevices = [
-    { device = "/dev/disk/by-uuid/d1e23c2d-c20d-4240-8ffa-96eca37d39f2"; }
+    # { device = "/dev/disk/by-uuid/d1e23c2d-c20d-4240-8ffa-96eca37d39f2"; }
   ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

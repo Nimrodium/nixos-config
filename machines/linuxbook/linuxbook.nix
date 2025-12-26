@@ -25,13 +25,13 @@
     initrd.luks.devices."luks-fa47f6fa-0c53-46a2-8f7b-e74327ebdc03".device =
       "/dev/disk/by-uuid/fa47f6fa-0c53-46a2-8f7b-e74327ebdc03";
 
-    plymouth = {
-      enable = true;
-      # retainSplash = true;
-      theme = "mac-style";
-      themePackages = [ pkgs.mac-style-plymouth ];
-      # themePackages = [pkgs.callPackage /home/kyle//nixos-plymouth-theme/src/mac-style];
-    };
+  plymouth = {
+    enable = false;
+    # retainSplash = true;
+    theme = "mac-style";
+    themePackages = [ pkgs.mac-style-plymouth ];
+    # themePackages = [pkgs.callPackage /home/kyle//nixos-plymouth-theme/src/mac-style];
+  };
 
     # Enable "Silent boot"
     consoleLogLevel = 3;
@@ -39,7 +39,7 @@
     initrd.systemd.enable = true;
     kernelParams = [
       # "quiet"
-      "splash"
+      # "splash"
       "boot.shell_on_fail"
       "udev.log_priority=3"
       "rd.systemd.show_status=auto"

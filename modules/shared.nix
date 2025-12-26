@@ -25,6 +25,7 @@ in
         wget
 
         # cli tools
+		zoxide
         acpi
         yazi
         gh
@@ -63,6 +64,8 @@ in
         torsocks
 
         fastfetch
+        eza
+        nh
       ]
       ++ (lib.optional cfg.enableAdditional [
         darktable
