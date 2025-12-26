@@ -59,6 +59,9 @@ in
         torctl
         tor-browser
         torsocks
+
+        zed-editor
+        fastfetch
       ]
       ++ (lib.optional cfg.enableAdditional [
         darktable
