@@ -6,7 +6,7 @@
   ...
 }:
 let
-  home-manager = inputs.home-manager;
+  # home-manager = inputs.home-manager;
   zen-browser = inputs.zen-browser.packages.${pkgs.system}.default;
   cfg = config.kyle-home;
 in
@@ -19,22 +19,6 @@ in
       backupFileExtension = "home-manager-backup1";
 
       users.kyle = {
-        # gtk = {
-        # 	enable = true;
-        # 	theme.name = "Adwaita-dark";
-        # 	cursorTheme.name = "Bibata-Modern-Ice";
-        # 	iconTheme.name = "Adwaita";
-        # 	gtk3.extraConfig = {
-        # 		Settings = ''
-        # 			gtk-application-prefer-dark-theme=1
-        # 		'';
-        # 	};
-        # 	gtk4.extraConfig = {
-        # 		Settings = ''
-        # 			gtk-application-prefer-dark-theme=1
-        # 		'';
-        # 	};
-        # };
         dconf = {
           enable = true;
           settings = {
@@ -51,40 +35,18 @@ in
             };
           };
         };
-        # xdg = {
-        # 		mimeApps = {
-        # 		enable = true;
-        # 		defaultApplications = {
-        # 			"x-scheme-handler/http" = "zen-browser.desktop";
-        # 			"x-scheme-handler/https" = "zen-browser.desktop";
-        # 			"x-terminal-emulator" = "kitty.desktop";
-        # 			"text/html" = "zen-browser.desktop";
-        # 		};
-        # 	};
-        # };
-
         wayland.windowManager.hyprland = {
           enable = true;
           plugins = [
-            # inputs.Hyprspace.packages.${pkgs.system}.Hyprspace
-            # inputs.hyprgrass.packages.${pkgs.system}.default
             pkgs.hyprlandPlugins.hyprspace
             pkgs.hyprlandPlugins.hyprgrass
           ];
-          # plugins = with pkgs.hyprlandPlugins; [
-          # 	hyprgrass
-          # 	hyprspace
-          # ];
         };
         services = {
-          # hyprpaper.enable = true;
           podman = {
             enable = true;
           };
         };
-        # home.pointerCursor.hyprcursor = {
-        # 	enable = true;
-        # };
         home = {
           stateVersion = "25.05";
 
@@ -128,19 +90,14 @@ in
             ])
           ];
         };
-
-        # gtk3 = {
-        # 	extraConfig = {
-        # 		gtk-theme-name = "Adwaita-dark";
-        # 		gtk-icon-theme-name = "Papirus";
-        # 	};
-        # };
-        # gtk4 = {
-        # 	extraConfig = {
-        # 		gtk-theme-name = "Adwaita-dark";
-        # 		gtk-icon-theme-name = "Papirus";
-        # 	};
-        # };
+        xdg.portal = {
+          enable = true;
+          extraPortals = with pkgs; [
+            kdePackages.xdg-desktop-portal-kde
+            xdg-desktop-portal-hyprland
+            xdg-desktop-portal-cosmic
+          ];
+        };
         programs = {
           nix-index = {
             enable = true;
@@ -149,8 +106,6 @@ in
           # gtk.enable = true;
           home-manager.enable = true;
           chromium.enable = true;
-          # for zed's generic linux lsp binaries to work
-          # nix-ld.enable = true;
           wlogout = {
             enable = true;
             layout = [
@@ -162,9 +117,7 @@ in
               }
             ];
           };
-
           hyprlock.enable = true;
-
           micro.enable = true;
           helix = {
             enable = true;
@@ -186,7 +139,6 @@ in
             enable = true;
             themeFile = "Tomorrow_Night_Bright";
             font = {
-              # name = "inconsolata";
               name = "source code pro";
               size = 11.0;
             };
@@ -217,10 +169,8 @@ in
 
               background_opacity = 0.5;
               background_blur = 1;
-              # font_size =11.0;
             };
           };
-          # open-webui.enable = true;
           zoxide = {
             enable = true;
             enableFishIntegration = true;

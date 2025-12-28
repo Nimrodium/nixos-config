@@ -7,7 +7,7 @@
 }:
 let
   cfg = config.graphical;
-  pkgs-unstable = inputs.hyprland.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  # pkgs-unstable = inputs.hyprland.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
 
@@ -18,11 +18,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # hardware.graphics = {
-    #   package = pkgs-unstable.mesa;
-    #   enable32Bit = true;
-    #   package32 = pkgs-unstable.pkgsi686Linux.mesa;
-    # };
     fonts.packages = with pkgs; [
       nerd-fonts.symbols-only
       noto-fonts-cjk-sans
@@ -55,20 +50,6 @@ in
         wvkbd
       ]);
 
-    # services.greetd =
-    # let
-    # hyprland = "${pkgs.hyprland}/bin/hyprland";
-    # in {
-    # 	enable = cfg.enableGreetd;
-    # 	settings = {
-    # 		initial_session = {
-    # 			command = "${hyprland}";
-    # 			user = "kyle";
-    # 		};
-    # 		default_session = pkgs.fish;
-    # 	};
-    # };
-
     programs.hyprland = {
       withUWSM = true;
       enable = true;
@@ -77,20 +58,5 @@ in
       # portalPackage =
       # inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     };
-    # wayland.windowManager.hyprland = {
-    #   settings = {
-    #     "$mod" = "SUPER";
-    #     bind = [
-    #       "$mod, T, exec, kitty"
-    #     ]
-    #     ++ (builtins.concatLists (
-    #       builtins.genList(i: let ws = 1+ 1; in [
-    #         "$mod, code:1${toString i}, workspace, ${toString ws}"
-    #         "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"]
-    #             )
-    #           9)
-    #     );
-    #   };
-    # };
   };
 }

@@ -17,6 +17,7 @@ in
     enableKeyd = lib.mkEnableOption "enable keyd mapping";
   };
   config = lib.mkIf cfg.enable {
+    security.lsm = lib.mkForce [ ]; # to fix distrobox SELinux error ?
     services.sshd.enable = true;
     environment.systemPackages =
       with pkgs;
@@ -25,7 +26,7 @@ in
         wget
 
         # cli tools
-		zoxide
+        zoxide
         acpi
         yazi
         gh
@@ -55,9 +56,8 @@ in
         brightnessctl
         pamixer
         wl-clipboard
-        bluetui
         playerctl
-
+        bluetuith
         tor
         torctl
 
@@ -66,32 +66,16 @@ in
         fastfetch
         eza
         nh
+
       ]
-      ++ (lib.optional cfg.enableAdditional [
-        darktable
-      ])
-      ++ (lib.optional cfg.enableGraphical [
+      ++ (lib.optionals cfg.enableGraphical [
         zed-editor
         tor-browser
         vlc
         kitty
         kdePackages.kcalc
+        darktable
       ]);
-
-    # for kde-connect
-    networking.firewall.allowedTCPPortRanges = [
-      {
-        from = 1714;
-        to = 1764;
-      }
-    ];
-
-    networking.firewall.allowedUDPPortRanges = [
-      {
-        from = 1714;
-        to = 1764;
-      }
-    ];
     services.avahi = {
       enable = true;
       nssmdns4 = true;

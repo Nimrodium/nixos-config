@@ -34,17 +34,17 @@
   fileSystems."/home" = {
     device = "/dev/disk/by-uuid/b9e924d0-a5ae-42c1-ac7d-1804031b9d3b";
     fsType = "btrfs";
-    options = [ "subvol=@home" ];
+    options = [ "subvol=@home" "compress=zstd"];
   };
   fileSystems."/mnt/hdd" = {
     device = "/dev/disk/by-uuid/11e0a1aa-8a90-4d3d-9b77-6ae641b0818d";
     fsType = "btrfs";
-    options = [ "subvol=/" ];
+    options = [ "subvol=/" "compress=zstd"];
   };
   fileSystems."/mnt/ssd" = {
     device = "/dev/disk/by-uuid/a4ea4565-d4ac-4e08-b5eb-8dbdf5cff838";
     fsType = "btrfs";
-    options = [ "subvol=/" ];
+    options = [ "subvol=/" "compress=zstd"];
   };
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/23E3-386A";
