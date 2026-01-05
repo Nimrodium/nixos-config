@@ -41,7 +41,13 @@ in
         nixfmt-rfc-style
         nil
         hyprls
-        cargo # rust
+
+        # rust
+        cargo
+        rustfmt
+        rust-analyzer
+        rustc
+
         openjdk17-bootstrap # java
         python314 # python
         clang

@@ -105,7 +105,7 @@
           modules = [
             ./machines/desktop/desktop.nix
             inputs.home-manager.nixosModules.home-manager
-            inputs.sops-linux.nixosModules.sops
+            inputs.sops-nix.nixosModules.sops
           ];
         };
         iso = nixpkgs.lib.nixosSystem {
@@ -125,7 +125,7 @@
             ./machines/surface/surface.nix
             inputs.home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.microsoft-surface-common
-            inputs.sops-linux.nixosModules.sops
+            inputs.sops-nix.nixosModules.sops
             # {
             #   nix.settings = {
             #   };
@@ -140,7 +140,7 @@
           modules = [
             ./machines/linuxbook/linuxbook.nix
             inputs.home-manager.nixosModules.home-manager
-            inputs.sops-linux.nixosModules.sops
+            inputs.sops-nix.nixosModules.sops
           ];
         };
       };
