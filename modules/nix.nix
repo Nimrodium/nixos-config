@@ -19,4 +19,18 @@
       "kyle"
     ];
   };
+  nix.registry = {
+    nixpkgs-unstable = {
+      from = {
+        type = "indirect";
+        id = "nixpkgs-unstable";
+      };
+      to = {
+        type = "github";
+        owner = "nixos";
+        repo = "nixpkgs";
+        ref = "nixos-unstable";
+      };
+    };
+  };
 }

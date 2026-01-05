@@ -75,6 +75,10 @@ in
         kitty
         kdePackages.kcalc
         darktable
+      ])
+      ++ (lib.optionals cfg.enableGaming [
+        prismlauncher
+        lutris
       ]);
     services.avahi = {
       enable = true;
@@ -97,6 +101,7 @@ in
     # programs = lib.mkIf cfg.enableAdditional {
     #   steam = {};
     # };
+
     programs = {
       fish.enable = true;
       nix-ld.enable = true;
@@ -112,8 +117,9 @@ in
         remotePlay.openFirewall = true;
         localNetworkGameTransfers.openFirewall = true;
       };
-    };
 
+    };
+    # networking.firewall.a
     virtualisation.vmVariant = {
       virtualisation.sharedDirectories = {
         test = {

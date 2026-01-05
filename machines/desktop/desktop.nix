@@ -44,7 +44,14 @@ in
     nixos-splash-plasma6
     libsForQt5.qtstyleplugin-kvantum
     inputs.kwin-effects-better-blur-dx.packages.${pkgs.system}.default # Wayland
+    unstable.winboat
+    unstable.freerdp
   ];
+  virtualisation.waydroid = {
+    enable = true;
+    package = pkgs.waydroid-nftables;
+  };
+
   qt.platformTheme = "kde";
   services.desktopManager.plasma6.enable = true;
   services.desktopManager.cosmic.enable = true;
@@ -53,6 +60,26 @@ in
   networking = {
     hostName = "desktop";
     networkmanager.enable = true;
+    hosts."192.168.1.159" = [ "louiscloud.duckdns.org" ];
+
+    nat = {
+      enable = true;
+      externalInterface = "wlp34s0";
+      internalInterfaces = [ "eno1" ];
+    };
+    interfaces."eno1" = {
+      useDHCP = false;
+      ipv4.addresses = [
+        {
+          address = "10.0.0.1";
+          prefixLength = 24;
+        }
+      ];
+    };
+    firewall.allowedUDPPorts = [
+      53
+      67
+    ];
   };
   time.timeZone = "America/Chicago";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -68,12 +95,30 @@ in
     LC_TIME = "en_US.UTF-8";
   };
   services = {
+    # kea.dhcp4 = {
+    #   enable = true;
+    #   settings = {
+    #     interfaces-config.interfaces = [ "eno1" ];
+    #     lease-database = {};
+    #   };
+    # };
+
+    flatpak.enable = true;
     pipewire = {
       enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
     };
+    # dnsmasq.enable = true;
+    # dnsmasq.bind = "10.0.0.1";
+    # dnsmasq = {
+    #   enable = true;
+    #   settings = {
+    #     interface = "eno1";
+    #     bind-interfaces
+    #   };
+    # };
   };
   system.stateVersion = "25.05";
 }

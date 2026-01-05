@@ -8,6 +8,12 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixpkgs-unstable.url = "github:/NixOS/nixpkgs/nixpkgs-unstable";
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     zen-browser = {
       url = "github:conneroisu/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -52,28 +58,28 @@
     {
       self,
       nixpkgs,
+      nixpkgs-unstable,
       zen-browser,
       mac-style-plymouth,
       nixos-hardware,
       ...
     }@inputs:
     let
-      # forEachSystem =
-      #   fn:
-      #   nixpkgs.lib.genAttrs nixpkgs.lib.platforms.linux (
-      #     system: fn nixpkgs.legacyPackages.${nixpkgs.hostPlatform.system}
-      #   );
+
       x86_64_linux = "x86_64-linux";
       aarch64_linux = "aarch64-linux";
-      # system = ;
-      # system = "x86_64-linux";
-      # in example
+      system = x86_64_linux;
+      unstable-overlay = final: prev: {
+        unstable = import nixpkgs-unstable {
+          inherit system;
+          config.allowUnfree = 1;
+        };
+      };
+      pkgsUnstable = import nixpkgs-unstable { inherit system; };
       pkgs = import nixpkgs {
-        # inherit syste;
-        # stdenv.hostPlatform.system = x86_64-linux;
+
         hostPlatform = pkgs.stdenv.hostPlatform;
         system = x86_64_linux;
-        # hostPlatform = pkgs.hostPlatform;
         config.allowUnfree = true;
         config.allowUnfreePackages = true;
         # config.packageOverrides = pkgs: {
@@ -81,10 +87,9 @@
         # };
         overlays = [
           inputs.mac-style-plymouth.overlays.default
-
+          unstable-overlay
         ];
       };
-      # in example
       # pkgs = import nixpkgs {
       # 	overlays = [ inputs.mac-style-plymouth.overlays.default ];
       # };
@@ -100,6 +105,7 @@
           modules = [
             ./machines/desktop/desktop.nix
             inputs.home-manager.nixosModules.home-manager
+            inputs.sops-linux.nixosModules.sops
           ];
         };
         iso = nixpkgs.lib.nixosSystem {
@@ -119,10 +125,11 @@
             ./machines/surface/surface.nix
             inputs.home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.microsoft-surface-common
-            {
-              nix.settings = {
-              };
-            }
+            inputs.sops-linux.nixosModules.sops
+            # {
+            #   nix.settings = {
+            #   };
+            # }
           ];
         };
         linuxbook = nixpkgs.lib.nixosSystem {
@@ -133,6 +140,7 @@
           modules = [
             ./machines/linuxbook/linuxbook.nix
             inputs.home-manager.nixosModules.home-manager
+            inputs.sops-linux.nixosModules.sops
           ];
         };
       };
