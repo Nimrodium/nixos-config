@@ -6,7 +6,9 @@
   ...
 }:
 let
-  nixos-splash-plasma6 = inputs.nixos-splash-plasma6.packages.${pkgs.system}.default;
+  nixos-splash-plasma6 = inputs.nixos-splash-plasma6.packages.${pkgs.system}.default.override {
+    splashText = "Fully Functional System";
+  };
 in
 {
   imports = [
