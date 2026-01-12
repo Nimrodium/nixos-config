@@ -23,10 +23,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
-    mac-style-plymouth = {
-      url = "github:Nimrodium/nixos-plymouth-theme";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
     # hyprland-plugins = {
@@ -48,11 +45,20 @@
       url = "github:nimrodium/nixos-splash-plasma6";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sticky = {
+      url = "github:nimrodium/sticky";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    mac-style-plymouth = {
+      url = "github:Nimrodium/nixos-plymouth-theme";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     kwin-effects-better-blur-dx = {
       url = "github:xarblu/kwin-effects-better-blur-dx";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
   };
   outputs =
     {
@@ -75,32 +81,24 @@
           config.allowUnfree = 1;
         };
       };
-      pkgsUnstable = import nixpkgs-unstable { inherit system; };
+      # pkgsUnstable = import nixpkgs-unstable { inherit system; };
       pkgs = import nixpkgs {
 
         hostPlatform = pkgs.stdenv.hostPlatform;
         system = x86_64_linux;
         config.allowUnfree = true;
         config.allowUnfreePackages = true;
-        # config.packageOverrides = pkgs: {
-        #   rustc = pkgs.rust-bin.stable.latest.default;
-        # };
         overlays = [
           inputs.mac-style-plymouth.overlays.default
           unstable-overlay
         ];
       };
-      # pkgs = import nixpkgs {
-      # 	overlays = [ inputs.mac-style-plymouth.overlays.default ];
-      # };
     in
     {
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
-          # nixpkgs.hostPlatform.system = x86_64-linux;
           inherit pkgs;
           system = x86_64_linux;
-
           specialArgs = { inherit inputs; };
           modules = [
             ./machines/desktop/desktop.nix
@@ -116,7 +114,6 @@
           ];
         };
         surface = nixpkgs.lib.nixosSystem {
-          # inherit system pkgs;
           inherit pkgs;
           system = x86_64_linux;
           # system = pkgs.stdenv.hostPlatform.system;
@@ -126,14 +123,9 @@
             inputs.home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.microsoft-surface-common
             inputs.sops-nix.nixosModules.sops
-            # {
-            #   nix.settings = {
-            #   };
-            # }
           ];
         };
         linuxbook = nixpkgs.lib.nixosSystem {
-          # inherit system pkgs;
           inherit pkgs;
           system = x86_64_linux;
           specialArgs = { inherit inputs; };

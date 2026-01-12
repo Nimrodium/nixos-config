@@ -9,6 +9,7 @@ let
   nixos-splash-plasma6 = inputs.nixos-splash-plasma6.packages.${pkgs.system}.default.override {
     splashText = "Fully Functional System";
   };
+  kwin-better-blur-dx = inputs.kwin-effects-better-blur-dx.packages.${pkgs.system}.default;
 in
 {
   imports = [
@@ -45,7 +46,7 @@ in
     darkly-qt5
     nixos-splash-plasma6
     libsForQt5.qtstyleplugin-kvantum
-    inputs.kwin-effects-better-blur-dx.packages.${pkgs.system}.default # Wayland
+    kwin-better-blur-dx # Wayland
     unstable.winboat
     unstable.freerdp
   ];
@@ -97,13 +98,6 @@ in
     LC_TIME = "en_US.UTF-8";
   };
   services = {
-    # kea.dhcp4 = {
-    #   enable = true;
-    #   settings = {
-    #     interfaces-config.interfaces = [ "eno1" ];
-    #     lease-database = {};
-    #   };
-    # };
 
     flatpak.enable = true;
     pipewire = {
@@ -112,15 +106,6 @@ in
       alsa.support32Bit = true;
       pulse.enable = true;
     };
-    # dnsmasq.enable = true;
-    # dnsmasq.bind = "10.0.0.1";
-    # dnsmasq = {
-    #   enable = true;
-    #   settings = {
-    #     interface = "eno1";
-    #     bind-interfaces
-    #   };
-    # };
   };
   system.stateVersion = "25.05";
 }

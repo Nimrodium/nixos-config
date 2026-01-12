@@ -7,6 +7,7 @@
 }:
 let
   cfg = config.shared;
+  sticky = inputs.sticky.packages.${pkgs.system}.default;
 in
 {
   options.shared = {
@@ -24,7 +25,7 @@ in
       [
         git
         wget
-
+        sticky
         # cli tools
         zoxide
         acpi
@@ -75,7 +76,8 @@ in
 
       ]
       ++ (lib.optionals cfg.enableGraphical [
-        zed-editor
+        # unstable.zed-editor
+
         tor-browser
         vlc
         kitty
