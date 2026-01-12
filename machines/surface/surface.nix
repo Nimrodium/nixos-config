@@ -55,11 +55,16 @@
   services.desktopManager.cosmic.enable = true;
   services.displayManager.cosmic-greeter.enable = false;
   services = {
-    logind = {
-      lidSwitch = "suspend";
-      powerKey = "suspend";
-      powerKeyLongPress = "poweroff";
+    logind.settings.Login = {
+      HandleLidSwitch = "suspend";
+      HandlePowerKey = "suspend";
+      HandlePowerKeyLongPress = "poweroff";
     };
+    # logind = {
+    #   lidSwitch = "suspend";
+    #   powerKey = "suspend";
+    #   powerKeyLongPress = "poweroff";
+    # };
     ntp.enable = true;
     keyd = {
       enable = true;

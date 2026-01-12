@@ -6,8 +6,9 @@
   ...
 }:
 let
+  system = pkgs.stdenv.hostPlatform.system;
   # home-manager = inputs.home-manager;
-  zen-browser = inputs.zen-browser.packages.${pkgs.system}.default;
+  zen-browser = inputs.zen-browser.packages.${system}.default;
   cfg = config.kyle-home;
 in
 {
@@ -228,7 +229,8 @@ in
               cf = "clear && fastfetch";
               raspi = "ssh -Y kyle@99.107.90.205 -p 9025";
               ls = "eza";
-              zed = "zeditor";
+              zed = "nix run nixpkgs-unstable#zed-editor";
+              # zed = "zeditor";
               # hx = "helix";
               edit = "ms-edit";
               ubuntu = "distrobox enter ubuntu-latest";

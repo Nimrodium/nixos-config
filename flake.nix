@@ -116,7 +116,6 @@
         surface = nixpkgs.lib.nixosSystem {
           inherit pkgs;
           system = x86_64_linux;
-          # system = pkgs.stdenv.hostPlatform.system;
           specialArgs = { inherit inputs; };
           modules = [
             ./machines/surface/surface.nix

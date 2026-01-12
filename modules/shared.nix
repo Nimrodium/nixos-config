@@ -6,8 +6,9 @@
   ...
 }:
 let
+  system = pkgs.stdenv.hostPlatform.system;
   cfg = config.shared;
-  sticky = inputs.sticky.packages.${pkgs.system}.default;
+  sticky = inputs.sticky.packages.${system}.default;
 in
 {
   options.shared = {

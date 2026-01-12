@@ -6,10 +6,11 @@
   ...
 }:
 let
-  nixos-splash-plasma6 = inputs.nixos-splash-plasma6.packages.${pkgs.system}.default.override {
+  system = pkgs.stdenv.hostPlatform.system;
+  nixos-splash-plasma6 = inputs.nixos-splash-plasma6.packages.${system}.default.override {
     splashText = "Fully Functional System";
   };
-  kwin-better-blur-dx = inputs.kwin-effects-better-blur-dx.packages.${pkgs.system}.default;
+  kwin-better-blur-dx = inputs.kwin-effects-better-blur-dx.packages.${system}.default;
 in
 {
   imports = [
