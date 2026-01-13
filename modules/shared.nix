@@ -78,7 +78,7 @@ in
       ]
       ++ (lib.optionals cfg.enableGraphical [
         # unstable.zed-editor
-
+		zed-editor
         tor-browser
         vlc
         kitty
