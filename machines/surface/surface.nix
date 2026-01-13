@@ -16,6 +16,7 @@
   graphical.enableGreetd = false;
   shared.enable = true;
   shared.enableGaming = true;
+  shared.enableGraphical = true;
   shared.enableKeyd = true;
   rpishare.enable = true;
   kyle-home.enable = true;
