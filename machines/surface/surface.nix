@@ -11,7 +11,9 @@
   imports = [
     ../../modules/modules.nix
     ./hardware-configuration.nix
+    ./restart-iwd.nix
   ];
+  restartIwd.enable = true;
   graphical.enable = true;
   graphical.enableGreetd = false;
   shared.enable = true;
@@ -53,8 +55,9 @@
 
   services.iptsd.enable = true;
   environment.systemPackages = [ pkgs.surface-control ];
-  services.desktopManager.cosmic.enable = true;
-  services.displayManager.cosmic-greeter.enable = false;
+  # services.desktopManager.cosmic.enable = true;
+  services.desktopManager.gnome.enable = true;
+  # services.displayManager.cosmic-greeter.enable = false;
   services = {
     logind.settings.Login = {
       HandleLidSwitch = "suspend";
