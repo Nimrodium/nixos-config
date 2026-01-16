@@ -64,11 +64,6 @@
       HandlePowerKey = "suspend";
       HandlePowerKeyLongPress = "poweroff";
     };
-    # logind = {
-    #   lidSwitch = "suspend";
-    #   powerKey = "suspend";
-    #   powerKeyLongPress = "poweroff";
-    # };
     ntp.enable = true;
     keyd = {
       enable = true;
@@ -121,28 +116,6 @@
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
-  # services.keyd = {
-  #   enable = true;
-  #   keyboards = {
-  #     default = {
-  #       ids = [ "*" ];
-  #       settings = {
-  #         main = {
-  #           capslock = "backspace";
-  #         };
-  #       };
-  #     };
-  #   };
-  # };
-  # services = {
-  #   flatpak.enable = true;
-  #   pipewire = {
-  #     enable = true;
-  #     alsa.enable = true;
-  #     alsa.support32Bit = true;
-  #     pulse.enable = true;
-  #   };
-  # };
   # to speed up build timetime
   documentation.man.generateCaches = false;
   users.users.kyle = {
@@ -155,12 +128,5 @@
       "networkmanager"
     ];
   };
-
-  # hardware.xone.enable = true;
-  # programs.steam = {
-  #   enable = true;
-  #   remotePlay.openFirewall = true;
-  #   localNetworkGameTransfers.openFirewall = true;
-  # };
   system.stateVersion = "25.05";
 }

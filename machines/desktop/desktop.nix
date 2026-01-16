@@ -47,7 +47,7 @@ in
     darkly-qt5
     nixos-splash-plasma6
     libsForQt5.qtstyleplugin-kvantum
-    kwin-better-blur-dx # Wayland
+    kwin-better-blur-dx
     unstable.winboat
     unstable.freerdp
   ];
