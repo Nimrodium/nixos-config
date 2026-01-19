@@ -51,7 +51,8 @@ in
         rustc
 
         openjdk17-bootstrap # java
-        python314 # python
+        # python314 # python
+        uv
         clang
         haskell-language-server
         ghc
@@ -121,6 +122,7 @@ in
       };
       kdeconnect.enable = cfg.enableGraphical;
       firefox.enable = cfg.enableGraphical;
+      gamemode.enable = cfg.enableGaming;
       steam = {
         enable = cfg.enableGaming;
         remotePlay.openFirewall = true;
