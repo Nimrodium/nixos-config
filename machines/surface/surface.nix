@@ -11,7 +11,9 @@
   imports = [
     ../../modules/modules.nix
     ./hardware-configuration.nix
+    ./restart-iwd.nix
   ];
+  restartIwd.enable = true;
   graphical.enable = true;
   graphical.enableGreetd = false;
   shared.enable = true;
@@ -53,19 +55,15 @@
 
   services.iptsd.enable = true;
   environment.systemPackages = [ pkgs.surface-control ];
-  services.desktopManager.cosmic.enable = true;
-  services.displayManager.cosmic-greeter.enable = false;
+  # services.desktopManager.cosmic.enable = true;
+  services.desktopManager.gnome.enable = true;
+  # services.displayManager.cosmic-greeter.enable = false;
   services = {
     logind.settings.Login = {
       HandleLidSwitch = "suspend";
       HandlePowerKey = "suspend";
       HandlePowerKeyLongPress = "poweroff";
     };
-    # logind = {
-    #   lidSwitch = "suspend";
-    #   powerKey = "suspend";
-    #   powerKeyLongPress = "poweroff";
-    # };
     ntp.enable = true;
     keyd = {
       enable = true;
@@ -118,28 +116,6 @@
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
-  # services.keyd = {
-  #   enable = true;
-  #   keyboards = {
-  #     default = {
-  #       ids = [ "*" ];
-  #       settings = {
-  #         main = {
-  #           capslock = "backspace";
-  #         };
-  #       };
-  #     };
-  #   };
-  # };
-  # services = {
-  #   flatpak.enable = true;
-  #   pipewire = {
-  #     enable = true;
-  #     alsa.enable = true;
-  #     alsa.support32Bit = true;
-  #     pulse.enable = true;
-  #   };
-  # };
   # to speed up build timetime
   documentation.man.generateCaches = false;
   users.users.kyle = {
@@ -152,12 +128,5 @@
       "networkmanager"
     ];
   };
-
-  # hardware.xone.enable = true;
-  # programs.steam = {
-  #   enable = true;
-  #   remotePlay.openFirewall = true;
-  #   localNetworkGameTransfers.openFirewall = true;
-  # };
   system.stateVersion = "25.05";
 }
