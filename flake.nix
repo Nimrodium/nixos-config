@@ -106,19 +106,19 @@
             inputs.sops-nix.nixosModules.sops
           ];
         };
-        iso = nixpkgs.lib.nixosSystem {
-          modules = [
-            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
-            "${nixpkgs}/modules/installer/cd-dvd/channel.nix"
-            ./machines/iso/iso.nix
-          ];
-        };
+        # iso = nixpkgs.lib.nixosSystem {
+        #   modules = [
+        #     "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
+        #     "${nixpkgs}/modules/installer/cd-dvd/channel.nix"
+        #     ./machines/iso/iso.nix
+        #   ];
+        # };
         surface = nixpkgs.lib.nixosSystem {
           inherit pkgs;
           system = x86_64_linux;
           specialArgs = { inherit inputs; };
           modules = [
-            ./machines/surface/surface.nix
+            ./hosts/surface/surface.nix
             inputs.home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.microsoft-surface-common
             inputs.sops-nix.nixosModules.sops
@@ -129,7 +129,7 @@
           system = x86_64_linux;
           specialArgs = { inherit inputs; };
           modules = [
-            ./machines/linuxbook/linuxbook.nix
+            ./hosts/linuxbook/linuxbook.nix
             inputs.home-manager.nixosModules.home-manager
             inputs.sops-nix.nixosModules.sops
           ];

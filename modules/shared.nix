@@ -19,6 +19,11 @@ in
     enableKeyd = lib.mkEnableOption "enable keyd mapping";
   };
   config = lib.mkIf cfg.enable {
+    environment.variables = {
+      EDITOR = "micro";
+      VISUAL = "micro";
+      NIXPKGS_ALLOW_UNFREE = 1;
+    };
     security.lsm = lib.mkForce [ ]; # to fix distrobox SELinux error ?
     services.sshd.enable = true;
     environment.systemPackages =
@@ -79,7 +84,7 @@ in
       ]
       ++ (lib.optionals cfg.enableGraphical [
         # unstable.zed-editor
-		zed-editor
+        zed-editor
         tor-browser
         vlc
         kitty
