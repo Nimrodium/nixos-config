@@ -53,10 +53,33 @@
     };
   };
 
-  services.iptsd.enable = true;
-  environment.systemPackages = [ pkgs.surface-control ];
-  # services.desktopManager.cosmic.enable = true;
   services.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
+  programs.dconf.profiles.kyle.databases = [
+    {
+      settings = {
+        "org/gnome/desktop/interface" = {
+          accent-color = "blue";
+        };
+        "org/gnome/shell" = {
+          enabled-extensions = with pkgs.gnomeExtensions; [
+            blur-my-shell.extensionUuid
+            dash-to-panel.extensionUuid
+          ];
+        };
+      };
+    }
+  ];
+
+  services.iptsd.enable = true;
+  environment.systemPackages =
+    with pkgs;
+    [ surface-control ]
+    ++ (with pkgs.gnomeExtensions; [
+      blur-my-shell
+      dash-to-panel
+    ]);
+  # services.desktopManager.cosmic.enable = true;
   # services.displayManager.cosmic-greeter.enable = false;
   services = {
     logind.settings.Login = {

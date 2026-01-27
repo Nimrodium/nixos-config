@@ -20,22 +20,22 @@ in
       backupFileExtension = "ihatehm";
 
       users.kyle = {
-        dconf = {
-          enable = true;
-          settings = {
-            "org/gnome/desktop/interface" = {
-              color-scheme = "prefer-dark";
-            };
-            "org/gnome/shell" = {
-              disable-user-extensions = false;
-              enabled-extensions = with pkgs.gnomeExtensions; [
-                blur-my-shell.extensionUuid
-                gsconnect.extensionUuid
-                dash-to-dock.extensionUuid
-              ];
-            };
-          };
-        };
+        # dconf = {
+        #   enable = true;
+        #   settings = {
+        #     "org/gnome/desktop/interface" = {
+        #       color-scheme = "prefer-dark";
+        #     };
+        #     "org/gnome/shell" = {
+        #       disable-user-extensions = false;
+        #       enabled-extensions = with pkgs.gnomeExtensions; [
+        #         blur-my-shell.extensionUuid
+        #         gsconnect.extensionUuid
+        #         dash-to-dock.extensionUuid
+        #       ];
+        #     };
+        #   };
+        # };
         wayland.windowManager.hyprland = {
           enable = true;
           plugins = [
@@ -72,23 +72,16 @@ in
               executable = true;
             };
           };
-          packages = lib.mkMerge [
-            (with pkgs; [
-              ytmdesktop
-              inconsolata
-              source-code-pro
-              krita
-              zen-browser
-              vscode
-              gdu
-              scrcpy
+          packages = with pkgs; [
+            ytmdesktop
+            inconsolata
+            source-code-pro
+            krita
+            zen-browser
+            vscode
+            gdu
+            scrcpy
 
-            ])
-            (with pkgs.gnomeExtensions; [
-              blur-my-shell
-              gsconnect
-              dash-to-dock
-            ])
           ];
         };
         xdg.portal = {
@@ -96,7 +89,8 @@ in
           extraPortals = with pkgs; [
             kdePackages.xdg-desktop-portal-kde
             xdg-desktop-portal-hyprland
-            xdg-desktop-portal-cosmic
+            # xdg-desktop-portal-cosmic
+            xdg-desktop-portal-gnome
           ];
         };
         programs = {

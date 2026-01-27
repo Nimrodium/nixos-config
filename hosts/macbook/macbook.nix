@@ -23,9 +23,30 @@ in
     ];
 
   };
-  environment.systemPackages = with pkgs; [ ];
+  environment.systemPackages =
+    with pkgs;
+    [ ]
+    ++ (with pkgs.gnomeExtensions; [
+      blur-my-shell
+      dash-to-panel
+    ]);
   services.desktopManager.gnome.enable = true;
   services.displayManager.gdm.enable = true;
+  programs.dconf.profiles.kyle.databases = [
+    {
+      settings = {
+        "org/gnome/desktop/interface" = {
+          accent-color = "blue";
+        };
+        "org/gnome/shell" = {
+          enabled-extensions = with pkgs.gnomeExtensions; [
+            blur-my-shell.extensionUuid
+            dash-to-panel.extensionUuid
+          ];
+        };
+      };
+    }
+  ];
   networking.hostname = "macbook";
   services = {
 
