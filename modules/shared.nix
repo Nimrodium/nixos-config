@@ -117,7 +117,12 @@ in
     # programs = lib.mkIf cfg.enableAdditional {
     #   steam = {};
     # };
+    networking.firewall.allowedTCPPorts = [
+      22
+      80
+      24800 # deskflow
 
+    ];
     programs = {
       fish.enable = true;
       nix-ld.enable = true;

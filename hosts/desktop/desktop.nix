@@ -50,6 +50,7 @@ in
     kwin-better-blur-dx
     unstable.winboat
     unstable.freerdp
+    maliit-keyboard
   ];
   virtualisation.waydroid = {
     enable = true;
