@@ -101,7 +101,7 @@
           system = x86_64_linux;
           specialArgs = { inherit inputs; };
           modules = [
-            ./machines/desktop/desktop.nix
+            ./hosts/desktop/desktop.nix
             inputs.home-manager.nixosModules.home-manager
             inputs.sops-nix.nixosModules.sops
           ];
@@ -123,6 +123,14 @@
             nixos-hardware.nixosModules.microsoft-surface-common
             inputs.sops-nix.nixosModules.sops
           ];
+        };
+        macbook = nixpkgs.lib.nixosSystem {
+        	inherit pkgs;
+        	system = x86_64_linux;
+        	specialArgs = {inherit inputs; };
+        	modules = [
+        		./hosts/surface/surface.nix
+        	];
         };
         linuxbook = nixpkgs.lib.nixosSystem {
           inherit pkgs;
