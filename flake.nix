@@ -125,12 +125,13 @@
           ];
         };
         macbook = nixpkgs.lib.nixosSystem {
-        	inherit pkgs;
-        	system = x86_64_linux;
-        	specialArgs = {inherit inputs; };
-        	modules = [
-        		./hosts/surface/surface.nix
-        	];
+          inherit pkgs;
+          system = x86_64_linux;
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/macbook/macbook.nix
+            inputs.home-manager.nixosModules.home-manager
+          ];
         };
         linuxbook = nixpkgs.lib.nixosSystem {
           inherit pkgs;

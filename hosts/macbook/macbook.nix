@@ -47,7 +47,7 @@ in
       };
     }
   ];
-  networking.hostname = "macbook";
+  networking.hostName = "macbook";
   services = {
 
     flatpak.enable = true;
