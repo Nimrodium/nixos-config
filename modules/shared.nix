@@ -84,7 +84,7 @@ in
       ]
       ++ (lib.optionals cfg.enableGraphical [
         # unstable.zed-editor
-        deskflow
+        unstable.deskflow
         zed-editor
         tor-browser
         vlc
