@@ -49,7 +49,6 @@ in
   ];
   networking.hostName = "macbook";
   services = {
-
     flatpak.enable = true;
     pipewire = {
       enable = true;
