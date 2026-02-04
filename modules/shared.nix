@@ -44,6 +44,7 @@ in
         file
         sshfs
         rclone
+        tree
         #dev
         nixfmt-rfc-style
         nil
@@ -83,7 +84,7 @@ in
 
       ]
       ++ (lib.optionals cfg.enableGraphical [
-        # unstable.zed-editor
+        obsidian
         unstable.deskflow
         zed-editor
         tor-browser
