@@ -82,12 +82,12 @@ in
         eza
         nh
         (writeShellScriptBin "sync-notebook" ''
-          set -x
+          # set -x
           noterepo="$HOME/Documents/Notebook"
           stamp=$(date +"%d/%m/%y")
           msg="sync $stamp from $HOSTNAME"
           g="git -C ${"$\{noterepo}"}"
-          $g pull && $g add "$noterepo/." && $g commit -m "$msg" && $g push
+          $g pull && $g add "$noterepo/." && $g commit -m "$msg" && $g push && echo success! $msg
         '')
       ]
       ++ (lib.optionals cfg.enableGraphical [
