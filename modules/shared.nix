@@ -81,7 +81,14 @@ in
         fastfetch
         eza
         nh
-
+        (writeShellScriptBin "sync-notebook" ''
+          set -x
+          noterepo="$HOME/Documents/Notebook"
+          stamp=$(date +"%d/%m/%y")
+          msg="sync $stamp from $HOSTNAME"
+          g="git -C ${"$\{noterepo}"}"
+          $g pull && $g add "$noterepo/." && $g commit -m "$msg" && $g push
+        '')
       ]
       ++ (lib.optionals cfg.enableGraphical [
         obsidian
@@ -144,12 +151,12 @@ in
     };
     # networking.firewall.a
     virtualisation.vmVariant = {
-      virtualisation.sharedDirectories = {
-        test = {
-          source = "/home/kyle/.config";
-          target = "/home/kyle/.config";
-        };
-      };
+      # virtualisation.sharedDirectories = {
+      #   test = {
+      #     source = "/home/kyle/.config";
+      #     target = "/home/kyle/.config";
+      #   };
+      # };
       virtualisation.qemu.options = [
         "-device virtio-vga-gl"
         "-display gtk,gl=on,show-cursor=off"
