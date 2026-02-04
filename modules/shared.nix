@@ -84,7 +84,7 @@ in
         (writeShellScriptBin "sync-notebook" ''
           # set -x
           noterepo="$HOME/Documents/Notebook"
-          stamp=$(date +"%d/%m/%y")
+          stamp=$(date +"%d/%m/%y %I:%M %p")
           msg="sync $stamp from $HOSTNAME"
           g="git -C ${"$\{noterepo}"}"
           $g pull && $g add "$noterepo/." && $g commit -m "$msg" && $g push && echo success! $msg
