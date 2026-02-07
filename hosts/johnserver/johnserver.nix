@@ -1,4 +1,4 @@
-{ pkgs, lib }:
+{ pkgs, lib, ... }:
 let
   system = pkgs.stdenv.hostPlatform.system;
   shared = ../../modules/shared.nix;
