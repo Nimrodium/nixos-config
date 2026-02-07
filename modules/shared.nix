@@ -9,6 +9,7 @@ let
   system = pkgs.stdenv.hostPlatform.system;
   cfg = config.shared;
   sticky = inputs.sticky.packages.${system}.default;
+  zen-browser = inputs.zen-browser.packages.${system}.default;
 in
 {
   options.shared = {
@@ -40,6 +41,8 @@ in
         gh
         ripgrep
         fd
+        gdu
+        fastfetch
         fish
         micro
         file
@@ -84,11 +87,11 @@ in
         nh
         (writeShellScriptBin "sync-notebook" ''
           # set -x
-          noterepo="$HOME/Documents/Notebook"
-          stamp=$(date +"%d/%m/%y %I:%M %p")
-          msg="sync $stamp from $HOSTNAME"
+          NOTEREPO="$HOME/Documents/Notebook"
+          STAMP=$(date +"%d/%m/%y %I:%M %p")
+          MSG="sync $STAMP from $HOSTNAME"
           g="git -C ${"$\{noterepo}"}"
-          $g pull && $g add "$noterepo/." && $g commit -m "$msg" && $g push && echo success! $msg
+          $g pull && $g add "$NOTEREPO/." && $g commit -m "$msg" && $g push && echo success! $msg
         '')
       ]
       ++ (lib.optionals cfg.enableGraphical [
@@ -100,6 +103,10 @@ in
         kitty
         kdePackages.kcalc
         darktable
+        zen-browser
+        scrcpy
+        ytmdesktop
+        krita
       ])
       ++ (lib.optionals cfg.enableGaming [
         prismlauncher
@@ -148,7 +155,6 @@ in
         remotePlay.openFirewall = true;
         localNetworkGameTransfers.openFirewall = true;
       };
-
     };
     # networking.firewall.a
     virtualisation.vmVariant = {

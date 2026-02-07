@@ -8,36 +8,20 @@
 let
   system = pkgs.stdenv.hostPlatform.system;
   # home-manager = inputs.home-manager;
-  zen-browser = inputs.zen-browser.packages.${system}.default;
   cfg = config.kyle-home;
 in
 {
   options.kyle-home = {
     enable = lib.mkEnableOption "enable kyle home";
+    enableGraphical = lib.mkEnableOption "enable graphical home settings";
   };
   config = lib.mkIf cfg.enable {
     home-manager = {
       backupFileExtension = "ihatehm";
 
       users.kyle = {
-        # dconf = {
-        #   enable = true;
-        #   settings = {
-        #     "org/gnome/desktop/interface" = {
-        #       color-scheme = "prefer-dark";
-        #     };
-        #     "org/gnome/shell" = {
-        #       disable-user-extensions = false;
-        #       enabled-extensions = with pkgs.gnomeExtensions; [
-        #         blur-my-shell.extensionUuid
-        #         gsconnect.extensionUuid
-        #         dash-to-dock.extensionUuid
-        #       ];
-        #     };
-        #   };
-        # };
         wayland.windowManager.hyprland = {
-          enable = true;
+          enable = cfg.enableGraphical;
           plugins = [
             pkgs.hyprlandPlugins.hyprspace
             pkgs.hyprlandPlugins.hyprgrass
@@ -73,19 +57,12 @@ in
             };
           };
           packages = with pkgs; [
-            ytmdesktop
-            inconsolata
-            source-code-pro
-            krita
-            zen-browser
-            vscode
-            gdu
-            scrcpy
-
+            # inconsolata
+            # source-code-pro
           ];
         };
         xdg.portal = {
-          enable = true;
+          enable = lib.mkIf cfg.enableGraphical;
           extraPortals = with pkgs; [
             kdePackages.xdg-desktop-portal-kde
             xdg-desktop-portal-hyprland
@@ -166,12 +143,11 @@ in
               background_blur = 1;
             };
           };
-          zoxide = {
-            enable = true;
-            enableFishIntegration = true;
-          };
-          fastfetch.enable = true;
-          vesktop.enable = true;
+          # zoxide = {
+          #   enable = true;
+          #   enableFishIntegration = true;
+          # };
+          vesktop.enable = cfg.enableGraphical;
           # zed-editor = {
           #   enable = false;
           #   # 	extensions = [
