@@ -106,17 +106,16 @@
             inputs.sops-nix.nixosModules.sops
           ];
         };
-        johnserver = {
-          desktop = nixpkgs.lib.nixosSystem {
-            inherit pkgs;
-            system = x86_64_linux;
-            specialArgs = { inherit inputs; };
-            modules = [
-              ./hosts/johnserver/johnserver.nix
-              inputs.home-manager.nixosModules.home-manager
-              inputs.sops-nix.nixosModules.sops
-            ];
-          };
+        johnserver = nixpkgs.lib.nixosSystem {
+          inherit pkgs;
+          system = x86_64_linux;
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/johnserver/johnserver.nix
+            inputs.home-manager.nixosModules.home-manager
+            inputs.sops-nix.nixosModules.sops
+          ];
+        };
         # iso = nixpkgs.lib.nixosSystem {
         #   modules = [
         #     "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
