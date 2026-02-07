@@ -9,7 +9,6 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixpkgs-unstable.url = "github:/NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    flake-utils.inputs.nixpkgs.follows = "nixpkgs";
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -113,23 +112,6 @@
             inputs.sops-nix.nixosModules.sops
           ];
         };
-        # johnserver = {
-        #   inherit pkgs;
-        #   system = x86_64_linux;
-        #   specialArgs = { inherit inputs; };
-        #   modules = [
-        #     ./hosts/johnserver/johnserver.nix
-        #     inputs.home-manager.nixosModules.home-manager
-        #     inputs.sops-nix.nixosModules.sops
-        #   ];
-        # };
-        # iso = nixpkgs.lib.nixosSystem {
-        #   modules = [
-        #     "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
-        #     "${nixpkgs}/modules/installer/cd-dvd/channel.nix"
-        #     ./machines/iso/iso.nix
-        #   ];
-        # };
         surface = nixpkgs.lib.nixosSystem {
           inherit pkgs;
           system = x86_64_linux;

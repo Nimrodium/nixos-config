@@ -10,7 +10,7 @@ let
   # home-manager = inputs.home-manager;
   homePrograms =
     (import ./packages.nix {
-      inherit pkgs lib;
+      inherit pkgs lib inputs;
       config = { };
     }).homePrograms;
   cfg = config.kyle-home;
@@ -67,7 +67,7 @@ in
           ];
         };
         xdg.portal = {
-          enable = lib.mkIf cfg.enableGraphical;
+          enable = cfg.enableGraphical;
           extraPortals = with pkgs; [
             kdePackages.xdg-desktop-portal-kde
             xdg-desktop-portal-hyprland

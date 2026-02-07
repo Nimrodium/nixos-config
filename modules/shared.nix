@@ -6,11 +6,14 @@
   ...
 }:
 let
-  system = pkgs.stdenv.hostPlatform.system;
+  # system = pkgs.stdenv.hostPlatform.system;
   cfg = config.shared;
-  sticky = inputs.sticky.packages.${system}.default;
-  zen-browser = inputs.zen-browser.packages.${system}.default;
-  packages' = (import ./packages.nix).packages';
+  # sticky = inputs.sticky.packages.${system}.default;
+  # zen-browser = inputs.zen-browser.packages.${system}.default;
+  packages' =
+    (import ./packages.nix {
+      inherit pkgs lib inputs;
+    }).packages';
 in
 {
   options.shared = {

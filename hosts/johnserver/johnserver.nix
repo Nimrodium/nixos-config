@@ -5,12 +5,12 @@
   ...
 }:
 let
-  shared = pkgs.callPackage ../../modules/shared.nix { inherit inputs; };
+  # shared = pkgs.callPackage ../../modules/shared.nix { inherit inputs; };
   # hm = pkgs.callPackage ../../modules/kyle-home.nix { inherit inputs; };
+  system = pkgs.stdenv.hostPlatform.system;
   packages =
     (import ../../modules/packages.nix {
-      inherit pkgs lib;
-      config = { };
+      inherit pkgs lib system;
     }).packages'
       false
       false;

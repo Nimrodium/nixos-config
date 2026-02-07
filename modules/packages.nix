@@ -1,9 +1,14 @@
 {
   pkgs,
-  config,
   lib,
+  inputs,
   ...
 }:
+let
+  system = pkgs.stdenv.hostPlatform.system;
+  sticky = inputs.sticky.packages.${system}.default;
+  zen-browser = inputs.zen-browser.packages.${system}.default;
+in
 {
   packages' =
     graphical: gaming:
