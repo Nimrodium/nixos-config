@@ -17,6 +17,8 @@ in
       git
       wget
       sticky
+      helix
+      btop
       # cli tools
       caligula
       zoxide

@@ -107,9 +107,9 @@ in
               theme = "autumn-night";
             };
           };
-          eza.enable = true;
-          btop.enable = true;
-          bat.enable = true;
+          # eza.enable = true;
+          # btop.enable = true;
+          # bat.enable = true;
           kitty = {
             enable = true;
             themeFile = "Tomorrow_Night_Bright";
