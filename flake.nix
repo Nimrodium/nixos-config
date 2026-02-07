@@ -8,6 +8,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixpkgs-unstable.url = "github:/NixOS/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+    flake-utils.inputs.nixpkgs.follows = "nixpkgs";
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -95,7 +97,7 @@
       };
     in
     {
-      homeConfigurations."kyle" = inputs.home-manager.lib.homeManagerConfigurations {
+      homeConfigurations."kyle" = inputs.home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [ ./hosts/johnserver/johnserver.nix ];
         extraSpecialArgs = { inherit inputs; };
