@@ -1,5 +1,9 @@
 name: Update-Flake
-run-name: ${{ github.actor }} is testing out GitHub Actions TEST 🚀
+run-name: Updating NixOS Flake !
+permissions:
+  contents: write
+  pull-requests: write
+
 on:
   schedule:
     - cron: "* 2 */14 * *" # every 14 days at 2am
