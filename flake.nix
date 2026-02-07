@@ -66,8 +66,6 @@
       self,
       nixpkgs,
       nixpkgs-unstable,
-      zen-browser,
-      mac-style-plymouth,
       nixos-hardware,
       ...
     }@inputs:

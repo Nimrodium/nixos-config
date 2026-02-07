@@ -36,6 +36,10 @@ jobs:
         run: nix flake update --accept-flake-config
       - name: Testing nix configuration
         run: nix flake check
+      - name: Build Desktop Configuration
+        run: nix build .#desktop
+      - name: Build Surface Configuration
+        run: nix build .#surface
       # - name: GitHub Commit & Push
       #   uses: actions-js/push@v1.5
       - name: Create Pull Request
