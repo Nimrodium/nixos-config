@@ -1,5 +1,5 @@
 name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: ${{ github.actor }} is testing out GitHub Actions TEST 🚀
 on:
   schedule:
     - cron: "* 2 */14 * *" # every 14 days at 2am
@@ -9,6 +9,8 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: self-hosted
     steps:
+      - run: echo "the server name is ${{ HOSTNAME }}"
+      - run: cat /etc/os-release
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
