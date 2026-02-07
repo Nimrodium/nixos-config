@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  Explore-GitHub-Actions:
+  Update-Flake:
     runs-on: self-hosted
     steps:
       - run: echo "the server name is ${{ HOSTNAME }}"
@@ -22,3 +22,13 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: Create Branch
+        uses: peterjgrainger/action-create-branch@v3.0.0
+        with:
+          branch: "update-candidate"
+      - name: Updating flake
+        run: nix flake update .
+      - name: Testing nix configuration
+        run: nix flake check .
+      # - name: GitHub Commit & Push
+      #   uses: actions-js/push@v1.5
