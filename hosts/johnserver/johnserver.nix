@@ -11,7 +11,7 @@ in
   # backupFileExtension = "kys-home-manager";
   home.username = "kyle";
   home.homeDirectory = "/home/kyle";
-  stateVersion = "25.11";
+  home.stateVersion = "25.11";
   file = home.file;
   inherit packages;
 }
