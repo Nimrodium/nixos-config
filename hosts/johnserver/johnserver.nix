@@ -26,7 +26,7 @@ in
     stateVersion = "25.11";
     inherit packages;
     file = {
-      ".config/fastfetch".source = ../config/fastfetch;
+      ".config/fastfetch".source = ../../config/fastfetch;
     };
   };
 }

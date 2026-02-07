@@ -146,42 +146,7 @@ in
               background_blur = 1;
             };
           };
-          # zoxide = {
-          #   enable = true;
-          #   enableFishIntegration = true;
-          # };
-          vesktop.enable = cfg.enableGraphical;
-          # zed-editor = {
-          #   enable = false;
-          #   # 	extensions = [
-          #   # 		"nix"
-          #   # 		"assembly syntax"
-          #   # 		"github dark default"
-          #   # 		"git firefly"
-          #   # 		"toml"
-          #   # 		"html"
-          #   # 		"xml"
-          #   # #		"activitywatch"
-          #   # 	];
-          #   # userSettings = {
-          #   # 	theme = "Github Dark Default";
-          #   # 	show_edit_predictions = false;
-          #   # 	agent = {
-          #   # 		default_profile = "minimal";
-          #   # 		default_model = {
-          #   # 			provider = "zed.dev";
-          #   # 			model = "claude-sonnet-4";
-          #   # 		};
-          #   # 		version = "2";
-          #   # 	};
-          #   # 	features = {
-          #   # 		edit_prediction_provider = "supermaven";
-          #   # 	};
-          #   # 	ui_font_size = 16;
-          #   # 	buffer_font_size = 12.0;
-          #   # };
-          # };
-
+          # vesktop.enable = cfg.enableGraphical;
           distrobox = {
             enable = true;
             containers = {
