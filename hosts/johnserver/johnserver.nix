@@ -25,5 +25,8 @@ in
     homeDirectory = "/home/kyle";
     stateVersion = "25.11";
     inherit packages;
+    file = {
+      ".config/fastfetch".source = ../config/fastfetch;
+    };
   };
 }

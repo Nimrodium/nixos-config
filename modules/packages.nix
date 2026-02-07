@@ -18,6 +18,7 @@
       acpi
       yazi
       gh
+      bat
       ripgrep
       fd
       gdu
@@ -85,10 +86,51 @@
       zen-browser
       scrcpy
       ytmdesktop
+      vesktop
       krita
     ])
     ++ (lib.optionals gaming [
       prismlauncher
       lutris
     ]);
+  homePrograms = {
+    git = {
+      enable = true;
+      settings = {
+        user = {
+          name = "nimrodium";
+          email = "nimrodium@protonmail.com";
+        };
+      };
+    };
+    fish = {
+      enable = true;
+      plugins = [ ];
+      interactiveShellInit = ''
+        							zoxide init --cmd cd fish | source
+        							set -g fish_greeting ""
+        							fastfetch
+        						'';
+      shellAliases = {
+        cf = "clear && fastfetch";
+        raspi = "ssh -Y kyle@99.107.90.205 -p 9025";
+        ls = "eza";
+        # zed = "nix run nixpkgs-unstable#zed-editor";
+        zed = "zeditor";
+        # hx = "helix";
+        edit = "ms-edit";
+        ubuntu = "distrobox enter ubuntu-latest";
+        # showgpu = "lspci -nnk | rg 28:00 -A 5";
+        # windows = "virsh start win11-gpu-no-spice";
+        # stopwindows = "virsh shutdown win11-gpu-no-spice";
+        # soft-reboot = "sudo systemctl soft-reboot";
+      };
+    };
+    nh = {
+      enable = true;
+      clean.enable = true;
+      clean.extraArgs = "--keep-since 4d --keep 3";
+      flake = "/etc/nixos";
+    };
+  };
 }
