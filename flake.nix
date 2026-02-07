@@ -95,6 +95,11 @@
       };
     in
     {
+      homeConfigurations."kyle" = inputs.home-manager.lib.homeManagerConfigurations {
+        inherit pkgs;
+        modules = [ ./hosts/johnserver/johnserver.nix ];
+        extraSpecialArgs = { inherit inputs; };
+      };
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
           inherit pkgs;
@@ -106,16 +111,16 @@
             inputs.sops-nix.nixosModules.sops
           ];
         };
-        johnserver = nixpkgs.lib.nixosSystem {
-          inherit pkgs;
-          system = x86_64_linux;
-          specialArgs = { inherit inputs; };
-          modules = [
-            ./hosts/johnserver/johnserver.nix
-            inputs.home-manager.nixosModules.home-manager
-            inputs.sops-nix.nixosModules.sops
-          ];
-        };
+        # johnserver = {
+        #   inherit pkgs;
+        #   system = x86_64_linux;
+        #   specialArgs = { inherit inputs; };
+        #   modules = [
+        #     ./hosts/johnserver/johnserver.nix
+        #     inputs.home-manager.nixosModules.home-manager
+        #     inputs.sops-nix.nixosModules.sops
+        #   ];
+        # };
         # iso = nixpkgs.lib.nixosSystem {
         #   modules = [
         #     "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
