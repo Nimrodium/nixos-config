@@ -1,8 +1,8 @@
 { pkgs, lib, ... }:
 let
   system = pkgs.stdenv.hostPlatform.system;
-  shared = ../../modules/shared.nix;
-  hm = ../../modules/shared.nix;
+  shared = pkgs.callPackage ../../modules/shared.nix { };
+  hm = pkgs.callPackage ../../modules/shared.nix { };
   packages = shared.config.environment.systemPackages;
   home = hm.users.kyle.home;
 in
