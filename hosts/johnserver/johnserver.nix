@@ -13,7 +13,7 @@ let
       inherit pkgs lib inputs;
     }
   );
-  packages = idkwhattocallthis.packages' false false;
+  packages = (idkwhattocallthis.packages' false false) ++ (with pkgs; [ ]);
   homePrograms = idkwhattocallthis.homePrograms;
   # home
 in
