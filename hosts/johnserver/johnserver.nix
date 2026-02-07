@@ -33,14 +33,6 @@ in
       ".config/fastfetch".source = ../../config/fastfetch;
     };
   };
-  services.github-runners = {
-    johnserver = {
-      enable = true;
-      tokenFile = "./secrets/github-token";
-      workDir = "~/.github-actions";
-      user = "kyle";
-      url = "https://github.com/nimrodium/nixos-config";
-    };
-  };
+
   programs = homePrograms // { };
 }

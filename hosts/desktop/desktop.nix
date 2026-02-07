@@ -109,5 +109,14 @@ in
       pulse.enable = true;
     };
   };
+  services.github-runners = {
+    desktop = {
+      enable = true;
+      tokenFile = "/home/kyle/secrets/github-token";
+      # workDir = "~/.github-actions";
+      user = "kyle";
+      url = "https://github.com/nimrodium/nixos-config";
+    };
+  };
   system.stateVersion = "25.05";
 }
