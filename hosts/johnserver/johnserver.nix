@@ -8,13 +8,12 @@ let
   # shared = pkgs.callPackage ../../modules/shared.nix { inherit inputs; };
   # hm = pkgs.callPackage ../../modules/kyle-home.nix { inherit inputs; };
   system = pkgs.stdenv.hostPlatform.system;
-  idkwhattocallthis = (import ../../modules/packages.nix {
-    inherit pkgs lib inputs;
-  });
-  packages =
-    idkwhattocallthis.packages'
-      false
-      false;
+  idkwhattocallthis = (
+    import ../../modules/packages.nix {
+      inherit pkgs lib inputs;
+    }
+  );
+  packages = idkwhattocallthis.packages' false false;
   homePrograms = idkwhattocallthis.homePrograms;
   # home
 in
@@ -24,15 +23,24 @@ in
 
   home = {
     sessionVariables = {
-      TERM="xterm";
+      TERM = "xterm";
     };
     username = "kyle";
     homeDirectory = "/home/kyle";
     stateVersion = "25.11";
-    packages = (packages ++ (with pkgs; [home-manager]));
+    packages = (packages ++ (with pkgs; [ home-manager ]));
     file = {
       ".config/fastfetch".source = ../../config/fastfetch;
     };
   };
-  programs = homePrograms // {};
+  services.github-runners = {
+    johnserver = {
+      enable = true;
+      tokenFile = "./secrets/github-token";
+      workDir = "~/.github-actions";
+      user = "kyle";
+      url = "https://github.com/nimrodium/nixos-config";
+    };
+  };
+  programs = homePrograms // { };
 }

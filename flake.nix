@@ -123,15 +123,15 @@
             inputs.sops-nix.nixosModules.sops
           ];
         };
-        macbook = nixpkgs.lib.nixosSystem {
-          inherit pkgs;
-          system = x86_64_linux;
-          specialArgs = { inherit inputs; };
-          modules = [
-            ./hosts/macbook/macbook.nix
-            inputs.home-manager.nixosModules.home-manager
-          ];
-        };
+        # macbook = nixpkgs.lib.nixosSystem {
+        #   inherit pkgs;
+        #   system = x86_64_linux;
+        #   specialArgs = { inherit inputs; };
+        #   modules = [
+        #     ./hosts/macbook/macbook.nix
+        #     inputs.home-manager.nixosModules.home-manager
+        #   ];
+        # };
         linuxbook = nixpkgs.lib.nixosSystem {
           inherit pkgs;
           system = x86_64_linux;

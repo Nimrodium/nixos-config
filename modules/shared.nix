@@ -32,11 +32,34 @@ in
     security.lsm = lib.mkForce [ ]; # to fix distrobox SELinux error ?
     services.sshd.enable = true;
     environment.systemPackages = packages' cfg.enableGraphical cfg.enableGaming;
+    services.resolved = {
+      enable = true;
+      fallbackDns = [
+        "8.8.8.8"
+        "2001:4860:4860::8844"
+      ];
+    };
     services.avahi = {
       enable = true;
-      nssmdns4 = true;
-      nssmdns6 = true;
+
+      # nssmdns4 = true;
+      # nssmdns6 = true;
+      publish = {
+        enable = true;
+        addresses = true;
+        domain = true;
+        hinfo = true;
+        userServices = true;
+        workstation = true;
+      };
     };
+    networking.networkmanager.connectionConfig."connection.mdns" = 2;
+    networking.firewall.allowedTCPPorts = [
+      22
+      80
+      24800 # deskflow
+
+    ];
     services.keyd = lib.mkIf cfg.enableKeyd {
       enable = true;
       keyboards = {
@@ -53,12 +76,7 @@ in
     # programs = lib.mkIf cfg.enableAdditional {
     #   steam = {};
     # };
-    networking.firewall.allowedTCPPorts = [
-      22
-      80
-      24800 # deskflow
 
-    ];
     programs = {
       fish.enable = true;
       nix-ld.enable = true;
