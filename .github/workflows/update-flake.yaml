@@ -33,8 +33,10 @@ jobs:
         with:
           branch: "update-candidate"
       - name: Updating flake
-        run: nix flake update
+        run: nix flake update --accept-flake-config
       - name: Testing nix configuration
         run: nix flake check
       # - name: GitHub Commit & Push
       #   uses: actions-js/push@v1.5
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v8.1.0
