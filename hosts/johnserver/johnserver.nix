@@ -7,7 +7,7 @@
 let
   shared = pkgs.callPackage ../../modules/shared.nix { inherit inputs; };
   # hm = pkgs.callPackage ../../modules/kyle-home.nix { inherit inputs; };
-  packages = shared.config.environment.systemPackages;
+  packages = (import ../../modules/packages.nix).packages' false false;
   # home = hm.users.kyle.home;
 in
 {
