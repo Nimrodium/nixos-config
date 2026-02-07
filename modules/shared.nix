@@ -33,6 +33,7 @@ in
         wget
         sticky
         # cli tools
+        caligula
         zoxide
         acpi
         yazi
