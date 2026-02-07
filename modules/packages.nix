@@ -35,6 +35,7 @@ in
       file
       sshfs
       rclone
+      restic
       tree
       #dev
       nixfmt-rfc-style
@@ -82,6 +83,7 @@ in
       '')
     ]
     ++ (lib.optionals graphical [
+      restic-browser
       obsidian
       unstable.deskflow
       zed-editor
