@@ -9,7 +9,7 @@ jobs:
   Update-Flake:
     runs-on: self-hosted
     steps:
-      - run: echo "the server name is ${{ HOSTNAME }}"
+      - run: echo "the server name is $HOSTNAME"
       - run: cat /etc/os-release
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
