@@ -28,7 +28,10 @@ in
       EDITOR = "micro";
       VISUAL = "micro";
       NIXPKGS_ALLOW_UNFREE = 1;
+      RESTIC_PASSWORD_FILE = "~/secrets/restic/password";
+      RESTIC_REPOSITORY_FILE = "~/secrets/restic/repository";
     };
+
     security.lsm = lib.mkForce [ ]; # to fix distrobox SELinux error ?
     services.sshd.enable = true;
     environment.systemPackages = packages' cfg.enableGraphical cfg.enableGaming;
