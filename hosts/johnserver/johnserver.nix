@@ -34,5 +34,19 @@ in
     };
   };
 
-  programs = homePrograms // { };
+  programs = homePrograms // {
+
+    ssh = {
+      enableDefaultConfig = false;
+      enable = true;
+      matchBlocks = {
+        surface = {
+          hostname = "localhost";
+          user = "kyle";
+          port = 8022;
+        };
+      };
+    };
+
+  };
 }

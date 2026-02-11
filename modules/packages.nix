@@ -21,6 +21,7 @@ in
       btop
       # cli tools
       caligula
+      lsof
       zoxide
       acpi
       yazi
@@ -78,7 +79,7 @@ in
         NOTEREPO="$HOME/Documents/Notebook"
         STAMP=$(date +"%d/%m/%y %I:%M %p")
         MSG="sync $STAMP from $HOSTNAME"
-        g="git -C ${"$\{noterepo}"}"
+        g="git -C ${"$\{NOTEREPO}"}"
         $g pull && $g add "$NOTEREPO/." && $g commit -m "$msg" && $g push && echo success! $msg
       '')
     ]
