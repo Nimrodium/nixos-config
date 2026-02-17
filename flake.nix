@@ -50,6 +50,10 @@
       url = "github:nimrodium/sticky";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    daisy = {
+      url = "github:nimrodium/daisy";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     mac-style-plymouth = {
       url = "github:Nimrodium/nixos-plymouth-theme";
       inputs.nixpkgs.follows = "nixpkgs";

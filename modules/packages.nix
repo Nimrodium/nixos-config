@@ -7,6 +7,7 @@
 let
   system = pkgs.stdenv.hostPlatform.system;
   sticky = inputs.sticky.packages.${system}.default;
+  daisy = inputs.daisy.packages.${system}.default;
   zen-browser = inputs.zen-browser.packages.${system}.default;
 in
 {
@@ -17,6 +18,7 @@ in
       git
       wget
       sticky
+      daisy
       helix
       btop
       # cli tools
@@ -54,6 +56,7 @@ in
       uv
       clang
       haskell-language-server
+      java-language-server
       ghc
       nixd
       package-version-server
@@ -79,8 +82,8 @@ in
         NOTEREPO="$HOME/Documents/Notebook"
         STAMP=$(date +"%d/%m/%y %I:%M %p")
         MSG="sync $STAMP from $HOSTNAME"
-        g="git -C ${"$\{NOTEREPO}"}"
-        $g pull && $g add "$NOTEREPO/." && $g commit -m "$msg" && $g push && echo success! $msg
+        G="git -C ${"$\{NOTEREPO}"}"
+        $G pull && $G add "$NOTEREPO/." && $G commit -m "$MSG" && $G push && echo success! $MSG
       '')
     ]
     ++ (lib.optionals graphical [
@@ -95,13 +98,14 @@ in
       darktable
       zen-browser
       scrcpy
-      ytmdesktop
+      unstable.ytmdesktop
       vesktop
       krita
     ])
     ++ (lib.optionals gaming [
       prismlauncher
       lutris
+      beyond-all-reason
     ]);
   homePrograms = {
     git = {
