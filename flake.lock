@@ -981,11 +981,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768870224,
-        "narHash": "sha256-kKh8LizdRj233eMXMKNX1yRYswxsbhmR2y/RtrgZk64=",
+        "lastModified": 1771684052,
+        "narHash": "sha256-YkZBwzVA9y7iQpyhiwAlcmUnaUJ5ve8JhYUsfCDN6xg=",
         "owner": "nimrodium",
         "repo": "sticky",
-        "rev": "1d0593507f555ae171faaa58e237af61ce52afc3",
+        "rev": "f768107e4b67f3a968024a7904e7714b1ada1efc",
         "type": "github"
       },
       "original": {
