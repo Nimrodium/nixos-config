@@ -63,11 +63,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771290462,
-        "narHash": "sha256-UXtdc/seMOBVdMXG/5flfSg2051ob8ZH47xougHpYwI=",
+        "lastModified": 1771292624,
+        "narHash": "sha256-vL2EDGb2vJnm0RweT0Dsx9Fo3AbfHYfbdWea6Ksymu0=",
         "owner": "nimrodium",
         "repo": "daisy",
-        "rev": "1df7fad18938ee04416ae42f1a6c7bcd79abfd69",
+        "rev": "2aecbfa7870f1c731f4fd95164f92ec04f46bf70",
         "type": "github"
       },
       "original": {
