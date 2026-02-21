@@ -91,6 +91,7 @@ in
       obsidian
       unstable.deskflow
       zed-editor
+      vscode
       tor-browser
       vlc
       kitty
