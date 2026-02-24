@@ -96,6 +96,7 @@ in
       vlc
       kitty
       kdePackages.kcalc
+      kdePackages.krdc
       darktable
       zen-browser
       scrcpy
