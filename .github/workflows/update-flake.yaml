@@ -37,9 +37,9 @@ jobs:
       - name: Testing nix configuration
         run: nix flake check
       - name: Build Desktop Configuration
-        run: nix build .#desktop
+        run: nix build .#nixosConfigurations.desktop.config.system.build.toplevel
       - name: Build Surface Configuration
-        run: nix build .#surface
+        run: nix build .#nixosConfigurations.surface.config.system.build.toplevel
       # - name: GitHub Commit & Push
       #   uses: actions-js/push@v1.5
       - name: Create Pull Request
