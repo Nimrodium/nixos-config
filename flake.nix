@@ -77,35 +77,42 @@
 
       x86_64_linux = "x86_64-linux";
       aarch64_linux = "aarch64-linux";
-      system = x86_64_linux;
-      unstable-overlay = final: prev: {
+      unstable-overlay = system: final: prev: {
         unstable = import nixpkgs-unstable {
           inherit system;
           config.allowUnfree = 1;
         };
       };
       # pkgsUnstable = import nixpkgs-unstable { inherit system; };
-      pkgs = import nixpkgs {
+      pkgs =
+        system:
+        import nixpkgs {
 
-        hostPlatform = pkgs.stdenv.hostPlatform;
-        system = x86_64_linux;
-        config.allowUnfree = true;
-        config.allowUnfreePackages = true;
-        overlays = [
-          inputs.mac-style-plymouth.overlays.default
-          unstable-overlay
-        ];
-      };
+          # hostPlatform = pkgs_x86_64.stdenv.hostPlatform;
+          inherit system;
+          config.allowUnfree = true;
+          config.allowUnfreePackages = true;
+          overlays = [
+            inputs.mac-style-plymouth.overlays.default
+            (unstable-overlay system)
+          ];
+        };
     in
     {
-      homeConfigurations."kyle" = inputs.home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [ ./hosts/johnserver/johnserver.nix ];
+      homeConfigurations."kyle@bomb" = inputs.home-manager.lib.homeManagerConfiguration {
+        pkgs = pkgs x86_64_linux;
+        modules = [ ./hosts/home/home.nix ];
         extraSpecialArgs = { inherit inputs; };
       };
+      homeConfigurations."kyle@raspi" = inputs.home-manager.lib.homeManagerConfiguration {
+        pkgs = pkgs aarch64_linux;
+        modules = [ ./hosts/home/home.nix ];
+        extraSpecialArgs = { inherit inputs; };
+      };
+
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
-          inherit pkgs;
+          pkgs = pkgs x86_64_linux;
           system = x86_64_linux;
           specialArgs = { inherit inputs; };
           modules = [
@@ -115,7 +122,7 @@
           ];
         };
         surface = nixpkgs.lib.nixosSystem {
-          inherit pkgs;
+          pkgs = pkgs x86_64_linux;
           system = x86_64_linux;
           specialArgs = { inherit inputs; };
           modules = [
@@ -135,7 +142,7 @@
         #   ];
         # };
         linuxbook = nixpkgs.lib.nixosSystem {
-          inherit pkgs;
+          pkgs = pkgs x86_64_linux;
           system = x86_64_linux;
           specialArgs = { inherit inputs; };
           modules = [
