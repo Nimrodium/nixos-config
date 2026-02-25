@@ -39,10 +39,10 @@
       "i915.enable_psr=0"
     ];
     kernelPatches = [
-      {
-        name = "rust-1.91-fix";
-        patch = ./rust-fix.patch;
-      }
+      # {
+      #   name = "rust-1.91-fix";
+      #   patch = ./rust-fix.patch;
+      # }
     ];
   };
   hardware = {
