@@ -52,6 +52,11 @@ in
     unstable.freerdp
     maliit-keyboard
   ];
+  virtualisation.libvirtd.enable = true;
+  virtualisation.libvirtd.qemu = {
+    swtpm.enable = true;
+  };
+  virtualisation.spiceUSBRedirection.enable = true;
   virtualisation.waydroid = {
     enable = true;
     package = pkgs.waydroid-nftables;

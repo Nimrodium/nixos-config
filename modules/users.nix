@@ -33,6 +33,7 @@ in
         "wheel"
         "input"
         "networkmanager"
+        "libvirtd"
       ];
     };
   };

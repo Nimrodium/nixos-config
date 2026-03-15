@@ -24,12 +24,18 @@ in
     enableKeyd = lib.mkEnableOption "enable keyd mapping";
   };
   config = lib.mkIf cfg.enable {
+    boot.kernel.sysctl."kernel.sysrq" = 1;
+    boot.binfmt.emulatedSystems = [
+      "wasm32-wasi"
+      "x86_64-windows"
+      "aarch64-linux"
+    ];
     environment.variables = {
       EDITOR = "micro";
       VISUAL = "micro";
       NIXPKGS_ALLOW_UNFREE = 1;
-      RESTIC_PASSWORD_FILE = "~/secrets/restic/password";
-      RESTIC_REPOSITORY_FILE = "~/secrets/restic/repository";
+      RESTIC_PASSWORD_FILE = "${HOME}/secrets/restic/password";
+      RESTIC_REPOSITORY_FILE = "${HOME}/secrets/restic/repository";
     };
 
     security.lsm = lib.mkForce [ ]; # to fix distrobox SELinux error ?
