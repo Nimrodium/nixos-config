@@ -74,7 +74,6 @@ in
 
       torsocks
 
-      fastfetch
       eza
       nh
       (writeShellScriptBin "sync-notebook" ''
@@ -108,6 +107,7 @@ in
       prismlauncher
       lutris
       beyond-all-reason
+      gamescope
     ]);
   homePrograms = {
     git = {

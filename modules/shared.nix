@@ -34,8 +34,8 @@ in
       EDITOR = "micro";
       VISUAL = "micro";
       NIXPKGS_ALLOW_UNFREE = 1;
-      RESTIC_PASSWORD_FILE = "${HOME}/secrets/restic/password";
-      RESTIC_REPOSITORY_FILE = "${HOME}/secrets/restic/repository";
+      RESTIC_PASSWORD_FILE = "/home/kyle/secrets/restic/password";
+      RESTIC_REPOSITORY_FILE = "/home/kyle/secrets/restic/repository";
     };
 
     security.lsm = lib.mkForce [ ]; # to fix distrobox SELinux error ?
