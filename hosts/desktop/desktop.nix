@@ -48,7 +48,7 @@ in
     nixos-splash-plasma6
     libsForQt5.qtstyleplugin-kvantum
     kwin-better-blur-dx
-    unstable.winboat
+    # unstable.winboat
     unstable.freerdp
     maliit-keyboard
   ];

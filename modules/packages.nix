@@ -105,9 +105,10 @@ in
     ])
     ++ (lib.optionals gaming [
       prismlauncher
-      lutris
+      unstable.lutris
       beyond-all-reason
       gamescope
+      ckan
     ]);
   homePrograms = {
     git = {

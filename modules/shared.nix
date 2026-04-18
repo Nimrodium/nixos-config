@@ -37,7 +37,9 @@ in
       RESTIC_PASSWORD_FILE = "/home/kyle/secrets/restic/password";
       RESTIC_REPOSITORY_FILE = "/home/kyle/secrets/restic/repository";
     };
-
+    fonts.packages = with pkgs; [
+      noto-fonts-cjk-sans
+    ];
     security.lsm = lib.mkForce [ ]; # to fix distrobox SELinux error ?
     services.sshd.enable = true;
     environment.systemPackages = packages' cfg.enableGraphical cfg.enableGaming;
@@ -67,7 +69,6 @@ in
       22
       80
       24800 # deskflow
-
     ];
     services.keyd = lib.mkIf cfg.enableKeyd {
       enable = true;
@@ -99,6 +100,7 @@ in
       gamemode.enable = cfg.enableGaming;
       steam = {
         enable = cfg.enableGaming;
+        protontricks.enable = true;
         remotePlay.openFirewall = true;
         localNetworkGameTransfers.openFirewall = true;
       };
