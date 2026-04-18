@@ -61,7 +61,7 @@ in
       22
       80
       24800 # deskflow
-
+	  5900 # kdeconnect krfb
     ];
     services.keyd = lib.mkIf cfg.enableKeyd {
       enable = true;
