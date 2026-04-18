@@ -48,10 +48,15 @@ in
     nixos-splash-plasma6
     libsForQt5.qtstyleplugin-kvantum
     kwin-better-blur-dx
-    unstable.winboat
+    # unstable.winboat
     unstable.freerdp
     maliit-keyboard
   ];
+  virtualisation.libvirtd.enable = true;
+  virtualisation.libvirtd.qemu = {
+    swtpm.enable = true;
+  };
+  virtualisation.spiceUSBRedirection.enable = true;
   virtualisation.waydroid = {
     enable = true;
     package = pkgs.waydroid-nftables;
@@ -59,7 +64,7 @@ in
 
   qt.platformTheme = "kde";
   services.desktopManager.plasma6.enable = true;
-  services.desktopManager.cosmic.enable = true;
+  services.desktopManager.cosmic.enable = false;
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
   networking = {

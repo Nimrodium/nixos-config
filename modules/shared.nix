@@ -24,14 +24,22 @@ in
     enableKeyd = lib.mkEnableOption "enable keyd mapping";
   };
   config = lib.mkIf cfg.enable {
+    boot.kernel.sysctl."kernel.sysrq" = 1;
+    boot.binfmt.emulatedSystems = [
+      "wasm32-wasi"
+      "x86_64-windows"
+      "aarch64-linux"
+    ];
     environment.variables = {
       EDITOR = "micro";
       VISUAL = "micro";
       NIXPKGS_ALLOW_UNFREE = 1;
-      RESTIC_PASSWORD_FILE = "~/secrets/restic/password";
-      RESTIC_REPOSITORY_FILE = "~/secrets/restic/repository";
+      RESTIC_PASSWORD_FILE = "/home/kyle/secrets/restic/password";
+      RESTIC_REPOSITORY_FILE = "/home/kyle/secrets/restic/repository";
     };
-
+    fonts.packages = with pkgs; [
+      noto-fonts-cjk-sans
+    ];
     security.lsm = lib.mkForce [ ]; # to fix distrobox SELinux error ?
     services.sshd.enable = true;
     environment.systemPackages = packages' cfg.enableGraphical cfg.enableGaming;
@@ -61,7 +69,7 @@ in
       22
       80
       24800 # deskflow
-	  5900 # kdeconnect krfb
+      5900 # kdeconnect krfb
     ];
     services.keyd = lib.mkIf cfg.enableKeyd {
       enable = true;
@@ -93,6 +101,7 @@ in
       gamemode.enable = cfg.enableGaming;
       steam = {
         enable = cfg.enableGaming;
+        protontricks.enable = true;
         remotePlay.openFirewall = true;
         localNetworkGameTransfers.openFirewall = true;
       };
