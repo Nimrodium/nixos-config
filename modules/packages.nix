@@ -107,6 +107,7 @@ in
     ++ (lib.optionals gaming [
       prismlauncher
       unstable.lutris
+      python3 # for lutris
       beyond-all-reason
       gamescope
       ckan
