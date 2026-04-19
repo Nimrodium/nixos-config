@@ -195,7 +195,10 @@
       };
       nixosConfigurations = {
         desktop = defineSystem "desktop" x86_64-linux [ homeModule ];
-        surface = defineSystem "surface" x86_64-linux [ homeModule ];
+        surface = defineSystem "surface" x86_64-linux [
+          homeModule
+          nixos-hardware.nixosModules.microsoft-surface-common
+        ];
         linuxbook = defineSystem "linuxbook" x86_64-linux [ homeModule ];
       };
     };
