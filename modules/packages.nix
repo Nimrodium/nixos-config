@@ -98,6 +98,7 @@ in
       kitty
       kdePackages.kcalc
       kdePackages.krdc
+	  kdePackages.krfb
       darktable
       zen-browser
       scrcpy
