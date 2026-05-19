@@ -142,7 +142,7 @@ in
               inactive_tab_background = "#999";
               inactive_tab_font_style = "normal";
 
-              background_opacity = 0.5;
+              background_opacity = 0.3;
               background_blur = 1;
             };
           };

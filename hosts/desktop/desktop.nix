@@ -46,7 +46,8 @@ in
     darkly
     darkly-qt5
     nixos-splash-plasma6
-    libsForQt5.qtstyleplugin-kvantum
+    # libsForQt5.qtstyleplugin-kvantum
+    kdePackages.qtstyleplugin-kvantum
     kwin-better-blur-dx
     # unstable.winboat
     unstable.freerdp

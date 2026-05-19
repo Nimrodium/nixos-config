@@ -33,6 +33,7 @@ in
       fd
       gdu
       fastfetch
+      cava
       fish
       micro
       file
@@ -86,6 +87,7 @@ in
       '')
     ]
     ++ (lib.optionals graphical [
+      gimp
       restic-browser
       obsidian
       unstable.deskflow
@@ -105,7 +107,7 @@ in
     ])
     ++ (lib.optionals gaming [
       prismlauncher
-      unstable.lutris
+      lutris
       python3 # for lutris
       beyond-all-reason
       gamescope
