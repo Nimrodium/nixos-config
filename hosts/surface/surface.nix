@@ -22,6 +22,8 @@
   shared.enableKeyd = true;
   rpishare.enable = true;
   kyle-home.enable = true;
+  definedUsers.clara = true;
+  definedUsers.kyle = true;
   boot = {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
@@ -46,7 +48,7 @@
     ];
   };
   hardware = {
-    microsoft-surface.kernelVersion = "stable";
+    # microsoft-surface.kernelVersion = "stable";
     bluetooth = {
       enable = true;
       powerOnBoot = true;
@@ -101,7 +103,13 @@
         };
       };
     };
-    flatpak.enable = true;
+    flatpak = {
+      enable = true;
+      packages = [
+        "org.vinegarhq.Sober" # Roblox
+        "io.mrarm.mcpelauncher"
+      ];
+    };
     pipewire = {
       enable = true;
       alsa.enable = true;
@@ -141,15 +149,15 @@
   };
   # to speed up build timetime
   documentation.man.generateCaches = false;
-  users.users.kyle = {
-    isNormalUser = true;
-    description = "kyle";
-    shell = pkgs.fish;
-    extraGroups = [
-      "wheel"
-      "input"
-      "networkmanager"
-    ];
-  };
+  # users.users.kyle = {
+  #   isNormalUser = true;
+  #   description = "kyle";
+  #   shell = pkgs.fish;
+  #   extraGroups = [
+  #     "wheel"
+  #     "input"
+  #     "networkmanager"
+  #   ];
+  # };
   system.stateVersion = "25.05";
 }

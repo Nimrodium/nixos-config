@@ -60,7 +60,7 @@ in
   };
   virtualisation.spiceUSBRedirection.enable = true;
   virtualisation.waydroid = {
-    enable = true;
+    enable = false;
     package = pkgs.waydroid-nftables;
   };
 
@@ -70,24 +70,24 @@ in
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
   networking = {
-    hostName = "desktop";
+    hostName = "precision";
     networkmanager.enable = true;
     hosts."192.168.1.159" = [ "louiscloud.duckdns.org" ];
 
-    nat = {
-      enable = true;
-      externalInterface = "wlp34s0";
-      internalInterfaces = [ "eno1" ];
-    };
-    interfaces."eno1" = {
-      useDHCP = false;
-      ipv4.addresses = [
-        {
-          address = "10.0.0.1";
-          prefixLength = 24;
-        }
-      ];
-    };
+    # nat = {
+    #   enable = true;
+    #   externalInterface = "wlp34s0";
+    #   internalInterfaces = [ "eno1" ];
+    # };
+    # interfaces."eno1" = {
+    #   useDHCP = false;
+    #   ipv4.addresses = [
+    #     {
+    #       address = "10.0.0.1";
+    #       prefixLength = 24;
+    #     }
+    #   ];
+    # };
     firewall.allowedUDPPorts = [
       53
       67
@@ -107,7 +107,6 @@ in
     LC_TIME = "en_US.UTF-8";
   };
   services = {
-
     flatpak.enable = true;
     pipewire = {
       enable = true;
@@ -116,14 +115,5 @@ in
       pulse.enable = true;
     };
   };
-  services.github-runners = {
-    desktop = {
-      enable = true;
-      tokenFile = "/home/kyle/secrets/github-token";
-      # workDir = "~/.github-actions";
-      user = "kyle";
-      url = "https://github.com/nimrodium/nixos-config";
-    };
-  };
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 }

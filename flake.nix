@@ -63,7 +63,7 @@
       url = "github:xarblu/kwin-effects-better-blur-dx";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
   outputs =
     {
@@ -74,86 +74,6 @@
       flake-utils,
       ...
     }@inputs:
-    # let
-
-    #   x86_64_linux = "x86_64-linux";
-    #   aarch64_linux = "aarch64-linux";
-    #   unstable-overlay = system: final: prev: {
-    #     unstable = import nixpkgs-unstable {
-    #       inherit system;
-    #       config.allowUnfree = 1;
-    #     };
-    #   };
-    #   # pkgsUnstable = import nixpkgs-unstable { inherit system; };
-    #   pkgs =
-    #     system:
-    #     import nixpkgs {
-
-    #       # hostPlatform = pkgs_x86_64.stdenv.hostPlatform;
-    #       inherit system;
-    #       config.allowUnfree = true;
-    #       config.allowUnfreePackages = true;
-    #       overlays = [
-    #         inputs.mac-style-plymouth.overlays.default
-    #         (unstable-overlay system)
-    #       ];
-    #     };
-    # in
-    # {
-    #   homeConfigurations."kyle@bomb" = inputs.home-manager.lib.homeManagerConfiguration {
-    #     pkgs = pkgs x86_64_linux;
-    #     modules = [ ./hosts/home/home.nix ];
-    #     extraSpecialArgs = { inherit inputs; };
-    #   };
-    #   homeConfigurations."kyle@raspi" = inputs.home-manager.lib.homeManagerConfiguration {
-    #     pkgs = pkgs aarch64_linux;
-    #     modules = [ ./hosts/home/home.nix ];
-    #     extraSpecialArgs = { inherit inputs; };
-    #   };
-
-    #   nixosConfigurations = {
-    #     desktop = nixpkgs.lib.nixosSystem {
-    #       pkgs = pkgs x86_64_linux;
-    #       system = x86_64_linux;
-    #       specialArgs = { inherit inputs; };
-    #       modules = [
-    #         ./hosts/desktop/desktop.nix
-    #         inputs.home-manager.nixosModules.home-manager
-    #         inputs.sops-nix.nixosModules.sops
-    #       ];
-    #     };
-    #     surface = nixpkgs.lib.nixosSystem {
-    #       pkgs = pkgs x86_64_linux;
-    #       system = x86_64_linux;
-    #       specialArgs = { inherit inputs; };
-    #       modules = [
-    #         ./hosts/surface/surface.nix
-    #         inputs.home-manager.nixosModules.home-manager
-    #         nixos-hardware.nixosModules.microsoft-surface-common
-    #         inputs.sops-nix.nixosModules.sops
-    #       ];
-    #     };
-    #     # macbook = nixpkgs.lib.nixosSystem {
-    #     #   inherit pkgs;
-    #     #   system = x86_64_linux;
-    #     #   specialArgs = { inherit inputs; };
-    #     #   modules = [
-    #     #     ./hosts/macbook/macbook.nix
-    #     #     inputs.home-manager.nixosModules.home-manager
-    #     #   ];
-    #     # };
-    #     linuxbook = nixpkgs.lib.nixosSystem {
-    #       pkgs = pkgs x86_64_linux;
-    #       system = x86_64_linux;
-    #       specialArgs = { inherit inputs; };
-    #       modules = [
-    #         ./hosts/linuxbook/linuxbook.nix
-    #         inputs.home-manager.nixosModules.home-manager
-    #         inputs.sops-nix.nixosModules.sops
-    #       ];
-    #     };
-    #   };
-    # };
     let
       _pkg =
         pkg: system: overlays:
@@ -197,6 +117,7 @@
         desktop = defineSystem "desktop" x86_64-linux [ homeModule ];
         surface = defineSystem "surface" x86_64-linux [
           homeModule
+          inputs.nix-flatpak
           nixos-hardware.nixosModules.microsoft-surface-common
         ];
         linuxbook = defineSystem "linuxbook" x86_64-linux [ homeModule ];
