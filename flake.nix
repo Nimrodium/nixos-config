@@ -118,7 +118,7 @@
         surface = defineSystem "surface" x86_64-linux [
           homeModule
           inputs.nix-flatpak.nixosModules.nix-flatpak
-          nixos-hardware.nixosModules.microsoft-surface-common
+          # nixos-hardware.nixosModules.microsoft-surface-common
         ];
         linuxbook = defineSystem "linuxbook" x86_64-linux [ homeModule ];
       };

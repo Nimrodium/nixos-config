@@ -38,8 +38,8 @@ in
         hyprshot
         wvkbd
         swaynotificationcenter
-        xfce.thunar
-        eog
+        kdePackages.gwenview
+        # eog
         # plasma5Packages.kdeconnect-kde
         networkmanagerapplet
         jq
