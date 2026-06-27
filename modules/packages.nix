@@ -135,7 +135,7 @@ in
         						'';
       shellAliases = {
         cf = "clear && fastfetch";
-        raspi = "ssh -Y kyle@99.107.90.205 -p 9025";
+        raspi = "ssh -Y kyle@louiscloud.duckdns.org -p 9025";
         ls = "eza";
         # zed = "nix run nixpkgs-unstable#zed-editor";
         zed = "zeditor";
