@@ -91,7 +91,6 @@ in
     programs = {
       fish.enable = true;
       nix-ld.enable = true;
-      adb.enable = true;
       java = {
         enable = true;
         binfmt = true;

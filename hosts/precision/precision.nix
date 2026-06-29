@@ -73,21 +73,6 @@ in
     hostName = "precision";
     networkmanager.enable = true;
     hosts."192.168.1.159" = [ "louiscloud.duckdns.org" ];
-
-    # nat = {
-    #   enable = true;
-    #   externalInterface = "wlp34s0";
-    #   internalInterfaces = [ "eno1" ];
-    # };
-    # interfaces."eno1" = {
-    #   useDHCP = false;
-    #   ipv4.addresses = [
-    #     {
-    #       address = "10.0.0.1";
-    #       prefixLength = 24;
-    #     }
-    #   ];
-    # };
     firewall.allowedUDPPorts = [
       53
       67
@@ -115,5 +100,5 @@ in
       pulse.enable = true;
     };
   };
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
 }

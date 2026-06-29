@@ -5,9 +5,9 @@
   };
   description = "NixOS flake";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    nixpkgs-unstable.url = "github:/NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
 
     sops-nix = {
@@ -20,7 +20,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
@@ -31,16 +31,16 @@
     # 	url = "github:hyprwm/hyprland-plugins";
     # 	inputs.hyprland.follows = "hyprland";
     # };
-    hyprgrass = {
-      url = "github:horriblename/hyprgrass";
-      inputs.hyprland.follows = "hyprland"; # IMPORTANT
-    };
-    Hyprspace = {
-      url = "github:KZDKM/Hyprspace";
+    # hyprgrass = {
+    #   url = "github:horriblename/hyprgrass";
+    #   inputs.hyprland.follows = "hyprland"; # IMPORTANT
+    # };
+    # Hyprspace = {
+    #   url = "github:KZDKM/Hyprspace";
 
-      # Hyprspace uses latest Hyprland. We declare this to keep them in sync.
-      inputs.hyprland.follows = "hyprland";
-    };
+    #   # Hyprspace uses latest Hyprland. We declare this to keep them in sync.
+    #   inputs.hyprland.follows = "hyprland";
+    # };
 
     nixos-splash-plasma6 = {
       url = "github:nimrodium/nixos-splash-plasma6";
@@ -80,11 +80,27 @@
         import pkg {
           inherit system overlays;
           config.allowUnfree = true;
+          config.permittedInsecurePackages = [
+            "pnpm-10.29.2"
+          ];
         };
       unstable-overlay = system: final: prev: {
         unstable = _pkg nixpkgs-unstable system [ ];
       };
-      pkgs = system: _pkg nixpkgs system [ (unstable-overlay system) ];
+      lix-overlay = final: prev: {
+        inherit (prev.lixPackageSets.stable)
+          nixpkgs-review
+          nix-eval-jobs
+          nix-fast-build
+          colmena
+          ;
+      };
+      pkgs =
+        system:
+        _pkg nixpkgs system [
+          (unstable-overlay system)
+          lix-overlay
+        ];
 
       defineSystem =
         name: system: extraModules:
@@ -115,6 +131,7 @@
       };
       nixosConfigurations = {
         desktop = defineSystem "desktop" x86_64-linux [ homeModule ];
+        precision = defineSystem "precision" x86_64-linux [ homeModule ];
         surface = defineSystem "surface" x86_64-linux [
           homeModule
           inputs.nix-flatpak.nixosModules.nix-flatpak

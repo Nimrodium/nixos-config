@@ -37,26 +37,48 @@ in
             enable = true;
           };
         };
+        xdg.configFile = # i need to take a list of strings and map it to a set of attributes
+          let
+            copyDirs =
+              dirs:
+              builtins.listToAttrs (
+                map (dir: {
+                  name = dir;
+                  value = {
+                    source = ../config/${dir};
+                    recursive = true;
+                  };
+                }) dirs
+              );
+          in
+          copyDirs [
+            "hypr"
+            "fastfetch"
+            "wofi"
+            "rofi"
+            "wlogout"
+            "waybar"
+          ];
         home = {
           stateVersion = "25.05";
 
           file = {
             ".wallpapers/".source = ../wallpapers;
-            ".config/waybar/".source = ../config/waybar;
-            ".config/hypr/".source = ../config/hypr;
-            ".config/fastfetch".source = ../config/fastfetch;
-            ".config/wofi".source = ../config/wofi;
-            ".config/waybar".source = ../config/waybar;
-            ".config/rofi".source = ../config/rofi;
-            ".config/wlogout".source = ../config/wlogout;
+            # # ".config/waybar/".source = ../config/waybar;
+            # ".config/hypr/".source = ../config/hypr;
+            # ".config/fastfetch".source = ../config/fastfetch;
+            # ".config/wofi".source = ../config/wofi;
+            # ".config/rofi".source = ../config/rofi;
+            # ".config/wlogout".source = ../config/wlogout;
 
             ".config/scripts/hyprland_load_plugins.sh" = {
               text = ''
                 #!/usr/bin/env bash
-                function errnot { hyprctl notify 3 200 0 "failed to load $1"; exit 1; }
-                hyprctl plugins load ${pkgs.hyprlandPlugins.hyprspace}/lib/libhyprspace.so || errnot "hyprspace"
-                hyprctl plugins load ${pkgs.hyprlandPlugins.hyprgrass}/lib/libhyprgrass.so || errnot "hyprgrass"
-                hyprctl notify 1 200 0 "plugins loaded"
+                # function errnot { hyprctl notify 3 200 0 "failed to load $1"; exit 1; }
+                # hyprctl plugins load {pkgs.hyprlandPlugins.hyprspace}/lib/libhyprspace.so || errnot "hyprspace"
+                # hyprctl plugins load {pkgs.hyprlandPlugins.hyprgrass}/lib/libhyprgrass.so || errnot "hyprgrass"
+                # hyprctl notify 1 200 0 "plugins loaded"
+                hyprctl notify 1 200 0 "plugins disabled"
                 				'';
               executable = true;
             };

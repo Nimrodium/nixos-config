@@ -19,6 +19,7 @@
       "kyle"
     ];
   };
+  nix.package = pkgs.lixPackageSets.stable.lix;
   nix.registry = {
     nixpkgs-unstable = {
       from = {

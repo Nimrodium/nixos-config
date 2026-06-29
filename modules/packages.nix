@@ -42,7 +42,7 @@ in
       restic
       tree
       #dev
-      nixfmt-rfc-style
+      nixfmt
       nil
       hyprls
 
@@ -62,6 +62,7 @@ in
       nixd
       package-version-server
       # - utilities - #
+      android-tools
       podman
       pavucontrol
       blueman
@@ -72,9 +73,7 @@ in
       bluetuith
       tor
       torctl
-
       torsocks
-
       eza
       nh
       (writeShellScriptBin "sync-notebook" ''
@@ -99,11 +98,11 @@ in
       kitty
       kdePackages.kcalc
       kdePackages.krdc
-	  kdePackages.krfb
+      kdePackages.krfb
       darktable
       zen-browser
       scrcpy
-      unstable.ytmdesktop
+      # unstable.ytmdesktop
       vesktop
       krita
     ])

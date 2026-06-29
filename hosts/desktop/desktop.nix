@@ -44,7 +44,7 @@ in
     virt-manager
     qemu
     darkly
-    darkly-qt5
+    # darkly-qt5
     nixos-splash-plasma6
     # libsForQt5.qtstyleplugin-kvantum
     kdePackages.qtstyleplugin-kvantum
