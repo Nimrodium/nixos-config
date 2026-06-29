@@ -9,6 +9,8 @@ let
   sticky = inputs.sticky.packages.${system}.default;
   daisy = inputs.daisy.packages.${system}.default;
   zen-browser = inputs.zen-browser.packages.${system}.default;
+  # aa02c8c60f1270172f065394a0445b0a379b41cd
+
 in
 {
   packages' =
@@ -102,7 +104,7 @@ in
       darktable
       zen-browser
       scrcpy
-      # unstable.ytmdesktop
+      nixpkgs2511.ytmdesktop
       vesktop
       krita
     ])

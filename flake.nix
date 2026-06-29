@@ -6,6 +6,7 @@
   description = "NixOS flake";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs2511.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
@@ -64,13 +65,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-flatpak.url = "github:gmodena/nix-flatpak";
+
   };
   outputs =
     {
       self,
       nixpkgs,
-      nixpkgs-unstable,
-      nixos-hardware,
       flake-utils,
       ...
     }@inputs:
@@ -85,7 +85,10 @@
           ];
         };
       unstable-overlay = system: final: prev: {
-        unstable = _pkg nixpkgs-unstable system [ ];
+        unstable = _pkg inputs.nixpkgs-unstable system [ ];
+      };
+      nixos2511-overlay = system: final: prev: {
+        nixpkgs2511 = _pkg inputs.nixpkgs2511 system [ ];
       };
       lix-overlay = final: prev: {
         inherit (prev.lixPackageSets.stable)
@@ -95,10 +98,12 @@
           colmena
           ;
       };
+
       pkgs =
         system:
         _pkg nixpkgs system [
           (unstable-overlay system)
+          (nixos2511-overlay system)
           lix-overlay
         ];
 
