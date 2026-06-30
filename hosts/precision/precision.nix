@@ -44,15 +44,10 @@ in
     virt-manager
     qemu
     darkly
-    darkly-qt5
     nixos-splash-plasma6
     # libsForQt5.qtstyleplugin-kvantum
     kdePackages.qtstyleplugin-kvantum
     kwin-better-blur-dx
-    # unstable.winboat
-    unstable.freerdp
-    maliit-keyboard
-    radeontop
   ];
   virtualisation.libvirtd.enable = true;
   virtualisation.libvirtd.qemu = {
