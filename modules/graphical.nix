@@ -26,7 +26,7 @@ in
     environment.systemPackages =
       with pkgs;
       [
-        xfce.thunar
+        thunar
         kitty
         hyprpaper
         wofi

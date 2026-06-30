@@ -6,7 +6,7 @@
   description = "NixOS flake";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
-    nixpkgs2511.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs2511.url = "github:nixos/nixpkgs/aa02c8c60f1270172f065394a0445b0a379b41cd";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
